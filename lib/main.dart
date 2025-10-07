@@ -1,10 +1,13 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'models.dart' show Workout, WorkoutType;
 
 void main() {
   runApp(MyApp());
 }
+
+const title = 'Pull-Up Ritual';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,192 +17,87 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: title,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         ),
-        home: MyHomePage(),
+        home: WorkoutForm(),
       ),
     );
   }
 }
 
 class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
-  var favorites = <WordPair>{};
+  var completedWorkouts = <Workout>[];
+  WorkoutType? activeWorkoutType;
 
-  void getNext() {
-    current = WordPair.random();
-    notifyListeners();
-  }
-
-  void toggleFavorite() {
-    if (favorites.contains(current)) {
-      favorites.remove(current);
-    } else {
-      favorites.add(current);
-    }
+  void setActiveWorkoutType(WorkoutType workoutType) {
+    activeWorkoutType = workoutType;
     notifyListeners();
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class WorkoutForm extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<WorkoutForm> createState() => _WorkoutFormState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  var selectedIndex = 0;
+class _WorkoutFormState extends State<WorkoutForm> {
+  WorkoutType? _selected;
 
-  @override
-  Widget build(BuildContext context) {
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = GeneratorPage();
-      case 1:
-        page = FavoritesPage();
-      default:
-        throw UnimplementedError('no widget for $selectedIndex');
+  void _handleSubmit() {
+    if (_selected == null) {
+      const snackbar = SnackBar(content: Text("Please select a workout type!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      return;
     }
-
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Scaffold(
-          body: Row(
-            children: [
-              SafeArea(
-                child: NavigationRail(
-                  extended: constraints.maxWidth >= 600,
-                  destinations: [
-                    NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      label: Text('Home'),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.favorite),
-                      label: Text('Favorites'),
-                    ),
-                  ],
-                  selectedIndex: selectedIndex,
-                  onDestinationSelected: (value) {
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: page,
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
+    print('Submitted $_selected');
   }
-}
-
-class GeneratorPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
-
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BigCard(pair: pair),
-          SizedBox(height: 10),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BigCard extends StatelessWidget {
-  const BigCard({super.key, required this.pair});
-
-  final WordPair pair;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
 
-    return Card(
-      color: theme.colorScheme.primary,
-      elevation: 10,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Text(
-          pair.asPascalCase,
-          style: style,
-          semanticsIdentifier: "${pair.first} ${pair.second}",
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(title, style: theme.textTheme.displayMedium),
+            ),
+            Text(
+              'Double your max pull-ups!',
+              style: theme.textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 40),
+            Text('Choose your workout type:', style: theme.textTheme.bodyLarge),
+            const SizedBox(height: 16),
+            RadioGroup<WorkoutType>(
+              groupValue: _selected,
+              onChanged: (WorkoutType? newType) {
+                setState(() {
+                  _selected = newType;
+                });
+              },
+              child: Column(
+                children: WorkoutType.values.map((type) {
+                  return RadioListTile<WorkoutType>(
+                    value: type,
+                    title: Text(type.name),
+                  );
+                }).toList(),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _handleSubmit,
+              child: Text('Start Workout'),
+            ),
+          ],
         ),
       ),
-    );
-  }
-}
-
-class FavoritesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var favorites = appState.favorites;
-
-    if (favorites.isEmpty) {
-      return Center(child: Text('No favorites yet.'));
-    }
-
-    return ListView(
-      physics: const AlwaysScrollableScrollPhysics(), // new
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text(
-            'You have '
-            '${appState.favorites.length} favorites:',
-          ),
-        ),
-        for (var pair in appState.favorites)
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text(pair.asLowerCase),
-          ),
-      ],
     );
   }
 }
