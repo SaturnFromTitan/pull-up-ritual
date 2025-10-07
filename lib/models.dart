@@ -10,12 +10,10 @@ enum WorkoutType {
 }
 
 class Set {
-  final int groupNumber; // used for ladders or pyramid workouts
   final int targetReps;
   final int completedReps;
 
   Set({
-    required this.groupNumber,
     required this.targetReps,
     required this.completedReps,
   });

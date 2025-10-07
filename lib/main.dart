@@ -51,7 +51,10 @@ class _WorkoutFormState extends State<WorkoutForm> {
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       return;
     }
-    print('Submitted $_selected');
+
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => WorkoutScreen(workoutType: _selected!)),
+    );
   }
 
   @override
@@ -96,6 +99,33 @@ class _WorkoutFormState extends State<WorkoutForm> {
               child: Text('Start Workout'),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class WorkoutScreen extends StatelessWidget {
+  final WorkoutType workoutType;
+  const WorkoutScreen({super.key, required this.workoutType});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              Text(workoutType.name),
+              Placeholder(),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Back"),
+              ),
+            ],
+          ),
         ),
       ),
     );
