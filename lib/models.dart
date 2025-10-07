@@ -1,6 +1,13 @@
 import 'package:uuid/uuid.dart';
 
-enum WorkoutType { maxSets, submaxVolume, ladders }
+enum WorkoutType {
+  maxSets("Max Sets"),
+  submaxVolume("Submax Volume"),
+  ladders("Ladders");
+
+  final String name;
+  const WorkoutType(this.name);
+}
 
 class Set {
   final int groupNumber; // used for ladders or pyramid workouts
