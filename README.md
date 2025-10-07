@@ -1,4 +1,4 @@
-# pull_up_ritual
+# 💪 Pull-Up Ritual
 
 A new Flutter project.
 
