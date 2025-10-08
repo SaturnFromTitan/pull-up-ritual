@@ -9,22 +9,25 @@ enum WorkoutType {
   const WorkoutType(this.name);
 }
 
-class Set {
-  final int targetReps;
+class WorkoutSet {
+  final int? targetReps;
   final int completedReps;
 
-  Set({
-    required this.targetReps,
-    required this.completedReps,
-  });
+  WorkoutSet({this.targetReps, required this.completedReps});
 }
 
 class Workout {
-  final Uuid id;
+  final Uuid uuid;
   final WorkoutType workoutType;
   final DateTime start;
   DateTime? end;
-  List<Set> sets = <Set>[];
+  List<WorkoutSet> sets = <WorkoutSet>[];
 
-  Workout({required this.id, required this.workoutType, required this.start});
+  Workout({Uuid? id, required this.workoutType, DateTime? start})
+    : uuid = id ?? Uuid(),
+      start = start ?? DateTime.now().toUtc();
+
+  void finish() {
+    end = DateTime.now().toUtc();
+  }
 }
