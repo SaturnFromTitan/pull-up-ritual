@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/home.dart';
 import 'package:pull_up_ritual/state_workout.dart';
 
 import 'state_app.dart' show AppState;
-import 'state_workout.dart' show WorkoutSessionState;
-import 'models.dart' show WorkoutSet, Workout, WorkoutType;
+import 'state_workout.dart' show WorkoutState;
+import 'models.dart' show WorkoutSet;
+import 'screen_rest.dart' show RestScreen;
 
 class WorkoutMaxSetsScreen extends StatefulWidget {
   @override
@@ -15,12 +17,12 @@ class WorkoutMaxSetsScreen extends StatefulWidget {
 class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
   final _formKey = GlobalKey<FormState>();
   final numberOfSets = 3;
-  var workout = Workout(workoutType: WorkoutType.maxSets);
+  final restDurationSeconds = 3;
 
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AppState>();
-    var workoutSession = context.watch<WorkoutSessionState>();
+    var workoutState = context.watch<WorkoutState>();
 
     return Scaffold(
       body: SafeArea(
@@ -54,7 +56,7 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
                             final set = WorkoutSet(
                               completedReps: int.parse(value!),
                             );
-                            workout.sets.add(set);
+                            workoutState.addSet(set);
                           },
                         ),
                         ElevatedButton(
@@ -66,13 +68,30 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
 
                             form.save();
                             form.reset();
-                            setState(() {});
+                            setState(() {}); // TODO: is this necessary?
 
-                            if (workout.sets.length == numberOfSets) {
-                              // update app state
-                              appState.completedWorkouts.add(workout);
-                              // should redirect to success page
-                              Navigator.of(context).pop();
+                            if (workoutState.currentWorkout.sets.length ==
+                                numberOfSets) {
+                              // TODO: this should happen in one method call of the domain model,
+                              //  instead of orchestrating it in the in the view
+                              workoutState.currentWorkout.finish();
+                              appState.completedWorkouts.add(
+                                workoutState.currentWorkout,
+                              );
+                              // TODO: should redirect to success page
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (_) => HomeForm()),
+                              );
+                            } else {
+                              workoutState.rest(restDurationSeconds);
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => ChangeNotifierProvider.value(
+                                    value: workoutState,
+                                    child: RestScreen(),
+                                  ),
+                                ),
+                              );
                             }
                           },
                           child: Text('Submit'),
@@ -84,9 +103,11 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.of(
+                    context,
+                  ).push(MaterialPageRoute(builder: (_) => HomeForm()));
                 },
-                child: Text("Back"),
+                child: Text("Cancel"),
               ),
             ],
           ),

@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 
 import 'models.dart' show Workout, WorkoutType, WorkoutSet;
 
-class WorkoutSessionState extends ChangeNotifier {
+class WorkoutState extends ChangeNotifier {
   // private state
   Workout _currentWorkout;
   int _restRemainingSeconds = 0;
   Timer? _restTimer;
 
   // initialisation
-  WorkoutSessionState({required WorkoutType workoutType})
+  WorkoutState({required WorkoutType workoutType})
     : _currentWorkout = Workout(workoutType: workoutType);
 
   // getters
-  Workout? get currentWorkout => _currentWorkout;
+  Workout get currentWorkout => _currentWorkout;
   int get restTimeRemaining => _restRemainingSeconds;
 
   // lifecyle management
@@ -27,7 +27,7 @@ class WorkoutSessionState extends ChangeNotifier {
     return _restTimer?.isActive == true;
   }
 
-  void startRest(final int durationSeconds) {
+  void rest(final int durationSeconds) {
     _restRemainingSeconds = durationSeconds;
 
     _restTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -35,8 +35,7 @@ class WorkoutSessionState extends ChangeNotifier {
       notifyListeners();
 
       if (_restRemainingSeconds <= 0) {
-        timer.cancel();
-        notifyListeners();
+        resume();
       }
     });
   }
@@ -44,12 +43,6 @@ class WorkoutSessionState extends ChangeNotifier {
   void resume() {
     _restTimer?.cancel();
     _restRemainingSeconds = 0;
-    notifyListeners();
-  }
-
-  void finish() {
-    _currentWorkout.finish();
-    // TODO: update app state's completedWorkouts
     notifyListeners();
   }
 

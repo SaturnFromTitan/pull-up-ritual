@@ -3,14 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/state_workout.dart';
 
 import 'models.dart' show WorkoutType;
-import 'state_workout.dart' show WorkoutSessionState;
+import 'state_workout.dart' show WorkoutState;
 import 'workout_maxsets.dart' show WorkoutMaxSetsScreen;
 
+const appTitle = 'Pull-Up Ritual';
+
 class HomeForm extends StatefulWidget {
-  final String title;
-
-  const HomeForm({super.key, required this.title});
-
   @override
   State<HomeForm> createState() => _HomeFormState();
 }
@@ -28,8 +26,8 @@ class _HomeFormState extends State<HomeForm> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider(
-          create: (_) => WorkoutSessionState(workoutType: _selected!),
-          child: WorkoutMaxSetsScreen(workoutType: _selected!),
+          create: (_) => WorkoutState(workoutType: _selected!),
+          child: WorkoutMaxSetsScreen(),
         ),
       ),
     );
@@ -46,7 +44,7 @@ class _HomeFormState extends State<HomeForm> {
           children: [
             Padding(
               padding: const EdgeInsets.all(16),
-              child: Text(widget.title, style: theme.textTheme.displayMedium),
+              child: Text(appTitle, style: theme.textTheme.displayMedium),
             ),
             Text(
               'Double your max pull-ups!',
