@@ -28,6 +28,7 @@ class Workout {
       start = start ?? DateTime.now().toUtc();
 
   void finish() {
-    end = DateTime.now().toUtc();
+    end ??= DateTime.now().toUtc();
+    // TODO: update AppState?
   }
 }

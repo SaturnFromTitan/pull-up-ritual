@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/state_workout.dart';
 
 import 'models.dart' show WorkoutType;
+import 'state_workout.dart' show WorkoutSessionState;
 import 'workout_maxsets.dart' show WorkoutMaxSetsScreen;
 
 class HomeForm extends StatefulWidget {
@@ -24,7 +27,10 @@ class _HomeFormState extends State<HomeForm> {
 
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => WorkoutMaxSetsScreen(workoutType: _selected!),
+        builder: (_) => ChangeNotifierProvider(
+          create: (_) => WorkoutSessionState(workoutType: _selected!),
+          child: WorkoutMaxSetsScreen(workoutType: _selected!),
+        ),
       ),
     );
   }

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/state_workout.dart';
 
-import 'app_state.dart' show AppState;
+import 'state_app.dart' show AppState;
+import 'state_workout.dart' show WorkoutSessionState;
 import 'models.dart' show WorkoutSet, Workout, WorkoutType;
 
 class WorkoutMaxSetsScreen extends StatefulWidget {
-  final WorkoutType workoutType;
-
-  const WorkoutMaxSetsScreen({super.key, required this.workoutType});
-
   @override
   State<WorkoutMaxSetsScreen> createState() => _WorkoutMaxSetsScreenState();
 }
@@ -22,6 +20,7 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AppState>();
+    var workoutSession = context.watch<WorkoutSessionState>();
 
     return Scaffold(
       body: SafeArea(
