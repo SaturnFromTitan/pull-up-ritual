@@ -32,10 +32,10 @@ class Workout {
     // TODO: update AppState?
   }
 
-  int durationSeconds() {
-    if (end != null) {
-      return start.second - end!.second;
+  int? durationSeconds() {
+    if (end == null) {
+      return null;
     }
-    return 0;
+    return end!.second - start.second;
   }
 }
