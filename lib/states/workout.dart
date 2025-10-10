@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'models.dart' show Workout, WorkoutType, WorkoutSet;
+import '../models.dart' show Workout, WorkoutType, WorkoutSet;
 
 class WorkoutState extends ChangeNotifier {
   // private state

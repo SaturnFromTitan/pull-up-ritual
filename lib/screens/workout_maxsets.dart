@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/screen_home.dart';
-import 'package:pull_up_ritual/state_workout.dart';
+import 'package:pull_up_ritual/screens/home.dart';
+import 'package:pull_up_ritual/states/workout.dart';
 
-import 'state_app.dart' show AppState;
-import 'state_workout.dart' show WorkoutState;
-import 'models.dart' show WorkoutSet;
-import 'screen_rest.dart' show RestScreen;
-import 'screen_success.dart' show SuccessScreen;
+import '../states/app.dart' show AppState;
+import '../states/workout.dart' show WorkoutState;
+import '../models.dart' show WorkoutSet;
+import 'rest.dart' show RestScreen;
+import 'success.dart' show SuccessScreen;
 
 class WorkoutMaxSetsScreen extends StatefulWidget {
+  const WorkoutMaxSetsScreen({super.key});
+
   @override
   State<WorkoutMaxSetsScreen> createState() => _WorkoutMaxSetsScreenState();
 }

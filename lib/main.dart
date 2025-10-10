@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'state_app.dart' show AppState;
-import 'screen_home.dart' show HomeScreen, appTitle;
+import 'states/app.dart' show AppState;
+import 'screens/home.dart' show HomeScreen, appTitle;
 
 void main() {
   runApp(App());

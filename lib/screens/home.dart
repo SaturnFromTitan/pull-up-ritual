@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/state_workout.dart';
+import 'package:pull_up_ritual/states/workout.dart';
 
-import 'models.dart' show WorkoutType;
-import 'state_workout.dart' show WorkoutState;
-import 'screen_workout_maxsets.dart' show WorkoutMaxSetsScreen;
+import '../models.dart' show WorkoutType;
+import '../states/workout.dart' show WorkoutState;
+import 'workout_maxsets.dart' show WorkoutMaxSetsScreen;
 
 const appTitle = 'Pull-Up Ritual';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }

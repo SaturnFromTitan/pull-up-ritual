@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/state_workout.dart';
+import 'package:pull_up_ritual/states/workout.dart';
 
-import 'state_workout.dart' show WorkoutState;
-import 'utils.dart' show formatMinutesSeconds;
+import '../states/workout.dart' show WorkoutState;
+import '../utils.dart' show formatMinutesSeconds;
 
 class RestScreen extends StatelessWidget {
+  const RestScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
