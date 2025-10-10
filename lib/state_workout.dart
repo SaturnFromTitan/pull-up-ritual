@@ -23,10 +23,6 @@ class WorkoutState extends ChangeNotifier {
     _currentWorkout.sets.add(set);
   }
 
-  bool isResting() {
-    return _restTimer?.isActive == true;
-  }
-
   void rest(final int durationSeconds) {
     _restRemainingSeconds = durationSeconds;
 
@@ -44,6 +40,10 @@ class WorkoutState extends ChangeNotifier {
     _restTimer?.cancel();
     _restRemainingSeconds = 0;
     notifyListeners();
+  }
+
+  bool isResting() {
+    return _restTimer?.isActive == true;
   }
 
   @override

@@ -4,16 +4,16 @@ import 'package:pull_up_ritual/state_workout.dart';
 
 import 'models.dart' show WorkoutType;
 import 'state_workout.dart' show WorkoutState;
-import 'workout_maxsets.dart' show WorkoutMaxSetsScreen;
+import 'screen_workout_maxsets.dart' show WorkoutMaxSetsScreen;
 
 const appTitle = 'Pull-Up Ritual';
 
-class HomeForm extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  State<HomeForm> createState() => _HomeFormState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeFormState extends State<HomeForm> {
+class _HomeScreenState extends State<HomeScreen> {
   WorkoutType? _selected;
 
   void _handleSubmit() {
@@ -40,7 +40,6 @@ class _HomeFormState extends State<HomeForm> {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
               padding: const EdgeInsets.all(16),

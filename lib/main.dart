@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'state_app.dart' show AppState;
-import 'home.dart' show HomeForm, appTitle;
+import 'screen_home.dart' show HomeScreen, appTitle;
 
 void main() {
   runApp(App());
@@ -20,7 +20,7 @@ class App extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         ),
-        home: HomeForm(),
+        home: HomeScreen(),
       ),
     );
   }

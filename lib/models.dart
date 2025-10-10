@@ -31,4 +31,11 @@ class Workout {
     end ??= DateTime.now().toUtc();
     // TODO: update AppState?
   }
+
+  int durationSeconds() {
+    if (end != null) {
+      return start.second - end!.second;
+    }
+    return 0;
+  }
 }

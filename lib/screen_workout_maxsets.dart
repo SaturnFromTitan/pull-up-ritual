@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/home.dart';
+import 'package:pull_up_ritual/screen_home.dart';
 import 'package:pull_up_ritual/state_workout.dart';
 
 import 'state_app.dart' show AppState;
 import 'state_workout.dart' show WorkoutState;
 import 'models.dart' show WorkoutSet;
 import 'screen_rest.dart' show RestScreen;
+import 'screen_success.dart' show SuccessScreen;
 
 class WorkoutMaxSetsScreen extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class WorkoutMaxSetsScreen extends StatefulWidget {
 class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
   final _formKey = GlobalKey<FormState>();
   final numberOfSets = 3;
-  final restDurationSeconds = 3;
+  final restDurationSeconds = 5 * 60;
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +29,16 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
       body: SafeArea(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Text(workoutState.currentWorkout.workoutType.name),
               Card(
                 child: Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(40.0),
                   child: Form(
                     key: _formKey,
                     child: Column(
-                      children: <Widget>[
+                      children: [
                         Text("Do as many reps as possible! 🔥"),
                         TextFormField(
                           maxLength: 2,
@@ -78,9 +81,12 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
                               appState.completedWorkouts.add(
                                 workoutState.currentWorkout,
                               );
-                              // TODO: should redirect to success page
                               Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => HomeForm()),
+                                MaterialPageRoute(
+                                  builder: (_) => SuccessScreen(
+                                    workout: workoutState.currentWorkout,
+                                  ),
+                                ),
                               );
                             } else {
                               workoutState.rest(restDurationSeconds);
@@ -105,7 +111,7 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
                 onPressed: () {
                   Navigator.of(
                     context,
-                  ).push(MaterialPageRoute(builder: (_) => HomeForm()));
+                  ).push(MaterialPageRoute(builder: (_) => HomeScreen()));
                 },
                 child: Text("Cancel"),
               ),
