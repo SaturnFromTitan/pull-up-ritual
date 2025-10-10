@@ -27,11 +27,11 @@ class SuccessScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                "Duration: $durationText",
+                "Total Reps: $totalReps",
                 style: theme.textTheme.headlineMedium,
               ),
               Text(
-                "Total Reps: $totalReps",
+                "Duration: $durationText",
                 style: theme.textTheme.headlineMedium,
               ),
               const SizedBox(height: 16),

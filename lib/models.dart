@@ -10,10 +10,9 @@ enum WorkoutType {
 }
 
 class WorkoutSet {
-  final int? targetReps;
   final int completedReps;
 
-  WorkoutSet({this.targetReps, required this.completedReps});
+  WorkoutSet({required this.completedReps});
 }
 
 class Workout {
