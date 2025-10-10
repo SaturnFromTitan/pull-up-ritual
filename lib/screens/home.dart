@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/states/workout.dart';
 
@@ -19,15 +20,93 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   WorkoutType? _selected;
 
-  void _handleSubmit() {
+  void _handleSubmit() async {
     if (_selected == null) {
       const snackbar = SnackBar(content: Text("Please select a workout type!"));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       return;
     }
 
+    int? result;
+    if (_selected == WorkoutType.submaxVolume) {
+      result = await showDialog<int>(
+        context: context,
+        builder: (context) {
+          final modalFormKey = GlobalKey<FormState>();
+          final controller = TextEditingController();
+
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Form(
+                key: modalFormKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Enter Your Target Reps',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    SizedBox(height: 12),
+                    SizedBox(
+                      width: 40,
+                      child: TextFormField(
+                        controller: controller,
+                        maxLength: 2,
+                        inputFormatters: [
+                          FilteringTextInputFormatter(
+                            RegExp(r'[0-9]'),
+                            allow: true,
+                          ),
+                        ],
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'How many reps did you do?';
+                          }
+                          if (int.parse(value) <= 0) {
+                            return 'Please enter a value > 0';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text("Cancel"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            final form = modalFormKey.currentState!;
+                            if (form.validate()) {
+                              final reps = int.parse(controller.text);
+                              Navigator.pop(context, reps);
+                            }
+                          },
+                          child: Text('Submit'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+      if (!mounted) return;
+    }
+    if (result == null) return;
+
     var workoutScreen = _selected == WorkoutType.submaxVolume
-        ? WorkoutSubmaxVolumeScreen(targetReps: 5)
+        ? WorkoutSubmaxVolumeScreen(targetReps: result)
         : WorkoutMaxSetsScreen();
     Navigator.of(context).push(
       MaterialPageRoute(

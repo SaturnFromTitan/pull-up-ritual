@@ -44,27 +44,30 @@ class _WorkoutSubmaxVolumeScreenState extends State<WorkoutSubmaxVolumeScreen> {
                     child: Column(
                       children: [
                         Text("do ${widget.targetReps} reps"),
-                        TextFormField(
-                          maxLength: 2,
-                          inputFormatters: [
-                            FilteringTextInputFormatter(
-                              RegExp(r'[0-9]'),
-                              allow: true,
-                            ),
-                          ],
-                          keyboardType: TextInputType.number,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'How many reps did you do?';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            final set = WorkoutSet(
-                              completedReps: int.parse(value!),
-                            );
-                            workoutState.addSet(set);
-                          },
+                        SizedBox(
+                          width: 40,
+                          child: TextFormField(
+                            maxLength: 2,
+                            inputFormatters: [
+                              FilteringTextInputFormatter(
+                                RegExp(r'[0-9]'),
+                                allow: true,
+                              ),
+                            ],
+                            keyboardType: TextInputType.number,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'How many reps did you do?';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              final set = WorkoutSet(
+                                completedReps: int.parse(value!),
+                              );
+                              workoutState.addSet(set);
+                            },
+                          ),
                         ),
                         ElevatedButton(
                           onPressed: () {
