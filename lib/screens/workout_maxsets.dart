@@ -77,7 +77,6 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
 
                             form.save();
                             form.reset();
-                            setState(() {}); // TODO: is this necessary?
 
                             if (workoutState.workout.sets.length ==
                                 numberOfSets) {

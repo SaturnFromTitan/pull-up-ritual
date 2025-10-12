@@ -80,7 +80,6 @@ class _WorkoutSubmaxVolumeScreenState extends State<WorkoutSubmaxVolumeScreen> {
 
                             form.save();
                             form.reset();
-                            setState(() {}); // TODO: is this necessary?
 
                             if (workoutState.workout.sets.length ==
                                 numberOfSets) {

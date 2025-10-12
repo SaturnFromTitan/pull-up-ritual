@@ -38,6 +38,7 @@ class SuccessScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // TODO: use named routes instead
+                  //  because I also want to clear the state from the homepage
                   Navigator.of(context).popUntil((r) => r.isFirst);
                 },
                 child: Text('Back to Home'),

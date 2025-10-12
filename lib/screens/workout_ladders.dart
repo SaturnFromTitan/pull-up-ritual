@@ -79,9 +79,10 @@ class _WorkoutLaddersScreenState extends State<WorkoutLaddersScreen> {
 
                             form.save();
                             form.reset();
-                            setState(() {}); // TODO: is this necessary?
 
                             targetReps++;
+
+
                             workoutState.rest(restDurationSeconds);
                             Navigator.of(context).push(
                               MaterialPageRoute(
@@ -103,7 +104,6 @@ class _WorkoutLaddersScreenState extends State<WorkoutLaddersScreen> {
 
                             form.save();
                             form.reset();
-                            setState(() {}); // TODO: is this necessary?
 
                             completedLadders++;
                             targetReps = 1;
