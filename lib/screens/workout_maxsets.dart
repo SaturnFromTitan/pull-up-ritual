@@ -80,12 +80,7 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
 
                             if (workoutState.workout.sets.length ==
                                 numberOfSets) {
-                              // TODO: this should happen in one method call of the domain model,
-                              //  instead of orchestrating it in the in the view
-                              workoutState.workout.finish();
-                              appState.completedWorkouts.add(
-                                workoutState.workout,
-                              );
+                              workoutState.finish(appState);
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (_) => SuccessScreen(

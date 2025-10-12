@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../models.dart' show Workout, WorkoutType, WorkoutSet;
+import 'app.dart' show AppState;
 
 class WorkoutState extends ChangeNotifier {
   // private state
@@ -44,6 +45,11 @@ class WorkoutState extends ChangeNotifier {
 
   bool isResting() {
     return _restTimer?.isActive == true;
+  }
+
+  void finish(AppState appState) {
+    _workout.finish();
+    appState.completedWorkouts.add(_workout);
   }
 
   @override
