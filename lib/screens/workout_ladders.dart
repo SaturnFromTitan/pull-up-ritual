@@ -10,25 +10,24 @@ import '../models.dart' show WorkoutSet;
 import 'rest.dart' show RestScreen;
 import 'success.dart' show SuccessScreen;
 
-class WorkoutSubmaxVolumeScreen extends StatefulWidget {
-  final int targetReps;
-  const WorkoutSubmaxVolumeScreen({super.key, required this.targetReps});
+class WorkoutLaddersScreen extends StatefulWidget {
+  const WorkoutLaddersScreen({super.key});
 
   @override
-  State<WorkoutSubmaxVolumeScreen> createState() =>
-      _WorkoutSubmaxVolumeScreenState();
+  State<WorkoutLaddersScreen> createState() => _WorkoutLaddersScreenState();
 }
 
-class _WorkoutSubmaxVolumeScreenState extends State<WorkoutSubmaxVolumeScreen> {
+class _WorkoutLaddersScreenState extends State<WorkoutLaddersScreen> {
   final _formKey = GlobalKey<FormState>();
-  final numberOfSets = 10;
-  final restDurationSeconds = 60;
+  final numberOfLadders = 5;
+  final restDurationSeconds = 30;
+  int targetReps = 1;
+  int completedLadders = 0;
 
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AppState>();
     var workoutState = context.watch<WorkoutState>();
-    var targetReps = widget.targetReps;
 
     return Scaffold(
       body: SafeArea(
@@ -44,7 +43,7 @@ class _WorkoutSubmaxVolumeScreenState extends State<WorkoutSubmaxVolumeScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        Text("do ${targetReps} reps"),
+                        Text("do $targetReps reps"),
                         SizedBox(
                           width: 40,
                           child: TextFormField(
@@ -82,8 +81,34 @@ class _WorkoutSubmaxVolumeScreenState extends State<WorkoutSubmaxVolumeScreen> {
                             form.reset();
                             setState(() {}); // TODO: is this necessary?
 
-                            if (workoutState.workout.sets.length ==
-                                numberOfSets) {
+                            targetReps++;
+                            workoutState.rest(restDurationSeconds);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => ChangeNotifierProvider.value(
+                                  value: workoutState,
+                                  child: RestScreen(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Text('Done, continue ladder'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            final form = _formKey.currentState!;
+                            if (!form.validate()) {
+                              return;
+                            }
+
+                            form.save();
+                            form.reset();
+                            setState(() {}); // TODO: is this necessary?
+
+                            completedLadders++;
+                            targetReps = 1;
+
+                            if (completedLadders == numberOfLadders) {
                               // TODO: this should happen in one method call of the domain model,
                               //  instead of orchestrating it in the in the view
                               workoutState.workout.finish();
@@ -109,7 +134,7 @@ class _WorkoutSubmaxVolumeScreenState extends State<WorkoutSubmaxVolumeScreen> {
                               );
                             }
                           },
-                          child: Text('Submit'),
+                          child: Text('Done, new ladder'),
                         ),
                       ],
                     ),

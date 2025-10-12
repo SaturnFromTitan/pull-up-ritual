@@ -7,6 +7,7 @@ import '../models.dart' show WorkoutType;
 import '../states/workout.dart' show WorkoutState;
 import 'workout_maxsets.dart' show WorkoutMaxSetsScreen;
 import 'workout_submaxvolume.dart' show WorkoutSubmaxVolumeScreen;
+import 'workout_ladders.dart' show WorkoutLaddersScreen;
 
 const appTitle = 'Pull-Up Ritual';
 
@@ -101,13 +102,18 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       );
-      if (!mounted) return;
+      if (!mounted || result == null) return;
     }
-    if (result == null) return;
 
-    var workoutScreen = _selected == WorkoutType.submaxVolume
-        ? WorkoutSubmaxVolumeScreen(targetReps: result)
-        : WorkoutMaxSetsScreen();
+    StatefulWidget workoutScreen;
+    switch (_selected!) {
+      case WorkoutType.maxSets:
+        workoutScreen = WorkoutMaxSetsScreen();
+      case WorkoutType.submaxVolume:
+        workoutScreen = WorkoutSubmaxVolumeScreen(targetReps: result!);
+      case WorkoutType.ladders:
+        workoutScreen = WorkoutLaddersScreen();
+    }
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider(

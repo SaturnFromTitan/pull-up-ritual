@@ -33,7 +33,7 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(workoutState.currentWorkout.workoutType.name),
+              Text(workoutState.workout.workoutType.name),
               Card(
                 child: Padding(
                   padding: EdgeInsets.all(40.0),
@@ -61,6 +61,7 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
                             },
                             onSaved: (value) {
                               final set = WorkoutSet(
+                                targetReps: null,
                                 completedReps: int.parse(value!),
                               );
                               workoutState.addSet(set);
@@ -78,18 +79,18 @@ class _WorkoutMaxSetsScreenState extends State<WorkoutMaxSetsScreen> {
                             form.reset();
                             setState(() {}); // TODO: is this necessary?
 
-                            if (workoutState.currentWorkout.sets.length ==
+                            if (workoutState.workout.sets.length ==
                                 numberOfSets) {
                               // TODO: this should happen in one method call of the domain model,
                               //  instead of orchestrating it in the in the view
-                              workoutState.currentWorkout.finish();
+                              workoutState.workout.finish();
                               appState.completedWorkouts.add(
-                                workoutState.currentWorkout,
+                                workoutState.workout,
                               );
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (_) => SuccessScreen(
-                                    workout: workoutState.currentWorkout,
+                                    workout: workoutState.workout,
                                   ),
                                 ),
                               );
