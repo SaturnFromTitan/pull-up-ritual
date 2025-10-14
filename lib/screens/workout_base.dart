@@ -5,7 +5,7 @@ import 'package:pull_up_ritual/states/workout.dart';
 
 import '../states/app.dart' show AppState;
 import '../states/workout.dart' show WorkoutState;
-import '../models.dart' show WorkoutSet;
+import '../states/models.dart' show WorkoutSet;
 import 'rest.dart' show RestScreen;
 import 'success.dart' show SuccessScreen;
 

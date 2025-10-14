@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models.dart' show Workout;
+import '../states/models.dart' show Workout;
 import '../utils.dart' show formatMinutesSeconds;
 
 class SuccessScreen extends StatelessWidget {

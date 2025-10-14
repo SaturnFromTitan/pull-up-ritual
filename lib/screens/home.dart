@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/states/workout.dart';
 
-import '../models.dart' show WorkoutType;
+import '../states/models.dart' show WorkoutType;
 import '../states/workout.dart' show WorkoutState;
 import 'workout_maxsets.dart' show WorkoutMaxSetsScreen;
 import 'workout_ladders.dart' show WorkoutLaddersScreen;
