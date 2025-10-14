@@ -33,7 +33,7 @@ class _WorkoutMaxSetsScreenState
     return CustomRepsForm(
       formKey: formKey,
       controller: controller,
-      onSubmit: () {
+      onValidSubmit: () {
         final completedReps = int.parse(controller.text);
         finishSet(
           completedReps: completedReps,

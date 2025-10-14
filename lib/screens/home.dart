@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   CustomRepsForm(
                     formKey: modalFormKey,
                     controller: controller,
-                    onSubmit: () {
+                    onValidSubmit: () {
                       final reps = int.parse(controller.text);
                       Navigator.pop(context, reps);
                     },

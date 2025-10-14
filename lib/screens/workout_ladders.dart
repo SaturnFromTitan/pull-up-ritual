@@ -69,7 +69,7 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
     var customRepsForm = CustomRepsForm(
       formKey: formKey,
       controller: controller,
-      onSubmit: () {
+      onValidSubmit: () {
         _targetReps = 1;
         _completedLadders++;
         _showCustomRepsForm = false;

@@ -4,14 +4,14 @@ import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 class CustomRepsForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController controller;
-  final void Function() onSubmit;
+  final void Function() onValidSubmit;
   final bool hasCancel;
   final void Function() onCancel;
   const CustomRepsForm({
     super.key,
     required this.formKey,
     required this.controller,
-    required this.onSubmit,
+    required this.onValidSubmit,
     this.hasCancel = false,
     this.onCancel = _noop,
   });
@@ -20,10 +20,16 @@ class CustomRepsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget submitButton = ElevatedButton(
-      onPressed: onSubmit,
+    var submitButton = ElevatedButton(
+      onPressed: () {
+        final form = formKey.currentState!;
+        if (form.validate()) {
+          onValidSubmit();
+        }
+      },
       child: Text('Submit'),
     );
+
     return Form(
       key: formKey,
       child: Column(

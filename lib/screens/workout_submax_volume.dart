@@ -79,7 +79,7 @@ class _WorkoutSubmaxVolumeScreenState
     var customRepsForm = CustomRepsForm(
       formKey: formKey,
       controller: controller,
-      onSubmit: () {
+      onValidSubmit: () {
         _showCustomRepsForm = false;
         final completedReps = int.parse(controller.text);
         finishSet(
