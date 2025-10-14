@@ -61,9 +61,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
     workoutState.addSet(set);
 
     // reset inputs
-    final form = formKey.currentState!;
-    print("hi");
-    form.reset();
+    formKey.currentState?.reset();
 
     // navigate
     if (isWorkoutFinished(workoutState)) {
@@ -97,8 +95,9 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
                   child: Column(
                     children: [
                       targetReps == null
-                          ? SizedBox.shrink()
+                          ? Text("Do as many reps as possible! 🔥")
                           : Text("do $targetReps reps"),
+                      SizedBox(height: 40),
                       inputs,
                     ],
                   ),
