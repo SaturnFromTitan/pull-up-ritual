@@ -8,6 +8,7 @@ import '../states/workout.dart' show WorkoutState;
 import 'workout_max_sets.dart' show WorkoutMaxSetsScreen;
 import 'workout_ladders.dart' show WorkoutLaddersScreen;
 import 'workout_submax_volume.dart' show WorkoutSubmaxVolumeScreen;
+import 'widgets/custom_reps_form.dart' show CustomRepsForm;
 
 const appTitle = 'Pull-Up Ritual';
 
@@ -41,62 +42,26 @@ class _HomeScreenState extends State<HomeScreen> {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Form(
-                key: modalFormKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Enter Your Target Reps',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    SizedBox(height: 12),
-                    SizedBox(
-                      width: 40,
-                      child: TextFormField(
-                        controller: controller,
-                        maxLength: 2,
-                        inputFormatters: [
-                          FilteringTextInputFormatter(
-                            RegExp(r'[0-9]'),
-                            allow: true,
-                          ),
-                        ],
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'How many reps did you do?';
-                          }
-                          if (int.parse(value) <= 0) {
-                            return 'Please enter a value > 0';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text("Cancel"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            final form = modalFormKey.currentState!;
-                            if (form.validate()) {
-                              final reps = int.parse(controller.text);
-                              Navigator.pop(context, reps);
-                            }
-                          },
-                          child: Text('Submit'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              padding: const EdgeInsets.all(40),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Enter Your Target Reps',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(height: 20),
+                  CustomRepsForm(
+                    formKey: modalFormKey,
+                    controller: controller,
+                    onSubmit: () {
+                      final reps = int.parse(controller.text);
+                      Navigator.pop(context, reps);
+                    },
+                    hasCancel: true,
+                    onCancel: () => Navigator.pop(context),
+                  ),
+                ],
               ),
             ),
           );

@@ -81,6 +81,7 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
           appState: appState,
         );
       },
+      hasCancel: true,
       onCancel: () {
         setState(() {
           _showCustomRepsForm = !_showCustomRepsForm;

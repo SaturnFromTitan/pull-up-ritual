@@ -5,12 +5,14 @@ class CustomRepsForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController controller;
   final void Function() onSubmit;
+  final bool hasCancel;
   final void Function() onCancel;
   const CustomRepsForm({
     super.key,
     required this.formKey,
     required this.controller,
     required this.onSubmit,
+    this.hasCancel = false,
     this.onCancel = _noop,
   });
 
@@ -45,7 +47,7 @@ class CustomRepsForm extends StatelessWidget {
               return null;
             },
           ),
-          onCancel == _noop
+          hasCancel
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

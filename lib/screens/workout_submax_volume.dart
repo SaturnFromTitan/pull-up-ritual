@@ -88,6 +88,7 @@ class _WorkoutSubmaxVolumeScreenState
           appState: appState,
         );
       },
+      hasCancel: true,
       onCancel: () {
         setState(() {
           _showCustomRepsForm = !_showCustomRepsForm;
