@@ -21,6 +21,7 @@ class WorkoutSubmaxVolumeScreen extends StatefulWidget {
 
 class _WorkoutSubmaxVolumeScreenState extends State<WorkoutSubmaxVolumeScreen> {
   final _formKey = GlobalKey<FormState>();
+  final controller = TextEditingController();
   final numberOfSets = 10;
   final restDurationSeconds = 60;
 
@@ -44,7 +45,7 @@ class _WorkoutSubmaxVolumeScreenState extends State<WorkoutSubmaxVolumeScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        Text("do ${targetReps} reps"),
+                        Text("do $targetReps reps"),
                         SizedBox(
                           width: 40,
                           child: TextFormField(
