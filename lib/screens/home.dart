@@ -5,9 +5,8 @@ import 'package:pull_up_ritual/states/workout.dart';
 
 import '../models.dart' show WorkoutType;
 import '../states/workout.dart' show WorkoutState;
-import 'workout.dart' show WorkoutLaddersScreen;
-import 'workout_maxsets.dart' show WorkoutMaxSetsScreen;
-import 'workout_submaxvolume.dart' show WorkoutSubmaxVolumeScreen;
+import 'workout.dart'
+    show WorkoutLaddersScreen, WorkoutMaxSetsScreen, WorkoutSubmaxVolumeScreen;
 
 const appTitle = 'Pull-Up Ritual';
 
