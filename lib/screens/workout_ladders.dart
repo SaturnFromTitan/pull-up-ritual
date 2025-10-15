@@ -4,7 +4,7 @@ import 'package:pull_up_ritual/states/workout.dart';
 import '../states/app.dart' show AppState;
 import '../states/workout.dart' show WorkoutState;
 import 'workout_base.dart' show BaseWorkoutScreen, BaseWorkoutState;
-import 'widgets/custom_reps_form.dart' show RepsForm;
+import 'widgets/reps_form.dart' show RepsForm;
 
 class WorkoutLaddersScreen extends BaseWorkoutScreen {
   const WorkoutLaddersScreen({super.key});
@@ -26,8 +26,9 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
   int getTargetReps() => _targetReps;
 
   @override
-  bool isWorkoutFinished(WorkoutState workoutState) =>
-      _completedLadders == _numberOfLadders;
+  double progress(WorkoutState workoutState) {
+    return _completedLadders / _numberOfLadders;
+  }
 
   @override
   Widget getInputs(WorkoutState workoutState, AppState appState) {
