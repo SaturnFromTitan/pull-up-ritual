@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/states/workout.dart';
 
-import '../models.dart' show WorkoutType;
+import '../states/models.dart' show WorkoutType;
 import '../states/workout.dart' show WorkoutState;
-import 'workout_maxsets.dart' show WorkoutMaxSetsScreen;
-import 'workout_submaxvolume.dart' show WorkoutSubmaxVolumeScreen;
+import 'workout_max_sets.dart' show WorkoutMaxSetsScreen;
 import 'workout_ladders.dart' show WorkoutLaddersScreen;
+import 'workout_submax_volume.dart' show WorkoutSubmaxVolumeScreen;
+import 'widgets/custom_reps_form.dart' show RepsForm;
 
 const appTitle = 'Pull-Up Ritual';
 
@@ -33,70 +33,25 @@ class _HomeScreenState extends State<HomeScreen> {
       result = await showDialog<int>(
         context: context,
         builder: (context) {
-          final modalFormKey = GlobalKey<FormState>();
-          final controller = TextEditingController();
-
           return Dialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Form(
-                key: modalFormKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Enter Your Target Reps',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    SizedBox(height: 12),
-                    SizedBox(
-                      width: 40,
-                      child: TextFormField(
-                        controller: controller,
-                        maxLength: 2,
-                        inputFormatters: [
-                          FilteringTextInputFormatter(
-                            RegExp(r'[0-9]'),
-                            allow: true,
-                          ),
-                        ],
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'How many reps did you do?';
-                          }
-                          if (int.parse(value) <= 0) {
-                            return 'Please enter a value > 0';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text("Cancel"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            final form = modalFormKey.currentState!;
-                            if (form.validate()) {
-                              final reps = int.parse(controller.text);
-                              Navigator.pop(context, reps);
-                            }
-                          },
-                          child: Text('Submit'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              padding: const EdgeInsets.all(40),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Enter Your Target Reps',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(height: 20),
+                  RepsForm(
+                    onValidSubmit: (int reps) => Navigator.pop(context, reps),
+                    onCancel: () => Navigator.pop(context),
+                  ),
+                ],
               ),
             ),
           );

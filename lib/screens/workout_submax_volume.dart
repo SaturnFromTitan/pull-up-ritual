@@ -6,55 +6,65 @@ import '../states/workout.dart' show WorkoutState;
 import 'workout_base.dart' show BaseWorkoutScreen, BaseWorkoutState;
 import 'widgets/custom_reps_form.dart' show RepsForm;
 
-class WorkoutLaddersScreen extends BaseWorkoutScreen {
-  const WorkoutLaddersScreen({super.key});
+class WorkoutSubmaxVolumeScreen extends BaseWorkoutScreen {
+  final int targetReps;
+  const WorkoutSubmaxVolumeScreen({super.key, required this.targetReps});
 
   @override
-  State<WorkoutLaddersScreen> createState() => _WorkoutLaddersState();
+  State<WorkoutSubmaxVolumeScreen> createState() =>
+      _WorkoutSubmaxVolumeScreenState();
 }
 
-class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
-  final _numberOfLadders = 5;
-  int _targetReps = 1;
-  int _completedLadders = 0;
+class _WorkoutSubmaxVolumeScreenState
+    extends BaseWorkoutState<WorkoutSubmaxVolumeScreen> {
+  final _numberOfSets = 10;
   bool _showCustomRepsForm = false;
 
   @override
-  int get restDurationSeconds => 30;
+  int get restDurationSeconds => 60;
 
   @override
-  int getTargetReps() => _targetReps;
+  int getTargetReps() => widget.targetReps;
 
   @override
-  bool isWorkoutFinished(WorkoutState workoutState) =>
-      _completedLadders == _numberOfLadders;
+  bool isWorkoutFinished(WorkoutState workoutState) {
+    return workoutState.workout.sets.length == _numberOfSets;
+  }
 
   @override
   Widget getInputs(WorkoutState workoutState, AppState appState) {
+    int targetReps = getTargetReps();
     var defaultButtons = Column(
       children: [
         ElevatedButton(
           onPressed: () {
-            _targetReps++;
             finishSet(
-              completedReps: getTargetReps(),
+              completedReps: targetReps,
               workoutState: workoutState,
               appState: appState,
             );
           },
-          child: Text('Done, continue this ladder'),
+          child: Text('Done'),
         ),
         ElevatedButton(
           onPressed: () {
-            _targetReps = 1;
-            _completedLadders++;
             finishSet(
-              completedReps: getTargetReps(),
+              completedReps: targetReps - 1,
               workoutState: workoutState,
               appState: appState,
             );
           },
-          child: Text('Done, start new ladder'),
+          child: Text('I did ${targetReps - 1}'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            finishSet(
+              completedReps: targetReps - 2,
+              workoutState: workoutState,
+              appState: appState,
+            );
+          },
+          child: Text('I did ${targetReps - 2}'),
         ),
         ElevatedButton(
           onPressed: () {
@@ -68,10 +78,7 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
     );
     var customRepsForm = RepsForm(
       onValidSubmit: (int reps) {
-        _targetReps = 1;
-        _completedLadders++;
         _showCustomRepsForm = false;
-
         finishSet(
           completedReps: reps,
           workoutState: workoutState,
