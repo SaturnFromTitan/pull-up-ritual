@@ -50,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   RepsForm(
                     onValidSubmit: (int reps) => Navigator.pop(context, reps),
                     onCancel: () => Navigator.pop(context),
+                    minValue: 1,
                   ),
                 ],
               ),

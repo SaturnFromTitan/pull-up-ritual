@@ -33,6 +33,28 @@ class _WorkoutSubmaxVolumeScreenState
 
   @override
   Widget getInputs(WorkoutState workoutState, AppState appState) {
+    var buttons = _getButtons(workoutState, appState);
+
+    var customRepsForm = RepsForm(
+      onValidSubmit: (int reps) {
+        _showCustomRepsForm = false;
+        finishSet(
+          completedReps: reps,
+          workoutState: workoutState,
+          appState: appState,
+        );
+      },
+      onCancel: () {
+        setState(() {
+          _showCustomRepsForm = !_showCustomRepsForm;
+        });
+      },
+    );
+
+    return _showCustomRepsForm ? customRepsForm : Column(children: buttons);
+  }
+
+  List<Widget> _getButtons(WorkoutState workoutState, AppState appState) {
     int targetReps = getTargetReps();
     var buttons = [
       ElevatedButton(
@@ -55,41 +77,33 @@ class _WorkoutSubmaxVolumeScreenState
         },
         child: Text('I did ${targetReps - 1}'),
       ),
-      ElevatedButton(
-        onPressed: () {
-          finishSet(
-            completedReps: targetReps - 2,
-            workoutState: workoutState,
-            appState: appState,
-          );
-        },
-        child: Text('I did ${targetReps - 2}'),
-      ),
-      ElevatedButton(
-        onPressed: () {
-          setState(() {
-            _showCustomRepsForm = !_showCustomRepsForm;
-          });
-        },
-        child: Text('I did fewer'),
-      ),
     ];
-    var customRepsForm = RepsForm(
-      onValidSubmit: (int reps) {
-        _showCustomRepsForm = false;
-        finishSet(
-          completedReps: reps,
-          workoutState: workoutState,
-          appState: appState,
-        );
-      },
-      onCancel: () {
-        setState(() {
-          _showCustomRepsForm = !_showCustomRepsForm;
-        });
-      },
-    );
-
-    return _showCustomRepsForm ? customRepsForm : Column(children: buttons);
+    if (targetReps >= 2) {
+      buttons.add(
+        ElevatedButton(
+          onPressed: () {
+            finishSet(
+              completedReps: targetReps - 2,
+              workoutState: workoutState,
+              appState: appState,
+            );
+          },
+          child: Text('I did ${targetReps - 2}'),
+        ),
+      );
+    }
+    if (targetReps >= 3) {
+      buttons.add(
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              _showCustomRepsForm = !_showCustomRepsForm;
+            });
+          },
+          child: Text('I did fewer'),
+        ),
+      );
+    }
+    return buttons;
   }
 }

@@ -4,7 +4,13 @@ import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 class RepsForm extends StatefulWidget {
   final void Function(int reps) onValidSubmit;
   final void Function()? onCancel;
-  const RepsForm({super.key, required this.onValidSubmit, this.onCancel});
+  final int minValue;
+  RepsForm({
+    super.key,
+    required this.onValidSubmit,
+    this.onCancel,
+    this.minValue = 0,
+  });
 
   @override
   State<RepsForm> createState() => _RepsFormState();
@@ -57,6 +63,9 @@ class _RepsFormState extends State<RepsForm> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Required';
+              }
+              if (int.parse(value) < widget.minValue) {
+                return "Must be at least ${widget.minValue}";
               }
               return null;
             },
