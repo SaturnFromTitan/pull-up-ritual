@@ -4,7 +4,7 @@ import 'package:pull_up_ritual/states/workout.dart';
 import '../states/app.dart' show AppState;
 import '../states/workout.dart' show WorkoutState;
 import 'workout_base.dart' show BaseWorkoutScreen, BaseWorkoutState;
-import 'widgets/custom_reps_form.dart' show CustomRepsForm;
+import 'widgets/custom_reps_form.dart' show RepsForm;
 
 class WorkoutLaddersScreen extends BaseWorkoutScreen {
   const WorkoutLaddersScreen({super.key});
@@ -66,7 +66,7 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
         ),
       ],
     );
-    var customRepsForm = CustomRepsForm(
+    var customRepsForm = RepsForm(
       onValidSubmit: (int reps) {
         _targetReps = 1;
         _completedLadders++;

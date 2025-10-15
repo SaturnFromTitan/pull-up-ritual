@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 
-class CustomRepsForm extends StatefulWidget {
+class RepsForm extends StatefulWidget {
   final void Function(int reps) onValidSubmit;
   final void Function()? onCancel;
-  const CustomRepsForm({super.key, required this.onValidSubmit, this.onCancel});
+  const RepsForm({super.key, required this.onValidSubmit, this.onCancel});
 
   @override
-  State<CustomRepsForm> createState() => _CustomRepsFormState();
+  State<RepsForm> createState() => _RepsFormState();
 }
 
-class _CustomRepsFormState extends State<CustomRepsForm> {
-  final formKey = GlobalKey<FormState>();
-  final controller = TextEditingController();
+class _RepsFormState extends State<RepsForm> {
+  final _formKey = GlobalKey<FormState>();
+  final _controller = TextEditingController();
   bool _isValid = false;
 
   @override
@@ -21,11 +21,11 @@ class _CustomRepsFormState extends State<CustomRepsForm> {
       onPressed: _isValid
           ? () {
               // run logic
-              final reps = int.parse(controller.text);
+              final reps = int.parse(_controller.text);
               widget.onValidSubmit(reps);
 
               // restore initial state
-              controller.clear();
+              _controller.clear();
               setState(() {
                 _isValid = false;
               });
@@ -35,11 +35,11 @@ class _CustomRepsFormState extends State<CustomRepsForm> {
     );
 
     return Form(
-      key: formKey,
+      key: _formKey,
       child: Column(
         children: [
           TextFormField(
-            controller: controller,
+            controller: _controller,
             maxLength: 2,
             decoration: InputDecoration(
               hintText: "Tap to enter reps",
@@ -51,7 +51,7 @@ class _CustomRepsFormState extends State<CustomRepsForm> {
             ],
             keyboardType: TextInputType.number,
             onChanged: (_) {
-              final currentIsValid = formKey.currentState?.validate() ?? false;
+              final currentIsValid = _formKey.currentState?.validate() ?? false;
               setState(() => _isValid = currentIsValid);
             },
             validator: (value) {
@@ -76,5 +76,11 @@ class _CustomRepsFormState extends State<CustomRepsForm> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

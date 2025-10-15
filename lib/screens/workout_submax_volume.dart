@@ -4,7 +4,7 @@ import 'package:pull_up_ritual/states/workout.dart';
 import '../states/app.dart' show AppState;
 import '../states/workout.dart' show WorkoutState;
 import 'workout_base.dart' show BaseWorkoutScreen, BaseWorkoutState;
-import 'widgets/custom_reps_form.dart' show CustomRepsForm;
+import 'widgets/custom_reps_form.dart' show RepsForm;
 
 class WorkoutSubmaxVolumeScreen extends BaseWorkoutScreen {
   final int targetReps;
@@ -76,7 +76,7 @@ class _WorkoutSubmaxVolumeScreenState
         ),
       ],
     );
-    var customRepsForm = CustomRepsForm(
+    var customRepsForm = RepsForm(
       onValidSubmit: (int reps) {
         _showCustomRepsForm = false;
         finishSet(
