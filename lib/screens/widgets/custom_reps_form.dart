@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 
-class CustomRepsForm extends StatelessWidget {
-  final GlobalKey<FormState> formKey;
-  final TextEditingController controller;
-  final void Function() onValidSubmit;
-  final bool hasCancel;
-  final void Function() onCancel;
-  const CustomRepsForm({
-    super.key,
-    required this.formKey,
-    required this.controller,
-    required this.onValidSubmit,
-    this.hasCancel = false,
-    this.onCancel = _noop,
-  });
+class CustomRepsForm extends StatefulWidget {
+  final void Function(int reps) onValidSubmit;
+  final void Function()? onCancel;
+  const CustomRepsForm({super.key, required this.onValidSubmit, this.onCancel});
 
-  static void _noop() {}
+  @override
+  State<CustomRepsForm> createState() => _CustomRepsFormState();
+}
+
+class _CustomRepsFormState extends State<CustomRepsForm> {
+  final formKey = GlobalKey<FormState>();
+  final controller = TextEditingController();
+  bool _isValid = false;
 
   @override
   Widget build(BuildContext context) {
     var submitButton = ElevatedButton(
-      onPressed: () {
-        final form = formKey.currentState!;
-        if (form.validate()) {
-          onValidSubmit();
-        }
-      },
+      onPressed: _isValid
+          ? () {
+              final reps = int.parse(controller.text);
+              widget.onValidSubmit(reps);
+              formKey.currentState!.reset();
+            }
+          : null,
       child: Text('Submit'),
     );
 
@@ -46,6 +44,11 @@ class CustomRepsForm extends StatelessWidget {
               FilteringTextInputFormatter(RegExp(r'[0-9]'), allow: true),
             ],
             keyboardType: TextInputType.number,
+            onChanged: (_) {
+              final form = formKey.currentState;
+              final currentIsValid = form?.validate() ?? false;
+              setState(() => _isValid = currentIsValid);
+            },
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Required';
@@ -53,15 +56,18 @@ class CustomRepsForm extends StatelessWidget {
               return null;
             },
           ),
-          hasCancel
-              ? Row(
+          widget.onCancel == null
+              ? submitButton
+              : Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ElevatedButton(onPressed: onCancel, child: Text('Cancel')),
+                    ElevatedButton(
+                      onPressed: widget.onCancel,
+                      child: Text('Cancel'),
+                    ),
                     submitButton,
                   ],
-                )
-              : submitButton,
+                ),
         ],
       ),
     );

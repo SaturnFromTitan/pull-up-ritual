@@ -21,7 +21,7 @@ class _WorkoutMaxSetsScreenState
   int get restDurationSeconds => 5 * 60;
 
   @override
-  int? getTargetReps() => null;
+  Null getTargetReps() => null;
 
   @override
   bool isWorkoutFinished(WorkoutState workoutState) {
@@ -31,12 +31,9 @@ class _WorkoutMaxSetsScreenState
   @override
   Widget getInputs(WorkoutState workoutState, AppState appState) {
     return CustomRepsForm(
-      formKey: formKey,
-      controller: controller,
-      onValidSubmit: () {
-        final completedReps = int.parse(controller.text);
+      onValidSubmit: (int reps) {
         finishSet(
-          completedReps: completedReps,
+          completedReps: reps,
           workoutState: workoutState,
           appState: appState,
         );

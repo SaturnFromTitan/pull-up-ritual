@@ -67,21 +67,17 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
       ],
     );
     var customRepsForm = CustomRepsForm(
-      formKey: formKey,
-      controller: controller,
-      onValidSubmit: () {
+      onValidSubmit: (int reps) {
         _targetReps = 1;
         _completedLadders++;
         _showCustomRepsForm = false;
 
-        final completedReps = int.parse(controller.text);
         finishSet(
-          completedReps: completedReps,
+          completedReps: reps,
           workoutState: workoutState,
           appState: appState,
         );
       },
-      hasCancel: true,
       onCancel: () {
         setState(() {
           _showCustomRepsForm = !_showCustomRepsForm;

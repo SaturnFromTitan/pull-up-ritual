@@ -17,9 +17,6 @@ abstract class BaseWorkoutScreen extends StatefulWidget {
 }
 
 abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
-  // TODO: move formkey & controller to concrete classes?
-  final formKey = GlobalKey<FormState>();
-  final controller = TextEditingController();
   int get restDurationSeconds;
 
   int? getTargetReps();
@@ -59,9 +56,6 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
       completedReps: completedReps,
     );
     workoutState.addSet(set);
-
-    // reset inputs
-    formKey.currentState?.reset();
 
     // navigate
     if (isWorkoutFinished(workoutState)) {

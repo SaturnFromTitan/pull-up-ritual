@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/states/workout.dart';
 
@@ -34,9 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
       result = await showDialog<int>(
         context: context,
         builder: (context) {
-          final modalFormKey = GlobalKey<FormState>();
-          final controller = TextEditingController();
-
           return Dialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -52,13 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(height: 20),
                   CustomRepsForm(
-                    formKey: modalFormKey,
-                    controller: controller,
-                    onValidSubmit: () {
-                      final reps = int.parse(controller.text);
-                      Navigator.pop(context, reps);
-                    },
-                    hasCancel: true,
+                    onValidSubmit: (int reps) => Navigator.pop(context, reps),
                     onCancel: () => Navigator.pop(context),
                   ),
                 ],
