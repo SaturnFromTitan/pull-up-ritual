@@ -20,9 +20,15 @@ class _CustomRepsFormState extends State<CustomRepsForm> {
     var submitButton = ElevatedButton(
       onPressed: _isValid
           ? () {
+              // run logic
               final reps = int.parse(controller.text);
               widget.onValidSubmit(reps);
-              formKey.currentState!.reset();
+
+              // restore initial state
+              controller.clear();
+              setState(() {
+                _isValid = false;
+              });
             }
           : null,
       child: Text('Submit'),
@@ -45,8 +51,7 @@ class _CustomRepsFormState extends State<CustomRepsForm> {
             ],
             keyboardType: TextInputType.number,
             onChanged: (_) {
-              final form = formKey.currentState;
-              final currentIsValid = form?.validate() ?? false;
+              final currentIsValid = formKey.currentState?.validate() ?? false;
               setState(() => _isValid = currentIsValid);
             },
             validator: (value) {
