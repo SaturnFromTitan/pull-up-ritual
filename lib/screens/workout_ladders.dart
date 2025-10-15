@@ -31,52 +31,55 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
 
   @override
   Widget getInputs(WorkoutState workoutState, AppState appState) {
-    var defaultButtons = Column(
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            _targetReps++;
-            finishSet(
-              completedReps: getTargetReps(),
-              workoutState: workoutState,
-              appState: appState,
-            );
-          },
-          child: Text('Done, continue this ladder'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            _targetReps = 1;
-            _completedLadders++;
-            finishSet(
-              completedReps: getTargetReps(),
-              workoutState: workoutState,
-              appState: appState,
-            );
-          },
-          child: Text('Done, start new ladder'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              _showCustomRepsForm = !_showCustomRepsForm;
-            });
-          },
-          child: Text('I did fewer'),
-        ),
-      ],
-    );
+    var buttons = [
+      ElevatedButton(
+        onPressed: () {
+          finishSet(
+            completedReps: getTargetReps(),
+            workoutState: workoutState,
+            appState: appState,
+          );
+
+          // (re)set state
+          _targetReps++;
+        },
+        child: Text('Done, continue this ladder'),
+      ),
+      ElevatedButton(
+        onPressed: () {
+          finishSet(
+            completedReps: getTargetReps(),
+            workoutState: workoutState,
+            appState: appState,
+          );
+
+          // (re)set state
+          _targetReps = 1;
+          _completedLadders++;
+        },
+        child: Text('Done, start new ladder'),
+      ),
+      ElevatedButton(
+        onPressed: () {
+          setState(() {
+            _showCustomRepsForm = !_showCustomRepsForm;
+          });
+        },
+        child: Text('I did fewer'),
+      ),
+    ];
     var customRepsForm = RepsForm(
       onValidSubmit: (int reps) {
-        _targetReps = 1;
-        _completedLadders++;
-        _showCustomRepsForm = false;
-
         finishSet(
           completedReps: reps,
           workoutState: workoutState,
           appState: appState,
         );
+
+        // (re)set state
+        _targetReps = 1;
+        _completedLadders++;
+        _showCustomRepsForm = false;
       },
       onCancel: () {
         setState(() {
@@ -85,6 +88,6 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
       },
     );
 
-    return _showCustomRepsForm ? customRepsForm : defaultButtons;
+    return _showCustomRepsForm ? customRepsForm : Column(children: buttons);
   }
 }
