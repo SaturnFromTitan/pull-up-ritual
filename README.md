@@ -1,16 +1,10 @@
 # 💪 Pull-Up Ritual
 
-A new Flutter project.
+The app to the great and simple instructions by kboges:
 
-## Getting Started
+[The plan for doubling your max pull-ups!](https://www.youtube.com/watch?v=w9Mu-azxol8)
 
-This project is a starting point for a Flutter application.
+## Design
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Figma Make project](https://www.figma.com/make/FPf0WLYOC5cKtXhh9Yhdgh/Pull-Up-Doubler?node-id=0-1&p=f&t=8SOteVgZCKzLM9C0-0)
+- [Published prototype](https://dot-gothic-32505069.figma.site)
