@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pull_up_ritual/screens/widgets/set_cards.dart' show SetCards;
 
 import '../states/models.dart' show Workout;
-import '../utils.dart' show formatMinutesSeconds;
+import '../utils.dart' show formatMinutesSeconds, getSetCardValues;
 
 class SuccessScreen extends StatelessWidget {
   final Workout workout;
@@ -18,23 +19,33 @@ class SuccessScreen extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
                 '🎉\nWorkout\nCompleted!',
                 style: theme.textTheme.displayMedium,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 16),
-              Text(
-                "Total Reps: $totalReps",
-                style: theme.textTheme.headlineMedium,
+              Column(
+                children: [
+                  Text(
+                    workout.workoutType.name,
+                    style: theme.textTheme.headlineMedium,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    "Duration: $durationText",
+                    style: theme.textTheme.headlineSmall,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    "Total Reps: $totalReps",
+                    style: theme.textTheme.headlineSmall,
+                  ),
+                  const SizedBox(height: 40),
+                  SetCards(values: getSetCardValues(workout)),
+                ],
               ),
-              Text(
-                "Duration: $durationText",
-                style: theme.textTheme.headlineMedium,
-              ),
-              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
                   // TODO: use named routes instead
