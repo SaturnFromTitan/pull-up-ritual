@@ -4,7 +4,7 @@ import 'package:pull_up_ritual/states/workout.dart';
 import '../states/app.dart' show AppState;
 import '../states/workout.dart' show WorkoutState;
 import 'workout_base.dart' show BaseWorkoutScreen, BaseWorkoutState;
-import 'widgets/custom_reps_form.dart' show RepsForm;
+import 'widgets/reps_form.dart' show RepsForm;
 
 class WorkoutSubmaxVolumeScreen extends BaseWorkoutScreen {
   final int targetReps;
@@ -27,8 +27,8 @@ class _WorkoutSubmaxVolumeScreenState
   int getTargetReps() => widget.targetReps;
 
   @override
-  bool isWorkoutFinished(WorkoutState workoutState) {
-    return workoutState.workout.sets.length == _numberOfSets;
+  double progress(WorkoutState workoutState) {
+    return workoutState.workout.sets.length / _numberOfSets;
   }
 
   @override
@@ -39,6 +39,7 @@ class _WorkoutSubmaxVolumeScreenState
       onValidSubmit: (int reps) {
         _showCustomRepsForm = false;
         finishSet(
+          group: workoutState.workout.sets.length + 1,
           completedReps: reps,
           workoutState: workoutState,
           appState: appState,
@@ -60,6 +61,7 @@ class _WorkoutSubmaxVolumeScreenState
       ElevatedButton(
         onPressed: () {
           finishSet(
+            group: workoutState.workout.sets.length + 1,
             completedReps: targetReps,
             workoutState: workoutState,
             appState: appState,
@@ -70,6 +72,7 @@ class _WorkoutSubmaxVolumeScreenState
       ElevatedButton(
         onPressed: () {
           finishSet(
+            group: workoutState.workout.sets.length + 1,
             completedReps: targetReps - 1,
             workoutState: workoutState,
             appState: appState,
@@ -83,6 +86,7 @@ class _WorkoutSubmaxVolumeScreenState
         ElevatedButton(
           onPressed: () {
             finishSet(
+              group: workoutState.workout.sets.length + 1,
               completedReps: targetReps - 2,
               workoutState: workoutState,
               appState: appState,

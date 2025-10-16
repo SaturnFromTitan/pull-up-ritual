@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/screens/home.dart';
+import 'package:pull_up_ritual/screens/widgets/set_cards.dart' show SetCards;
+import 'package:pull_up_ritual/screens/widgets/progress_bar.dart'
+    show WorkoutProgressBar;
 import 'package:pull_up_ritual/states/workout.dart';
+import 'package:pull_up_ritual/utils.dart' show getSetCardValues;
 
 import '../states/app.dart' show AppState;
 import '../states/workout.dart' show WorkoutState;
@@ -20,7 +24,8 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
   int get restDurationSeconds;
 
   int? getTargetReps();
-  bool isWorkoutFinished(WorkoutState workoutState);
+  double progress(WorkoutState workoutState);
+  Widget getInputs(WorkoutState workoutState, AppState appState);
 
   void navigateToSuccess(WorkoutState workoutState) {
     Navigator.of(context).push(
@@ -35,7 +40,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider.value(
           value: workoutState,
-          child: RestScreen(),
+          child: RestScreen(progress: progress(workoutState)),
         ),
       ),
     );
@@ -46,19 +51,21 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
   }
 
   void finishSet({
+    required int group,
     required int completedReps,
     required WorkoutState workoutState,
     required AppState appState,
   }) {
     // add set
     final set = WorkoutSet(
+      group: group,
       targetReps: getTargetReps(),
       completedReps: completedReps,
     );
     workoutState.addSet(set);
 
     // navigate
-    if (isWorkoutFinished(workoutState)) {
+    if (progress(workoutState) == 1) {
       workoutState.finish(appState);
       navigateToSuccess(workoutState);
     } else {
@@ -66,8 +73,6 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
       navigateToRest(workoutState);
     }
   }
-
-  Widget getInputs(WorkoutState workoutState, AppState appState);
 
   @override
   Widget build(BuildContext context) {
@@ -78,24 +83,33 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
 
     return Scaffold(
       body: SafeArea(
-        child: Center(
+        child: Container(
+          margin: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(workoutState.workout.workoutType.name),
-              Card(
-                child: Padding(
-                  padding: EdgeInsets.all(40.0),
-                  child: Column(
-                    children: [
-                      targetReps == null
-                          ? Text("Do as many reps as possible! 🔥")
-                          : Text("do $targetReps reps"),
-                      SizedBox(height: 40),
-                      inputs,
-                    ],
+              WorkoutProgressBar(value: progress(workoutState)),
+              SizedBox(
+                width: double.infinity,
+                child: Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(40.0),
+                    child: Column(
+                      children: [
+                        targetReps == null
+                            ? Text("Do as many reps as possible! 🔥")
+                            : Text("do $targetReps reps"),
+                        SizedBox(height: 40),
+                        inputs,
+                      ],
+                    ),
                   ),
                 ),
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: SetCards(values: getSetCardValues(workoutState.workout)),
               ),
               ElevatedButton(onPressed: navigateToHome, child: Text("Cancel")),
             ],

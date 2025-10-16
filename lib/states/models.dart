@@ -10,10 +10,15 @@ enum WorkoutType {
 }
 
 class WorkoutSet {
+  final int group; // to identify ladders
   final int? targetReps;
   final int completedReps;
 
-  WorkoutSet({required this.targetReps, required this.completedReps});
+  WorkoutSet({
+    required this.group,
+    required this.targetReps,
+    required this.completedReps,
+  });
 }
 
 class Workout {
