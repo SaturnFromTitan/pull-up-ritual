@@ -78,7 +78,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<AppState>();
+    var appState = context.read<AppState>();
     var workoutState = context.watch<WorkoutState>();
     int? targetReps = getTargetReps();
     Widget inputs = getInputs(workoutState, appState);

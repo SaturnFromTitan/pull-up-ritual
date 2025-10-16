@@ -12,7 +12,7 @@ class HistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appState = context.watch<AppState>();
+    final appState = context.read<AppState>();
     final workouts = appState.completedWorkouts;
     final numWorkouts = workouts.length;
     final totalReps = workouts.fold(0, (t, w) => t + w.totalReps());
