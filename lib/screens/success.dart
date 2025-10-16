@@ -15,7 +15,7 @@ class SuccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final durationText = formatMinutesSeconds(workout.durationSeconds() ?? 0);
-    final totalReps = workout.sets.fold(0, (t, s) => t + s.completedReps);
+    final totalReps = workout.totalReps();
 
     return Scaffold(
       body: SafeArea(

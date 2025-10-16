@@ -33,3 +33,12 @@ List<String> getSetCardValues(Workout workout) {
   }
   return values;
 }
+
+String datetimeToString(DateTime dt) {
+  var year = dt.year.toString().padLeft(4, '0');
+  var month = dt.month.toString().padLeft(2, '0');
+  var day = dt.day.toString().padLeft(2, '0');
+  var hour = dt.hour.toString().padLeft(2, '0');
+  var minute = dt.minute.toString().padLeft(2, '0');
+  return "$year-$month-$day $hour:$minute";
+}

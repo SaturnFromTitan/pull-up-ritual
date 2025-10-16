@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/screens/history.dart' show HistoryScreen;
 import 'package:pull_up_ritual/screens/selection.dart';
 import 'package:pull_up_ritual/states/tab.dart';
 
@@ -13,7 +14,7 @@ class Shell extends StatelessWidget {
     return Scaffold(
       body: IndexedStack(
         index: tab.index,
-        children: [WorkoutSelectionScreen(), Placeholder()],
+        children: [WorkoutSelectionScreen(), HistoryScreen()],
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: tab.index,
