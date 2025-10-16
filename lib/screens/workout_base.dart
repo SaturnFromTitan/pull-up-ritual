@@ -5,6 +5,7 @@ import 'package:pull_up_ritual/screens/widgets/set_cards.dart' show SetCards;
 import 'package:pull_up_ritual/screens/widgets/progress_bar.dart'
     show WorkoutProgressBar;
 import 'package:pull_up_ritual/states/workout.dart';
+import 'package:pull_up_ritual/utils.dart' show getSetCardValues;
 
 import '../states/app.dart' show AppState;
 import '../states/workout.dart' show WorkoutState;
@@ -39,7 +40,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider.value(
           value: workoutState,
-          child: RestScreen(),
+          child: RestScreen(progress: progress(workoutState)),
         ),
       ),
     );
@@ -71,30 +72,6 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
       workoutState.rest(restDurationSeconds);
       navigateToRest(workoutState);
     }
-  }
-
-  List<String> getSetCardValues(WorkoutState workoutState) {
-    var values = <String>[];
-    var lastGroup = -1;
-    var currentValue = "";
-    for (var set in workoutState.workout.sets) {
-      if (set.group != lastGroup && lastGroup != -1) {
-        values.add(currentValue);
-        currentValue = "";
-      }
-
-      if (set.group == lastGroup) {
-        currentValue += "+${set.completedReps}";
-      } else if (currentValue == "") {
-        currentValue = "${set.completedReps}";
-      }
-
-      lastGroup = set.group;
-    }
-    if (currentValue != "") {
-      values.add(currentValue);
-    }
-    return values;
   }
 
   @override
@@ -132,7 +109,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
               ),
               Align(
                 alignment: Alignment.topLeft,
-                child: SetCards(values: getSetCardValues(workoutState)),
+                child: SetCards(values: getSetCardValues(workoutState.workout)),
               ),
               ElevatedButton(onPressed: navigateToHome, child: Text("Cancel")),
             ],

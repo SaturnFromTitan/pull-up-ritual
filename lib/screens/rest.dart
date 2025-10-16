@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/screens/widgets/progress_bar.dart'
+    show WorkoutProgressBar;
+import 'package:pull_up_ritual/screens/widgets/set_cards.dart' show SetCards;
 import 'package:pull_up_ritual/states/workout.dart';
 
 import '../states/workout.dart' show WorkoutState;
-import '../utils.dart' show formatMinutesSeconds;
+import '../utils.dart' show formatMinutesSeconds, getSetCardValues;
 
 class RestScreen extends StatelessWidget {
-  const RestScreen({super.key});
+  final double progress;
+  const RestScreen({super.key, required this.progress});
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +25,27 @@ class RestScreen extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Center(
+        child: Container(
+          margin: const EdgeInsets.all(20.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('😴', style: theme.textTheme.displayMedium),
-              const SizedBox(height: 16),
-              Text(
-                formatMinutesSeconds(workoutState.restTimeRemaining),
-                style: theme.textTheme.displayMedium,
+              Text(workoutState.workout.workoutType.name),
+              WorkoutProgressBar(value: progress),
+              Column(
+                children: [
+                  Text('😴', style: theme.textTheme.displayMedium),
+                  SizedBox(height: 40),
+                  Text(
+                    formatMinutesSeconds(workoutState.restTimeRemaining),
+                    style: theme.textTheme.displayMedium,
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
+              Align(
+                alignment: Alignment.topLeft,
+                child: SetCards(values: getSetCardValues(workoutState.workout)),
+              ),
               ElevatedButton(
                 onPressed: () {
                   workoutState.resume();
