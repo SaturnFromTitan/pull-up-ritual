@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/screens/home.dart';
+import 'package:pull_up_ritual/screens/selection.dart';
 import 'package:pull_up_ritual/screens/widgets/set_cards.dart' show SetCards;
 import 'package:pull_up_ritual/screens/widgets/progress_bar.dart'
     show WorkoutProgressBar;
@@ -47,7 +47,9 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
   }
 
   void navigateToHome() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomeScreen()));
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => WorkoutSelectionScreen()));
   }
 
   void finishSet({

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'states/app.dart' show AppState;
-import 'screens/home.dart' show HomeScreen, appTitle;
+import 'screens/selection.dart' show WorkoutSelectionScreen, appTitle;
 
 void main() {
   runApp(App());
@@ -20,7 +20,7 @@ class App extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         ),
-        home: HomeScreen(),
+        home: WorkoutSelectionScreen(),
       ),
     );
   }
