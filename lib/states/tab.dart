@@ -9,4 +9,8 @@ class TabState extends ChangeNotifier {
     _index = value;
     notifyListeners();
   }
+
+  void reset() {
+    setIndex(0);
+  }
 }
