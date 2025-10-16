@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/screens/home.dart';
+import 'package:pull_up_ritual/screens/shell.dart' show Shell;
+import 'package:pull_up_ritual/screens/widgets/home_button.dart'
+    show HomeButton;
 import 'package:pull_up_ritual/screens/widgets/set_cards.dart' show SetCards;
 import 'package:pull_up_ritual/screens/widgets/progress_bar.dart'
     show WorkoutProgressBar;
@@ -47,7 +49,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
   }
 
   void navigateToHome() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomeScreen()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => Shell()));
   }
 
   void finishSet({
@@ -111,7 +113,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
                 alignment: Alignment.topLeft,
                 child: SetCards(values: getSetCardValues(workoutState.workout)),
               ),
-              ElevatedButton(onPressed: navigateToHome, child: Text("Cancel")),
+              HomeButton(text: "Cancel", icon: Icons.close),
             ],
           ),
         ),

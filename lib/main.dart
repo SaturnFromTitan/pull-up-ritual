@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/screens/shell.dart';
 
+import 'states/tab.dart' show TabState;
 import 'states/app.dart' show AppState;
-import 'screens/home.dart' show HomeScreen, appTitle;
+import 'screens/selection.dart' show appTitle;
 
 void main() {
   runApp(App());
@@ -13,14 +15,17 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => AppState(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AppState()),
+        ChangeNotifierProvider(create: (context) => TabState()),
+      ],
       child: MaterialApp(
         title: appTitle,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         ),
-        home: HomeScreen(),
+        home: Shell(),
       ),
     );
   }

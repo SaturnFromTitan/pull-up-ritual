@@ -11,14 +11,14 @@ import 'widgets/reps_form.dart' show RepsForm;
 
 const appTitle = 'Pull-Up Ritual';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class WorkoutSelectionScreen extends StatefulWidget {
+  const WorkoutSelectionScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<WorkoutSelectionScreen> createState() => _WorkoutSelectionScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
   WorkoutType? _selected;
 
   void _handleSubmit() async {

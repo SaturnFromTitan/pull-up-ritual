@@ -42,4 +42,8 @@ class Workout {
     }
     return end!.second - start.second;
   }
+
+  int totalReps() {
+    return sets.fold(0, (t, s) => t + s.completedReps);
+  }
 }

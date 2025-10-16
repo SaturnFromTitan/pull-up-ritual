@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pull_up_ritual/screens/widgets/home_button.dart'
+    show HomeButton;
 import 'package:pull_up_ritual/screens/widgets/set_cards.dart' show SetCards;
 
 import '../states/models.dart' show Workout;
@@ -13,7 +15,7 @@ class SuccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final durationText = formatMinutesSeconds(workout.durationSeconds() ?? 0);
-    final totalReps = workout.sets.fold(0, (t, s) => t + s.completedReps);
+    final totalReps = workout.totalReps();
 
     return Scaffold(
       body: SafeArea(
@@ -46,14 +48,7 @@ class SuccessScreen extends StatelessWidget {
                   SetCards(values: getSetCardValues(workout)),
                 ],
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // TODO: use named routes instead
-                  //  because I also want to clear the state from the homepage
-                  Navigator.of(context).popUntil((r) => r.isFirst);
-                },
-                child: Text('Back to Home'),
-              ),
+              HomeButton(text: "Home"),
             ],
           ),
         ),
