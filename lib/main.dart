@@ -25,7 +25,8 @@ class App extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         ),
-        home: Shell(),
+        initialRoute: Shell.route,
+        routes: {Shell.route: (context) => Shell()},
       ),
     );
   }

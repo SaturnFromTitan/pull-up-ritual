@@ -5,6 +5,7 @@ import 'package:pull_up_ritual/screens/selection.dart';
 import 'package:pull_up_ritual/states/tab.dart';
 
 class Shell extends StatelessWidget {
+  static final String route = "/shell";
   const Shell({super.key});
 
   @override
