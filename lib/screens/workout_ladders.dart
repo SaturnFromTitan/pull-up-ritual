@@ -36,27 +36,27 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
       ElevatedButton(
         onPressed: () {
           finishSet(
+            group: _completedLadders + 1,
             completedReps: getTargetReps(),
             workoutState: workoutState,
             appState: appState,
           );
-
-          // (re)set state
           _targetReps++;
         },
         child: Text('Done, continue this ladder'),
       ),
       ElevatedButton(
         onPressed: () {
+          // have to increment completedLadders before calling finishSet
+          // so that progress() is evaluated correctly
+          _completedLadders++;
           finishSet(
+            group: _completedLadders,
             completedReps: getTargetReps(),
             workoutState: workoutState,
             appState: appState,
           );
-
-          // (re)set state
           _targetReps = 1;
-          _completedLadders++;
         },
         child: Text('Done, start new ladder'),
       ),
@@ -71,15 +71,16 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
     ];
     var customRepsForm = RepsForm(
       onValidSubmit: (int reps) {
+        // have to increment completedLadders before calling finishSet
+        // so that progress() is evaluated correctly
+        _completedLadders++;
         finishSet(
+          group: _completedLadders,
           completedReps: reps,
           workoutState: workoutState,
           appState: appState,
         );
-
-        // (re)set state
         _targetReps = 1;
-        _completedLadders++;
         _showCustomRepsForm = false;
       },
       onCancel: () {

@@ -33,6 +33,7 @@ class _WorkoutMaxSetsScreenState
     return RepsForm(
       onValidSubmit: (int reps) {
         finishSet(
+          group: workoutState.workout.sets.length + 1,
           completedReps: reps,
           workoutState: workoutState,
           appState: appState,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SetCards extends StatelessWidget {
-  final List<int> values;
+  final List<String> values;
   const SetCards({super.key, required this.values});
 
   @override
@@ -9,7 +9,7 @@ class SetCards extends StatelessWidget {
     return Wrap(
       spacing: 16.0,
       runSpacing: 8.0,
-      children: [for (var value in values) Chip(label: Text(value.toString()))],
+      children: [for (var value in values) Chip(label: Text(value))],
     );
   }
 }

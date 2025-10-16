@@ -39,6 +39,7 @@ class _WorkoutSubmaxVolumeScreenState
       onValidSubmit: (int reps) {
         _showCustomRepsForm = false;
         finishSet(
+          group: workoutState.workout.sets.length + 1,
           completedReps: reps,
           workoutState: workoutState,
           appState: appState,
@@ -60,6 +61,7 @@ class _WorkoutSubmaxVolumeScreenState
       ElevatedButton(
         onPressed: () {
           finishSet(
+            group: workoutState.workout.sets.length + 1,
             completedReps: targetReps,
             workoutState: workoutState,
             appState: appState,
@@ -70,6 +72,7 @@ class _WorkoutSubmaxVolumeScreenState
       ElevatedButton(
         onPressed: () {
           finishSet(
+            group: workoutState.workout.sets.length + 1,
             completedReps: targetReps - 1,
             workoutState: workoutState,
             appState: appState,
@@ -83,6 +86,7 @@ class _WorkoutSubmaxVolumeScreenState
         ElevatedButton(
           onPressed: () {
             finishSet(
+              group: workoutState.workout.sets.length + 1,
               completedReps: targetReps - 2,
               workoutState: workoutState,
               appState: appState,

@@ -24,6 +24,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
 
   int? getTargetReps();
   double progress(WorkoutState workoutState);
+  Widget getInputs(WorkoutState workoutState, AppState appState);
 
   void navigateToSuccess(WorkoutState workoutState) {
     Navigator.of(context).push(
@@ -49,19 +50,21 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
   }
 
   void finishSet({
+    required int group,
     required int completedReps,
     required WorkoutState workoutState,
     required AppState appState,
   }) {
     // add set
     final set = WorkoutSet(
+      group: group,
       targetReps: getTargetReps(),
       completedReps: completedReps,
     );
     workoutState.addSet(set);
 
     // navigate
-    if (progress(workoutState) == 1.0) {
+    if (progress(workoutState) == 1) {
       workoutState.finish(appState);
       navigateToSuccess(workoutState);
     } else {
@@ -70,7 +73,29 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
     }
   }
 
-  Widget getInputs(WorkoutState workoutState, AppState appState);
+  List<String> getSetCardValues(WorkoutState workoutState) {
+    var values = <String>[];
+    var lastGroup = -1;
+    var currentValue = "";
+    for (var set in workoutState.workout.sets) {
+      if (set.group != lastGroup && lastGroup != -1) {
+        values.add(currentValue);
+        currentValue = "";
+      }
+
+      if (set.group == lastGroup) {
+        currentValue += "+${set.completedReps}";
+      } else if (currentValue == "") {
+        currentValue = "${set.completedReps}";
+      }
+
+      lastGroup = set.group;
+    }
+    if (currentValue != "") {
+      values.add(currentValue);
+    }
+    return values;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,12 +132,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
               ),
               Align(
                 alignment: Alignment.topLeft,
-                child: SetCards(
-                  values: [
-                    for (var set in workoutState.workout.sets)
-                      set.completedReps,
-                  ],
-                ),
+                child: SetCards(values: getSetCardValues(workoutState)),
               ),
               ElevatedButton(onPressed: navigateToHome, child: Text("Cancel")),
             ],
