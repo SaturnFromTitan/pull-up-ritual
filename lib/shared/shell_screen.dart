@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/screens/history.dart' show HistoryScreen;
-import 'package:pull_up_ritual/screens/selection.dart';
-import 'package:pull_up_ritual/states/tab.dart';
+import 'package:pull_up_ritual/features/history/presentation/screens/history_screen.dart'
+    show HistoryScreen;
+import 'package:pull_up_ritual/features/workout/presentation/screens/selection_screen.dart';
+import 'package:pull_up_ritual/shared/providers/app_provider.dart';
 
 class Shell extends StatelessWidget {
   static final String route = "/shell";
@@ -10,16 +11,16 @@ class Shell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tab = context.watch<TabState>();
+    final appProvider = context.watch<AppProvider>();
 
     return Scaffold(
       body: IndexedStack(
-        index: tab.index,
+        index: appProvider.tabIndex,
         children: [WorkoutSelectionScreen(), HistoryScreen()],
       ),
       bottomNavigationBar: NavigationBar(
-        selectedIndex: tab.index,
-        onDestinationSelected: tab.setIndex,
+        selectedIndex: appProvider.tabIndex,
+        onDestinationSelected: appProvider.setTabIndex,
         destinations: [
           NavigationDestination(
             icon: Icon(Icons.fitness_center_outlined),

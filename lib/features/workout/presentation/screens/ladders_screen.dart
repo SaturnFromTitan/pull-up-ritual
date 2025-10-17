@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:pull_up_ritual/states/workout.dart';
+import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart';
 
-import '../states/app.dart' show AppState;
-import '../states/workout.dart' show WorkoutState;
-import 'workout_base.dart' show BaseWorkoutScreen, BaseWorkoutState;
-import 'widgets/reps_form.dart' show RepsForm;
+import 'package:pull_up_ritual/shared/providers/app_provider.dart'
+    show AppProvider;
+import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart'
+    show WorkoutProvider;
+import 'base_workout_screen.dart' show BaseWorkoutScreen, BaseWorkoutState;
+import 'package:pull_up_ritual/features/workout/presentation/widgets/reps_form.dart'
+    show RepsForm;
 
-class WorkoutLaddersScreen extends BaseWorkoutScreen {
-  const WorkoutLaddersScreen({super.key});
+class LaddersScreen extends BaseWorkoutScreen {
+  const LaddersScreen({super.key});
 
   @override
-  State<WorkoutLaddersScreen> createState() => _WorkoutLaddersState();
+  State<LaddersScreen> createState() => _LaddersState();
 }
 
-class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
+class _LaddersState extends BaseWorkoutState<LaddersScreen> {
   final _numberOfLadders = 5;
   int _targetReps = 1;
   int _completedLadders = 0;
@@ -26,20 +29,20 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
   int getTargetReps() => _targetReps;
 
   @override
-  double progress(WorkoutState workoutState) {
+  double progress(WorkoutProvider workoutProvider) {
     return _completedLadders / _numberOfLadders;
   }
 
   @override
-  Widget getInputs(WorkoutState workoutState, AppState appState) {
+  Widget getInputs(WorkoutProvider workoutProvider, AppProvider appProvider) {
     var buttons = [
       ElevatedButton(
         onPressed: () {
           finishSet(
             group: _completedLadders + 1,
             completedReps: getTargetReps(),
-            workoutState: workoutState,
-            appState: appState,
+            workoutProvider: workoutProvider,
+            appProvider: appProvider,
           );
           _targetReps++;
         },
@@ -53,8 +56,8 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
           finishSet(
             group: _completedLadders,
             completedReps: getTargetReps(),
-            workoutState: workoutState,
-            appState: appState,
+            workoutProvider: workoutProvider,
+            appProvider: appProvider,
           );
           _targetReps = 1;
         },
@@ -77,8 +80,8 @@ class _WorkoutLaddersState extends BaseWorkoutState<WorkoutLaddersScreen> {
         finishSet(
           group: _completedLadders,
           completedReps: reps,
-          workoutState: workoutState,
-          appState: appState,
+          workoutProvider: workoutProvider,
+          appProvider: appProvider,
         );
         _targetReps = 1;
         _showCustomRepsForm = false;

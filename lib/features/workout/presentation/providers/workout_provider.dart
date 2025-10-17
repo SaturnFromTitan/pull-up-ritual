@@ -1,18 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pull_up_ritual/features/workout/data/models.dart'
+    show Workout, WorkoutType, WorkoutSet;
+import 'package:pull_up_ritual/shared/providers/app_provider.dart'
+    show AppProvider;
 
-import 'models.dart' show Workout, WorkoutType, WorkoutSet;
-import 'app.dart' show AppState;
-
-class WorkoutState extends ChangeNotifier {
+class WorkoutProvider extends ChangeNotifier {
   // private state
   Workout _workout;
   int _restRemainingSeconds = 0;
   Timer? _restTimer;
 
   // initialisation
-  WorkoutState({required WorkoutType workoutType})
+  WorkoutProvider({required WorkoutType workoutType})
     : _workout = Workout(workoutType: workoutType);
 
   // getters
@@ -47,9 +48,9 @@ class WorkoutState extends ChangeNotifier {
     return _restTimer?.isActive == true;
   }
 
-  void finish(AppState appState) {
+  void finish(AppProvider appProvider) {
     _workout.finish();
-    appState.completedWorkouts.add(_workout);
+    appProvider.completedWorkouts.add(_workout);
   }
 
   @override

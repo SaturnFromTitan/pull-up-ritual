@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/screens/shell.dart' show Shell;
-import 'package:pull_up_ritual/screens/widgets/home_button.dart'
-    show HomeButton;
-import 'package:pull_up_ritual/screens/widgets/set_cards.dart' show SetCards;
-import 'package:pull_up_ritual/screens/widgets/progress_bar.dart'
+import 'package:pull_up_ritual/shared/shell_screen.dart' show Shell;
+import 'package:pull_up_ritual/shared/widgets/home_button.dart' show HomeButton;
+import 'package:pull_up_ritual/features/workout/presentation/widgets/set_cards.dart'
+    show SetCards;
+import 'package:pull_up_ritual/features/workout/presentation/widgets/progress_bar.dart'
     show WorkoutProgressBar;
-import 'package:pull_up_ritual/states/workout.dart';
-import 'package:pull_up_ritual/utils.dart' show getSetCardValues;
+import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart';
+import 'package:pull_up_ritual/core/utils/utils.dart' show getSetCardValues;
 
-import '../states/app.dart' show AppState;
-import '../states/workout.dart' show WorkoutState;
-import '../states/models.dart' show WorkoutSet;
-import 'rest.dart' show RestScreen;
-import 'success.dart' show SuccessScreen;
+import 'package:pull_up_ritual/shared/providers/app_provider.dart'
+    show AppProvider;
+import 'package:pull_up_ritual/features/workout/data/models.dart'
+    show WorkoutSet;
+import 'rest_screen.dart' show RestScreen;
+import 'success_screen.dart' show SuccessScreen;
 
 abstract class BaseWorkoutScreen extends StatefulWidget {
   const BaseWorkoutScreen({super.key});
@@ -26,23 +27,23 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
   int get restDurationSeconds;
 
   int? getTargetReps();
-  double progress(WorkoutState workoutState);
-  Widget getInputs(WorkoutState workoutState, AppState appState);
+  double progress(WorkoutProvider workoutProvider);
+  Widget getInputs(WorkoutProvider workoutProvider, AppProvider appProvider);
 
-  void navigateToSuccess(WorkoutState workoutState) {
+  void navigateToSuccess(WorkoutProvider workoutProvider) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => SuccessScreen(workout: workoutState.workout),
+        builder: (_) => SuccessScreen(workout: workoutProvider.workout),
       ),
     );
   }
 
-  void navigateToRest(WorkoutState workoutState) {
+  void navigateToRest(WorkoutProvider workoutProvider) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider.value(
-          value: workoutState,
-          child: RestScreen(progress: progress(workoutState)),
+          value: workoutProvider,
+          child: RestScreen(progress: progress(workoutProvider)),
         ),
       ),
     );
@@ -55,8 +56,8 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
   void finishSet({
     required int group,
     required int completedReps,
-    required WorkoutState workoutState,
-    required AppState appState,
+    required WorkoutProvider workoutProvider,
+    required AppProvider appProvider,
   }) {
     // add set
     final set = WorkoutSet(
@@ -64,24 +65,24 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
       targetReps: getTargetReps(),
       completedReps: completedReps,
     );
-    workoutState.addSet(set);
+    workoutProvider.addSet(set);
 
     // navigate
-    if (progress(workoutState) == 1) {
-      workoutState.finish(appState);
-      navigateToSuccess(workoutState);
+    if (progress(workoutProvider) == 1) {
+      workoutProvider.finish(appProvider);
+      navigateToSuccess(workoutProvider);
     } else {
-      workoutState.rest(restDurationSeconds);
-      navigateToRest(workoutState);
+      workoutProvider.rest(restDurationSeconds);
+      navigateToRest(workoutProvider);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    var appState = context.read<AppState>();
-    var workoutState = context.watch<WorkoutState>();
+    var appProvider = context.read<AppProvider>();
+    var workoutProvider = context.watch<WorkoutProvider>();
     int? targetReps = getTargetReps();
-    Widget inputs = getInputs(workoutState, appState);
+    Widget inputs = getInputs(workoutProvider, appProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -90,8 +91,8 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(workoutState.workout.workoutType.name),
-              WorkoutProgressBar(value: progress(workoutState)),
+              Text(workoutProvider.workout.workoutType.name),
+              WorkoutProgressBar(value: progress(workoutProvider)),
               SizedBox(
                 width: double.infinity,
                 child: Card(
@@ -111,7 +112,9 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
               ),
               Align(
                 alignment: Alignment.topLeft,
-                child: SetCards(values: getSetCardValues(workoutState.workout)),
+                child: SetCards(
+                  values: getSetCardValues(workoutProvider.workout),
+                ),
               ),
               HomeButton(text: "Cancel", icon: Icons.close),
             ],

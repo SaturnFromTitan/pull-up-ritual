@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/states/workout.dart';
-
-import '../states/models.dart' show WorkoutType;
-import '../states/workout.dart' show WorkoutState;
-import 'workout_max_sets.dart' show WorkoutMaxSetsScreen;
-import 'workout_ladders.dart' show WorkoutLaddersScreen;
-import 'workout_submax_volume.dart' show WorkoutSubmaxVolumeScreen;
-import 'widgets/reps_form.dart' show RepsForm;
-
-const appTitle = 'Pull-Up Ritual';
+import 'package:pull_up_ritual/features/workout/data/models.dart'
+    show WorkoutType;
+import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart'
+    show WorkoutProvider;
+import 'package:pull_up_ritual/features/workout/presentation/screens/max_sets_screen.dart'
+    show MaxSetsScreen;
+import 'package:pull_up_ritual/features/workout/presentation/screens/ladders_screen.dart'
+    show LaddersScreen;
+import 'package:pull_up_ritual/features/workout/presentation/screens/submax_volume_screen.dart'
+    show SubmaxVolumeScreen;
+import 'package:pull_up_ritual/features/workout/presentation/widgets/reps_form.dart'
+    show RepsForm;
+import 'package:pull_up_ritual/core/constants/app_constants.dart'
+    show AppConstants;
 
 class WorkoutSelectionScreen extends StatefulWidget {
   const WorkoutSelectionScreen({super.key});
@@ -64,16 +68,16 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
     StatefulWidget workoutScreen;
     switch (_selected!) {
       case WorkoutType.maxSets:
-        workoutScreen = WorkoutMaxSetsScreen();
+        workoutScreen = MaxSetsScreen();
       case WorkoutType.submaxVolume:
-        workoutScreen = WorkoutSubmaxVolumeScreen(targetReps: result!);
+        workoutScreen = SubmaxVolumeScreen(targetReps: result!);
       case WorkoutType.ladders:
-        workoutScreen = WorkoutLaddersScreen();
+        workoutScreen = LaddersScreen();
     }
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider(
-          create: (_) => WorkoutState(workoutType: _selected!),
+          create: (_) => WorkoutProvider(workoutType: _selected!),
           child: workoutScreen,
         ),
       ),
@@ -90,7 +94,10 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(16),
-              child: Text(appTitle, style: theme.textTheme.displayMedium),
+              child: Text(
+                AppConstants.appTitle,
+                style: theme.textTheme.displayMedium,
+              ),
             ),
             Text(
               'Double your max pull-ups!',
