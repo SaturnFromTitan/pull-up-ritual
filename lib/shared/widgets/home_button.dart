@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:pull_up_ritual/screens/shell.dart' show Shell;
-import 'package:pull_up_ritual/states/tab.dart' show TabState;
+import 'package:pull_up_ritual/shared/shell_screen.dart' show Shell;
+import 'package:pull_up_ritual/shared/providers/app_provider.dart'
+    show AppProvider;
 
 class HomeButton extends StatelessWidget {
   final String text;
@@ -13,7 +14,7 @@ class HomeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () {
-        context.read<TabState>().reset();
+        context.read<AppProvider>().resetTab();
 
         Navigator.of(
           context,

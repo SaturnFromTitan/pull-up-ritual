@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pull_up_ritual/screens/widgets/home_button.dart'
-    show HomeButton;
-import 'package:pull_up_ritual/screens/widgets/set_cards.dart' show SetCards;
+import 'package:pull_up_ritual/shared/widgets/home_button.dart' show HomeButton;
+import 'package:pull_up_ritual/features/workout/presentation/widgets/set_cards.dart'
+    show SetCards;
 
-import '../states/models.dart' show Workout;
-import '../utils.dart' show formatMinutesSeconds, getSetCardValues;
+import 'package:pull_up_ritual/features/workout/data/models.dart' show Workout;
+import 'package:pull_up_ritual/core/utils/utils.dart'
+    show formatMinutesSeconds, getSetCardValues;
 
 class SuccessScreen extends StatelessWidget {
   final Workout workout;

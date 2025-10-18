@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/screens/widgets/set_cards.dart' show SetCards;
-import 'package:pull_up_ritual/states/app.dart';
-import 'package:pull_up_ritual/states/models.dart';
-import 'package:pull_up_ritual/utils.dart'
+import 'package:pull_up_ritual/features/workout/presentation/widgets/set_cards.dart'
+    show SetCards;
+import 'package:pull_up_ritual/shared/providers/app_provider.dart';
+import 'package:pull_up_ritual/features/workout/data/models.dart';
+import 'package:pull_up_ritual/core/utils/utils.dart'
     show getSetCardValues, formatMinutesSeconds, datetimeToString;
 
 class HistoryScreen extends StatelessWidget {
@@ -12,8 +13,8 @@ class HistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appState = context.read<AppState>();
-    final workouts = appState.completedWorkouts;
+    final appProvider = context.read<AppProvider>();
+    final workouts = appProvider.completedWorkouts;
     final numWorkouts = workouts.length;
     final totalReps = workouts.fold(0, (t, w) => t + w.totalReps());
 
