@@ -11,27 +11,14 @@ String formatMinutesSeconds(int totalSeconds) {
 }
 
 List<String> getSetCardValues(Workout workout) {
-  var values = <String>[];
-  var lastGroup = -1;
-  var currentValue = "";
+  Map<int, int> repsPerGroup = {};
+
   for (var set_ in workout.sets) {
-    if (set_.group != lastGroup && lastGroup != -1) {
-      values.add(currentValue);
-      currentValue = "";
-    }
-
-    if (set_.group == lastGroup) {
-      currentValue += "+${set_.completedReps}";
-    } else if (currentValue == "") {
-      currentValue = "${set_.completedReps}";
-    }
-
-    lastGroup = set_.group;
+    var group = set_.group;
+    var reps = set_.completedReps;
+    repsPerGroup[group] = (repsPerGroup[group] ?? 0) + reps;
   }
-  if (currentValue != "") {
-    values.add(currentValue);
-  }
-  return values;
+  return repsPerGroup.values.map((int e) => e.toString()).toList();
 }
 
 String datetimeToString(DateTime dt) {
