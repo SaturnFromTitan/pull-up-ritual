@@ -60,12 +60,12 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
     required AppProvider appProvider,
   }) {
     // add set
-    final set = WorkoutSet(
+    final set_ = WorkoutSet(
       group: group,
       targetReps: getTargetReps(),
       completedReps: completedReps,
     );
-    workoutProvider.addSet(set);
+    workoutProvider.addSet(set_);
 
     // navigate
     if (progress(workoutProvider) == 1) {

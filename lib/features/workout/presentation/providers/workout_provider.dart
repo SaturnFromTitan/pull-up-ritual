@@ -21,8 +21,8 @@ class WorkoutProvider extends ChangeNotifier {
   int get restTimeRemaining => _restRemainingSeconds;
 
   // lifecyle management
-  void addSet(WorkoutSet set) {
-    _workout.sets.add(set);
+  void addSet(WorkoutSet set_) {
+    _workout.sets.add(set_);
   }
 
   void rest(final int durationSeconds) {
