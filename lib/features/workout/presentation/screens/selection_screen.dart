@@ -23,61 +23,53 @@ class WorkoutSelectionScreen extends StatefulWidget {
 }
 
 class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
-  WorkoutType? _selected;
+  WorkoutType _selected = WorkoutType.maxSets;
+
+  Future<int?> askForTargetReps() async {
+    var res = await showDialog<int>(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(40),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Enter Your Target Reps', style: TextStyle(fontSize: 18)),
+                SizedBox(height: 20),
+                RepsForm(
+                  onValidSubmit: (int reps) => Navigator.pop(context, reps),
+                  onCancel: () => Navigator.pop(context),
+                  minValue: 1,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    return res;
+  }
 
   void _handleSubmit() async {
-    if (_selected == null) {
-      const snackbar = SnackBar(content: Text("Please select a workout type!"));
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
-      return;
-    }
-
-    int? result;
-    if (_selected == WorkoutType.submaxVolume) {
-      result = await showDialog<int>(
-        context: context,
-        builder: (context) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(40),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Enter Your Target Reps',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 20),
-                  RepsForm(
-                    onValidSubmit: (int reps) => Navigator.pop(context, reps),
-                    onCancel: () => Navigator.pop(context),
-                    minValue: 1,
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );
-      if (!mounted || result == null) return;
-    }
-
     StatefulWidget workoutScreen;
-    switch (_selected!) {
+    switch (_selected) {
       case WorkoutType.maxSets:
         workoutScreen = MaxSetsScreen();
       case WorkoutType.submaxVolume:
-        workoutScreen = SubmaxVolumeScreen(targetReps: result!);
+        var targetReps = await askForTargetReps();
+        if (!mounted || targetReps == null) return null;
+        workoutScreen = SubmaxVolumeScreen(targetReps: targetReps);
       case WorkoutType.ladders:
         workoutScreen = LaddersScreen();
     }
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider(
-          create: (_) => WorkoutProvider(workoutType: _selected!),
+          create: (_) => WorkoutProvider(workoutType: _selected),
           child: workoutScreen,
         ),
       ),
@@ -109,6 +101,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
             RadioGroup<WorkoutType>(
               groupValue: _selected,
               onChanged: (WorkoutType? newType) {
+                if (newType == null) return;
                 setState(() {
                   _selected = newType;
                 });
