@@ -14,19 +14,19 @@ List<String> getSetCardValues(Workout workout) {
   var values = <String>[];
   var lastGroup = -1;
   var currentValue = "";
-  for (var set in workout.sets) {
-    if (set.group != lastGroup && lastGroup != -1) {
+  for (var set_ in workout.sets) {
+    if (set_.group != lastGroup && lastGroup != -1) {
       values.add(currentValue);
       currentValue = "";
     }
 
-    if (set.group == lastGroup) {
-      currentValue += "+${set.completedReps}";
+    if (set_.group == lastGroup) {
+      currentValue += "+${set_.completedReps}";
     } else if (currentValue == "") {
-      currentValue = "${set.completedReps}";
+      currentValue = "${set_.completedReps}";
     }
 
-    lastGroup = set.group;
+    lastGroup = set_.group;
   }
   if (currentValue != "") {
     values.add(currentValue);
