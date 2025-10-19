@@ -12,6 +12,14 @@ import 'package:pull_up_ritual/features/workout/presentation/screens/submax_volu
     show SubmaxVolumeScreen;
 import 'package:pull_up_ritual/features/workout/presentation/widgets/reps_form.dart'
     show RepsForm;
+import 'package:pull_up_ritual/core/widgets/gradient_background.dart'
+    show GradientBackground;
+import 'package:pull_up_ritual/core/widgets/workout_card.dart' show WorkoutCard;
+import 'package:pull_up_ritual/core/widgets/gradient_button.dart'
+    show GradientButton;
+import 'package:pull_up_ritual/core/themes/app_spacing.dart' show AppSpacing;
+import 'package:pull_up_ritual/core/themes/app_typography.dart'
+    show AppTypography;
 import 'package:pull_up_ritual/core/constants/app_constants.dart'
     show AppConstants;
 
@@ -78,50 +86,111 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                AppConstants.appTitle,
-                style: theme.textTheme.displayMedium,
-              ),
+      body: GradientBackground(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.screenPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header section
+                _buildHeader(),
+
+                const SizedBox(height: AppSpacing.cardGap),
+
+                // Workout cards section
+                Expanded(
+                  child: Column(
+                    children: [
+                      WorkoutCard(
+                        title: 'Max Sets',
+                        description: '3x max reps with 5min rest',
+                        icon: const Icon(
+                          Icons.fitness_center,
+                          color: Colors.white,
+                          size: 27,
+                        ),
+                        isSelected: _selected == WorkoutType.maxSets,
+                        onTap: () =>
+                            setState(() => _selected = WorkoutType.maxSets),
+                      ),
+
+                      const SizedBox(height: AppSpacing.cardGap),
+
+                      WorkoutCard(
+                        title: 'Submax Volume',
+                        description: '10 sets at 50% max with 1min rest',
+                        icon: const Icon(
+                          Icons.timeline,
+                          color: Colors.white,
+                          size: 27,
+                        ),
+                        isSelected: _selected == WorkoutType.submaxVolume,
+                        onTap: () => setState(
+                          () => _selected = WorkoutType.submaxVolume,
+                        ),
+                      ),
+
+                      const SizedBox(height: AppSpacing.cardGap),
+
+                      WorkoutCard(
+                        title: 'Ladders',
+                        description: '5 ladders: 1, 2, 3... with 30sec rest',
+                        icon: const Icon(
+                          Icons.trending_up,
+                          color: Colors.white,
+                          size: 27,
+                        ),
+                        isSelected: _selected == WorkoutType.ladders,
+                        onTap: () =>
+                            setState(() => _selected = WorkoutType.ladders),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: AppSpacing.cardGap),
+
+                // Start workout button
+                GradientButton(
+                  text: 'Start Workout',
+                  icon: const Icon(
+                    Icons.play_arrow,
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                  onPressed: _handleSubmit,
+                ),
+              ],
             ),
-            Text(
-              'Double your max pull-ups!',
-              style: theme.textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 40),
-            Text('Choose your workout type:', style: theme.textTheme.bodyLarge),
-            const SizedBox(height: 16),
-            RadioGroup<WorkoutType>(
-              groupValue: _selected,
-              onChanged: (WorkoutType? newType) {
-                if (newType == null) return;
-                setState(() {
-                  _selected = newType;
-                });
-              },
-              child: Column(
-                children: WorkoutType.values.map((type) {
-                  return RadioListTile<WorkoutType>(
-                    value: type,
-                    title: Text(type.name),
-                  );
-                }).toList(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _handleSubmit,
-              child: Text('Start Workout'),
-            ),
-          ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        children: [
+          // App title
+          Text(
+            AppConstants.appTitle,
+            style: AppTypography.displayLarge,
+            textAlign: TextAlign.center,
+          ),
+
+          const SizedBox(height: AppSpacing.sm),
+
+          // Subtitle - centered
+          Text(
+            'The plan for doubling your max pull ups!',
+            style: AppTypography.headlineSmall,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }

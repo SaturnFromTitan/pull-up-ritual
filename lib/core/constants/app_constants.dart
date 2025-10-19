@@ -1,3 +1,3 @@
 class AppConstants {
-  static const String appTitle = "Pull Up Ritual";
+  static const String appTitle = "Pull-Up Ritual";
 }
