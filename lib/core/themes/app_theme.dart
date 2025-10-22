@@ -8,6 +8,8 @@ final appTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
 
+  scaffoldBackgroundColor: Colors.transparent,
+
   // TODO: define ColorTheme
   // TODO: define TextTheme
 

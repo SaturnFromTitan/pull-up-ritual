@@ -13,8 +13,6 @@ import 'package:pull_up_ritual/features/workout/presentation/screens/submax_volu
     show SubmaxVolumeScreen;
 import 'package:pull_up_ritual/features/workout/presentation/widgets/reps_form.dart'
     show RepsForm;
-import 'package:pull_up_ritual/core/widgets/gradient_background.dart'
-    show GradientBackground;
 import 'package:pull_up_ritual/core/widgets/workout_card.dart' show WorkoutCard;
 import 'package:pull_up_ritual/core/widgets/gradient_button.dart'
     show GradientButton;
@@ -87,87 +85,73 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GradientBackground(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(AppSpacing.screenPadding),
+    return Padding(
+      padding: const EdgeInsets.all(AppSpacing.screenPadding),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header section
+          _buildHeader(),
+
+          const SizedBox(height: AppSpacing.cardGap),
+
+          // Workout cards section
+          Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header section
-                _buildHeader(),
-
-                const SizedBox(height: AppSpacing.cardGap),
-
-                // Workout cards section
-                Expanded(
-                  child: Column(
-                    children: [
-                      WorkoutCard(
-                        title: 'Max Sets',
-                        description: '3x max reps with 5min rest',
-                        icon: const Icon(
-                          Icons.fitness_center,
-                          color: Colors.white,
-                          size: 27,
-                        ),
-                        isSelected: _selected == WorkoutType.maxSets,
-                        onTap: () =>
-                            setState(() => _selected = WorkoutType.maxSets),
-                      ),
-
-                      const SizedBox(height: AppSpacing.cardGap),
-
-                      WorkoutCard(
-                        title: 'Submax Volume',
-                        description: '10 sets at 50% max with 1min rest',
-                        icon: const Icon(
-                          Icons.timeline,
-                          color: Colors.white,
-                          size: 27,
-                        ),
-                        isSelected: _selected == WorkoutType.submaxVolume,
-                        onTap: () => setState(
-                          () => _selected = WorkoutType.submaxVolume,
-                        ),
-                      ),
-
-                      const SizedBox(height: AppSpacing.cardGap),
-
-                      WorkoutCard(
-                        title: 'Ladders',
-                        description:
-                            '5 ladders: 1, 2, 3, ... reps with 30sec rest',
-                        icon: const Icon(
-                          Icons.trending_up,
-                          color: Colors.white,
-                          size: 27,
-                        ),
-                        isSelected: _selected == WorkoutType.ladders,
-                        onTap: () =>
-                            setState(() => _selected = WorkoutType.ladders),
-                      ),
-                    ],
+                WorkoutCard(
+                  title: 'Max Sets',
+                  description: '3x max reps with 5min rest',
+                  icon: const Icon(
+                    Icons.fitness_center,
+                    color: Colors.white,
+                    size: 27,
                   ),
+                  isSelected: _selected == WorkoutType.maxSets,
+                  onTap: () => setState(() => _selected = WorkoutType.maxSets),
                 ),
 
                 const SizedBox(height: AppSpacing.cardGap),
 
-                // Start workout button
-                GradientButton(
-                  text: 'Start Workout',
+                WorkoutCard(
+                  title: 'Submax Volume',
+                  description: '10 sets at 50% max with 1min rest',
                   icon: const Icon(
-                    Icons.play_arrow,
+                    Icons.timeline,
                     color: Colors.white,
-                    size: 18,
+                    size: 27,
                   ),
-                  onPressed: _handleSubmit,
+                  isSelected: _selected == WorkoutType.submaxVolume,
+                  onTap: () =>
+                      setState(() => _selected = WorkoutType.submaxVolume),
+                ),
+
+                const SizedBox(height: AppSpacing.cardGap),
+
+                WorkoutCard(
+                  title: 'Ladders',
+                  description: '5 ladders: 1, 2, 3, ... reps with 30sec rest',
+                  icon: const Icon(
+                    Icons.trending_up,
+                    color: Colors.white,
+                    size: 27,
+                  ),
+                  isSelected: _selected == WorkoutType.ladders,
+                  onTap: () => setState(() => _selected = WorkoutType.ladders),
                 ),
               ],
             ),
           ),
-        ),
+
+          const SizedBox(height: AppSpacing.cardGap),
+
+          // Start workout button
+          GradientButton(
+            text: 'Start Workout',
+            icon: const Icon(Icons.play_arrow, color: Colors.white, size: 18),
+            onPressed: _handleSubmit,
+          ),
+        ],
       ),
     );
   }

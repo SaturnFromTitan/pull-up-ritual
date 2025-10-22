@@ -18,29 +18,23 @@ class HistoryScreen extends StatelessWidget {
     final numWorkouts = workouts.length;
     final totalReps = workouts.fold(0, (t, w) => t + w.totalReps());
 
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.all(20.0),
-          child: ListView(
+    return Container(
+      margin: const EdgeInsets.all(20.0),
+      child: ListView(
+        children: [
+          Text(
+            "Workout History",
+            textAlign: TextAlign.center,
+            style: theme.textTheme.displaySmall,
+          ),
+          Row(
             children: [
-              Text(
-                "Workout History",
-                textAlign: TextAlign.center,
-                style: theme.textTheme.displaySmall,
-              ),
-              Row(
-                children: [
-                  TotalCard(value: numWorkouts, text: "Total Workouts"),
-                  TotalCard(value: totalReps, text: "Total Reps"),
-                ],
-              ),
-              ...[
-                for (var workout in workouts) WorkoutHistory(workout: workout),
-              ],
+              TotalCard(value: numWorkouts, text: "Total Workouts"),
+              TotalCard(value: totalReps, text: "Total Reps"),
             ],
           ),
-        ),
+          ...[for (var workout in workouts) WorkoutHistory(workout: workout)],
+        ],
       ),
     );
   }

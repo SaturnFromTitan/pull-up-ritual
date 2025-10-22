@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/core/widgets/gradient_scaffold.dart';
 import 'package:pull_up_ritual/features/history/presentation/screens/history_screen.dart'
     show HistoryScreen;
 import 'package:pull_up_ritual/features/workout/presentation/screens/selection_screen.dart';
@@ -14,7 +15,7 @@ class Shell extends StatelessWidget {
   Widget build(BuildContext context) {
     final appProvider = context.watch<AppProvider>();
 
-    return Scaffold(
+    return GradientScaffold(
       body: IndexedStack(
         index: appProvider.tabIndex,
         children: [WorkoutSelectionScreen(), HistoryScreen()],
