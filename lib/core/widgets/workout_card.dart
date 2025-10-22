@@ -8,8 +8,7 @@ class WorkoutCard extends StatelessWidget {
   final String description;
   final Widget icon;
   final bool isSelected;
-  final bool isRecommended;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
 
   const WorkoutCard({
     super.key,
@@ -17,8 +16,7 @@ class WorkoutCard extends StatelessWidget {
     required this.description,
     required this.icon,
     this.isSelected = false,
-    this.isRecommended = false,
-    this.onTap,
+    required this.onTap,
   });
 
   @override
@@ -26,11 +24,9 @@ class WorkoutCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: isRecommended ? 101.659 : 121.903,
+        height: 121.903,
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppColors.glassBackground
-              : AppColors.glassBackground,
+          color: AppColors.glassBackground,
           borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
           border: Border.all(
             color: isSelected
@@ -39,82 +35,53 @@ class WorkoutCard extends StatelessWidget {
             width: 1.337,
           ),
         ),
-        child: Stack(
-          children: [
-            // Main content
-            Padding(
-              padding: const EdgeInsets.all(AppSpacing.cardPadding),
-              child: Row(
-                children: [
-                  // Icon container with gradient background
-                  Container(
-                    width: AppSpacing.cardIconSize,
-                    height: AppSpacing.cardIconSize,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: AppColors.primaryGradient,
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        AppSpacing.radiusLarge,
-                      ),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: AppColors.shadow,
-                          blurRadius: 10,
-                          offset: Offset(0, 4),
-                        ),
-                      ],
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpacing.cardPadding),
+          child: Row(
+            children: [
+              // Icon container with gradient background
+              Container(
+                width: AppSpacing.cardIconSize,
+                height: AppSpacing.cardIconSize,
+                decoration: BoxDecoration(
+                  gradient: AppGradients.primary,
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppColors.shadow,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
                     ),
-                    child: Center(child: icon),
-                  ),
-
-                  SizedBox(width: AppSpacing.cardGap),
-
-                  // Text content
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(title, style: AppTypography.headlineMedium),
-                        const SizedBox(height: 2.246),
-                        Flexible(
-                          child: Text(
-                            description,
-                            style: AppTypography.headlineSmall,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
+                child: Center(child: icon),
               ),
-            ),
 
-            // Recommended badge
-            if (isRecommended)
-              Positioned(
-                top: -30,
-                right: 0,
-                child: Container(
-                  width: AppSpacing.badgeWidth,
-                  height: AppSpacing.badgeHeight,
-                  decoration: BoxDecoration(
-                    color: AppColors.accent,
-                    borderRadius: BorderRadius.circular(
-                      AppSpacing.radiusMedium,
+              SizedBox(width: AppSpacing.cardGap),
+
+              // Text content
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(title, style: AppTypography.headlineMedium),
+                    const SizedBox(height: 2.246),
+                    Flexible(
+                      child: Text(
+                        description,
+                        style: AppTypography.headlineSmall.copyWith(
+                          color: AppColors.onColorSecondary,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  child: Center(
-                    child: Text('Recommended', style: AppTypography.labelLarge),
-                  ),
+                  ],
                 ),
               ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/core/themes/app_colors.dart';
 import 'package:pull_up_ritual/features/workout/data/models.dart'
     show WorkoutType;
 import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart'
@@ -136,7 +137,8 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 
                       WorkoutCard(
                         title: 'Ladders',
-                        description: '5 ladders: 1, 2, 3... with 30sec rest',
+                        description:
+                            '5 ladders: 1, 2, 3, ... reps with 30sec rest',
                         icon: const Icon(
                           Icons.trending_up,
                           color: Colors.white,
@@ -187,7 +189,9 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
           // Subtitle - centered
           Text(
             'The plan for doubling your max pull ups!',
-            style: AppTypography.headlineSmall,
+            style: AppTypography.headlineSmall.copyWith(
+              color: AppColors.onColorSecondary,
+            ),
             textAlign: TextAlign.center,
           ),
         ],

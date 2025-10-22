@@ -4,6 +4,7 @@ import 'package:pull_up_ritual/features/history/presentation/screens/history_scr
     show HistoryScreen;
 import 'package:pull_up_ritual/features/workout/presentation/screens/selection_screen.dart';
 import 'package:pull_up_ritual/shared/providers/app_provider.dart';
+import 'package:pull_up_ritual/shared/widgets/gradient_navigation_bar.dart';
 
 class Shell extends StatelessWidget {
   static final String route = "/shell";
@@ -18,14 +19,14 @@ class Shell extends StatelessWidget {
         index: appProvider.tabIndex,
         children: [WorkoutSelectionScreen(), HistoryScreen()],
       ),
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: GradientNavigationBar(
         selectedIndex: appProvider.tabIndex,
         onDestinationSelected: appProvider.setTabIndex,
-        destinations: [
+        destinations: const [
           NavigationDestination(
             icon: Icon(Icons.fitness_center_outlined),
             selectedIcon: Icon(Icons.fitness_center),
-            label: 'Selection',
+            label: 'Workout',
           ),
           NavigationDestination(
             icon: Icon(Icons.history_outlined),
