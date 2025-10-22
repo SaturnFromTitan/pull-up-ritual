@@ -13,7 +13,6 @@ import 'package:pull_up_ritual/features/workout/presentation/screens/submax_volu
     show SubmaxVolumeScreen;
 import 'package:pull_up_ritual/features/workout/presentation/widgets/reps_form.dart'
     show RepsForm;
-import 'package:pull_up_ritual/core/widgets/workout_card.dart' show WorkoutCard;
 import 'package:pull_up_ritual/core/widgets/gradient_button.dart'
     show GradientButton;
 import 'package:pull_up_ritual/core/themes/app_spacing.dart' show AppSpacing;
@@ -99,7 +98,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
           Expanded(
             child: Column(
               children: [
-                WorkoutCard(
+                _WorkoutCard(
                   title: 'Max Sets',
                   description: '3x max reps with 5min rest',
                   icon: const Icon(
@@ -114,7 +113,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 
                 const SizedBox(height: AppSpacing.cardGap),
 
-                WorkoutCard(
+                _WorkoutCard(
                   title: 'Submax Volume',
                   description: '10 sets at 50% max with 1min rest',
                   icon: const Icon(
@@ -130,7 +129,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 
                 const SizedBox(height: AppSpacing.cardGap),
 
-                WorkoutCard(
+                _WorkoutCard(
                   title: 'Ladders',
                   description: '5 ladders: 1, 2, 3, ... reps with 30sec rest',
                   icon: const Icon(
@@ -182,6 +181,93 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
             textAlign: TextAlign.center,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _WorkoutCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final Widget icon;
+  final bool isSelected;
+  final LinearGradient gradient;
+  final VoidCallback onTap;
+
+  const _WorkoutCard({
+    // super.key,
+    required this.title,
+    required this.description,
+    required this.icon,
+    required this.gradient,
+    this.isSelected = false,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 121.903,
+        decoration: BoxDecoration(
+          color: AppColors.glassBackground,
+          borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
+          border: Border.all(
+            color: isSelected
+                ? AppColors.glassBorder
+                : AppColors.glassBorderSecondary,
+            width: 1.337,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpacing.cardPadding),
+          child: Row(
+            children: [
+              // Icon container with gradient background
+              Container(
+                width: AppSpacing.cardIconSize,
+                height: AppSpacing.cardIconSize,
+                decoration: BoxDecoration(
+                  gradient: gradient,
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppColors.shadow,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Center(child: icon),
+              ),
+
+              SizedBox(width: AppSpacing.cardGap),
+
+              // Text content
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(title, style: AppTypography.headlineMedium),
+                    const SizedBox(height: 2.246),
+                    Flexible(
+                      child: Text(
+                        description,
+                        style: AppTypography.headlineSmall.copyWith(
+                          color: AppColors.onColorSecondary,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
