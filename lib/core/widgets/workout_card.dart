@@ -8,6 +8,7 @@ class WorkoutCard extends StatelessWidget {
   final String description;
   final Widget icon;
   final bool isSelected;
+  final LinearGradient gradient;
   final VoidCallback onTap;
 
   const WorkoutCard({
@@ -15,6 +16,7 @@ class WorkoutCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.icon,
+    required this.gradient,
     this.isSelected = false,
     required this.onTap,
   });
@@ -44,7 +46,7 @@ class WorkoutCard extends StatelessWidget {
                 width: AppSpacing.cardIconSize,
                 height: AppSpacing.cardIconSize,
                 decoration: BoxDecoration(
-                  gradient: AppGradients.primary,
+                  gradient: gradient,
                   borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
                   boxShadow: const [
                     BoxShadow(

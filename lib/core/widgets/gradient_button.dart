@@ -5,18 +5,16 @@ import '../themes/app_typography.dart';
 
 class GradientButton extends StatelessWidget {
   final String text;
-  final Widget? icon;
-  final VoidCallback? onPressed;
-  final double? width;
-  final double? height;
+  final VoidCallback onPressed;
+  final Widget icon;
+  final LinearGradient gradient;
 
   const GradientButton({
     super.key,
     required this.text,
-    this.icon,
-    this.onPressed,
-    this.width,
-    this.height,
+    required this.onPressed,
+    required this.icon,
+    this.gradient = AppGradients.primary,
   });
 
   @override
@@ -24,10 +22,9 @@ class GradientButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: width ?? double.infinity,
-        height: height ?? AppSpacing.buttonHeight,
+        height: AppSpacing.buttonHeight,
         decoration: BoxDecoration(
-          gradient: AppGradients.primary,
+          gradient: gradient,
           borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
           boxShadow: const [
             BoxShadow(
@@ -40,7 +37,8 @@ class GradientButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (icon != null) ...[icon!, const SizedBox(width: AppSpacing.sm)],
+            icon,
+            const SizedBox(width: AppSpacing.sm),
             Text(text, style: AppTypography.headlineLarge),
           ],
         ),

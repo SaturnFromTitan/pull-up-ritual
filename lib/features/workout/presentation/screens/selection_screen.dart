@@ -107,6 +107,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                     color: Colors.white,
                     size: 27,
                   ),
+                  gradient: AppGradients.primary,
                   isSelected: _selected == WorkoutType.maxSets,
                   onTap: () => setState(() => _selected = WorkoutType.maxSets),
                 ),
@@ -117,10 +118,11 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                   title: 'Submax Volume',
                   description: '10 sets at 50% max with 1min rest',
                   icon: const Icon(
-                    Icons.timeline,
+                    Icons.center_focus_strong,
                     color: Colors.white,
                     size: 27,
                   ),
+                  gradient: AppGradients.accentPurple,
                   isSelected: _selected == WorkoutType.submaxVolume,
                   onTap: () =>
                       setState(() => _selected = WorkoutType.submaxVolume),
@@ -136,6 +138,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                     color: Colors.white,
                     size: 27,
                   ),
+                  gradient: AppGradients.accentGreen,
                   isSelected: _selected == WorkoutType.ladders,
                   onTap: () => setState(() => _selected = WorkoutType.ladders),
                 ),
@@ -148,7 +151,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
           // Start workout button
           GradientButton(
             text: 'Start Workout',
-            icon: const Icon(Icons.play_arrow, color: Colors.white, size: 18),
+            icon: const Icon(Icons.play_arrow, color: Colors.white),
             onPressed: _handleSubmit,
           ),
         ],
