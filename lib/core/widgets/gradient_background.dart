@@ -4,29 +4,13 @@ import '../themes/app_spacing.dart';
 
 class GradientBackground extends StatelessWidget {
   final Widget child;
-  final List<Color>? colors;
-  final AlignmentGeometry? begin;
-  final AlignmentGeometry? end;
 
-  const GradientBackground({
-    super.key,
-    required this.child,
-    this.colors,
-    this.begin,
-    this.end,
-  });
+  const GradientBackground({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: colors ?? AppColors.backgroundGradient,
-          begin: begin ?? Alignment.topLeft,
-          end: end ?? Alignment.bottomRight,
-          stops: const [0.0, 0.5, 1.0], // 0%, 50%, 100%
-        ),
-      ),
+      decoration: BoxDecoration(gradient: AppGradients.background),
       child: child,
     );
   }
@@ -41,11 +25,7 @@ class PrimaryGradientBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: AppColors.primaryGradient,
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
+        gradient: AppGradients.primary,
         borderRadius: BorderRadius.all(
           Radius.circular(AppSpacing.radiusMedium),
         ),
