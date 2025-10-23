@@ -36,9 +36,6 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
       context: context,
       builder: (context) {
         return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
           child: Padding(
             padding: const EdgeInsets.all(40),
             child: Column(

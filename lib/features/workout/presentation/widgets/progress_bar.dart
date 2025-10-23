@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pull_up_ritual/core/themes/app_spacing.dart';
 
 class WorkoutProgressBar extends StatelessWidget {
   final double value;
@@ -8,7 +9,7 @@ class WorkoutProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return LinearProgressIndicator(
       value: value,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(AppSpacing.radiusSmall),
       minHeight: 10,
     );
   }
