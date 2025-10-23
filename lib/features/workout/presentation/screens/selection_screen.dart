@@ -133,7 +133,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 
                 _WorkoutCard(
                   title: 'Submax Volume',
-                  description: '10 sets at 50% max with 1min rest',
+                  description: '10 sets at 50% max reps with 1min rest',
                   icon: const Icon(
                     Icons.center_focus_strong,
                     color: Colors.white,
