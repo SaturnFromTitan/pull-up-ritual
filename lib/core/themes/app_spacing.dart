@@ -12,14 +12,13 @@ class AppSpacing {
   static const double xxxl = base * 16; // 64px
 
   // Specific spacing values from design
+  // TODO: move these into the specific widget files
   static const double cardPadding = 19.34; // From Figma
   static const double cardGap = 13.496; // From Figma
   static const double screenPadding = 26.992; // From Figma
   static const double iconSize = 35.996; // From Figma
   static const double cardIconSize = 53.994; // From Figma
   static const double buttonHeight = 71.992; // From Figma
-  static const double badgeHeight = 35.0; // From Figma
-  static const double badgeWidth = 119.0; // From Figma
 
   // Border radius
   static const double radiusSmall = 8.0;

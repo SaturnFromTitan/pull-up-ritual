@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pull_up_ritual/core/themes/app_colors.dart';
+import 'package:pull_up_ritual/core/themes/app_spacing.dart';
 import 'package:pull_up_ritual/core/themes/app_typography.dart';
 
 class GradientNavigationBar extends StatelessWidget {
@@ -15,7 +16,7 @@ class GradientNavigationBar extends StatelessWidget {
   });
 
   static const double _barTopPadding = 9.7; // ~9.662
-  static const double _itemRadius = 22.0;
+  static const double _itemRadius = AppSpacing.radiusLarge;
   static const double _iconSize = 27.0; // ~26.992
   static const double _gap = 4.5; // ~4.492
 
