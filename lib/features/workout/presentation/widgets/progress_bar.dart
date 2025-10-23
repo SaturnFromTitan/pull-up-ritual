@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pull_up_ritual/core/themes/app_spacing.dart';
+import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 
 class WorkoutProgressBar extends StatelessWidget {
   final double value;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart';
 
-import 'package:pull_up_ritual/shared/providers/app_provider.dart'
+import 'package:pull_up_ritual/common/providers/app_provider.dart'
     show AppProvider;
 import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart'
     show WorkoutProvider;

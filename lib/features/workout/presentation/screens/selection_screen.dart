@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/core/themes/app_colors.dart';
-import 'package:pull_up_ritual/core/widgets/gradient_surface.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
+import 'package:pull_up_ritual/common/widgets/gradient_surface.dart';
 import 'package:pull_up_ritual/features/workout/data/models.dart'
     show WorkoutType;
 import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart'
@@ -14,12 +14,12 @@ import 'package:pull_up_ritual/features/workout/presentation/screens/submax_volu
     show SubmaxVolumeScreen;
 import 'package:pull_up_ritual/features/workout/presentation/widgets/reps_form.dart'
     show RepsForm;
-import 'package:pull_up_ritual/core/widgets/gradient_button.dart'
+import 'package:pull_up_ritual/common/widgets/gradient_button.dart'
     show GradientButton;
-import 'package:pull_up_ritual/core/themes/app_spacing.dart' show AppSpacing;
-import 'package:pull_up_ritual/core/themes/app_typography.dart'
+import 'package:pull_up_ritual/common/themes/app_spacing.dart' show AppSpacing;
+import 'package:pull_up_ritual/common/themes/app_typography.dart'
     show AppTypography;
-import 'package:pull_up_ritual/core/constants/app_constants.dart'
+import 'package:pull_up_ritual/common/constants/app_constants.dart'
     show AppConstants;
 
 class WorkoutSelectionScreen extends StatefulWidget {

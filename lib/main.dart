@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/shared/shell_screen.dart';
+import 'package:pull_up_ritual/common/shell_screen.dart';
 
-import 'shared/providers/app_provider.dart' show AppProvider;
-import 'core/constants/app_constants.dart' show AppConstants;
-import 'core/themes/app_theme.dart' show appTheme;
+import 'common/providers/app_provider.dart' show AppProvider;
+import 'common/constants/app_constants.dart' show AppConstants;
+import 'common/themes/app_theme.dart' show appTheme;
 
 void main() {
   runApp(App());

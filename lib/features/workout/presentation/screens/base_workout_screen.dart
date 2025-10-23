@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/core/widgets/screen_scaffold.dart';
-import 'package:pull_up_ritual/shared/shell_screen.dart' show Shell;
-import 'package:pull_up_ritual/shared/widgets/home_button.dart' show HomeButton;
+import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
+import 'package:pull_up_ritual/common/shell_screen.dart' show Shell;
+import 'package:pull_up_ritual/common/widgets/home_button.dart' show HomeButton;
 import 'package:pull_up_ritual/features/workout/presentation/widgets/set_cards.dart'
     show SetCards;
 import 'package:pull_up_ritual/features/workout/presentation/widgets/progress_bar.dart'
     show WorkoutProgressBar;
 import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart';
-import 'package:pull_up_ritual/core/utils/utils.dart' show getSetCardValues;
+import 'package:pull_up_ritual/common/utils/utils.dart' show getSetCardValues;
 
-import 'package:pull_up_ritual/shared/providers/app_provider.dart'
+import 'package:pull_up_ritual/common/providers/app_provider.dart'
     show AppProvider;
 import 'package:pull_up_ritual/features/workout/data/models.dart'
     show WorkoutSet;
