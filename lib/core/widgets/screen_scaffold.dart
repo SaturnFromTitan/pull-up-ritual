@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pull_up_ritual/core/themes/app_spacing.dart';
-import 'package:pull_up_ritual/core/widgets/gradient_surface.dart'
-    show GradientSurface;
+import 'package:pull_up_ritual/core/utils/utils.dart';
 import '../themes/app_colors.dart';
 
 class ScreenScaffold extends StatelessWidget {
@@ -19,16 +18,32 @@ class ScreenScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GradientSurface(
-      gradient: AppGradients.background,
+    const gradient = AppGradients.background;
+
+    // not using GradientSurface as the DefaultTextStyle would be overridden
+    // by Scaffolds text styles
+    return Container(
+      decoration: BoxDecoration(gradient: gradient),
       child: Scaffold(
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: _screenPaddingHorizontal,
-              vertical: _screenPaddingVertical,
-            ),
-            child: child,
+          child: Builder(
+            builder: (context) {
+              final textColor = getTextColorOnGradient(gradient, context);
+
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: _screenPaddingHorizontal,
+                  vertical: _screenPaddingVertical,
+                ),
+                child: DefaultTextStyle.merge(
+                  style: TextStyle(color: textColor),
+                  child: IconTheme.merge(
+                    data: IconThemeData(color: textColor),
+                    child: child,
+                  ),
+                ),
+              );
+            },
           ),
         ),
         bottomNavigationBar: bottomNavigationBar,

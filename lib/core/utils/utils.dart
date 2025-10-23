@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:pull_up_ritual/features/workout/data/models.dart' show Workout;
 
 String twoDigits(int n) {
@@ -28,4 +29,17 @@ String datetimeToString(DateTime dt) {
   var hour = dt.hour.toString().padLeft(2, '0');
   var minute = dt.minute.toString().padLeft(2, '0');
   return "$year-$month-$day $hour:$minute";
+}
+
+Color getTextColorOnGradient(LinearGradient gradient, BuildContext context) {
+  final scheme = Theme.of(context).colorScheme;
+  final onLight = scheme.onSurface; // for light/white surfaces
+  final onColor = scheme.onPrimary; // for colored surfaces
+
+  final c0 = gradient.colors.first;
+  final c1 = gradient.colors.last;
+  final mid = Color.lerp(c0, c1, 0.5)!;
+
+  final brightness = ThemeData.estimateBrightnessForColor(mid);
+  return brightness == Brightness.dark ? onColor : onLight;
 }
