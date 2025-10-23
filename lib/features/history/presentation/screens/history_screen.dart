@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/core/themes/app_colors.dart';
 import 'package:pull_up_ritual/core/themes/app_spacing.dart';
 import 'package:pull_up_ritual/core/themes/app_typography.dart';
 import 'package:pull_up_ritual/features/workout/presentation/widgets/set_cards.dart'
@@ -70,9 +69,7 @@ class TotalCard extends StatelessWidget {
           children: [
             Text(
               value.toString(),
-              style: AppTypography.headlineLarge.copyWith(
-                color: AppColors.onLight,
-              ),
+              style: AppTypography.headlineLarge,
             ),
             Text(text, style: theme.textTheme.bodyMedium),
           ],

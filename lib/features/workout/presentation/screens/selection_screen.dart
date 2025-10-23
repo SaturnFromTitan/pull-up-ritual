@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/core/themes/app_colors.dart';
+import 'package:pull_up_ritual/core/widgets/gradient_surface.dart';
 import 'package:pull_up_ritual/features/workout/data/models.dart'
     show WorkoutType;
 import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart'
@@ -31,6 +32,7 @@ class WorkoutSelectionScreen extends StatefulWidget {
 class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
   WorkoutType _selected = WorkoutType.maxSets;
   static const double _cardGap = AppSpacing.base * 3;
+  static const double _iconSize = 27.0;
 
   Future<int?> askForTargetReps() async {
     var res = await showDialog<int>(
@@ -118,11 +120,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
               _WorkoutCard(
                 title: 'Max Sets',
                 description: '3x max reps with 5min rest',
-                icon: const Icon(
-                  Icons.fitness_center,
-                  color: Colors.white,
-                  size: 27,
-                ),
+                icon: const Icon(Icons.speed, size: _iconSize),
                 gradient: AppGradients.primary,
                 isSelected: _selected == WorkoutType.maxSets,
                 onTap: () => setState(() => _selected = WorkoutType.maxSets),
@@ -133,11 +131,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
               _WorkoutCard(
                 title: 'Submax Volume',
                 description: '10 sets at 50% max reps with 1min rest',
-                icon: const Icon(
-                  Icons.center_focus_strong,
-                  color: Colors.white,
-                  size: 27,
-                ),
+                icon: const Icon(Icons.center_focus_strong, size: _iconSize),
                 gradient: AppGradients.accentPurple,
                 isSelected: _selected == WorkoutType.submaxVolume,
                 onTap: () =>
@@ -149,11 +143,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
               _WorkoutCard(
                 title: 'Ladders',
                 description: '5 ladders: 1, 2, 3, ... reps with 30sec rest',
-                icon: const Icon(
-                  Icons.trending_up,
-                  color: Colors.white,
-                  size: 27,
-                ),
+                icon: const Icon(Icons.trending_up, size: _iconSize),
                 gradient: AppGradients.accentGreen,
                 isSelected: _selected == WorkoutType.ladders,
                 onTap: () => setState(() => _selected = WorkoutType.ladders),
@@ -167,7 +157,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
         // Start workout button
         GradientButton(
           text: 'Start Workout',
-          icon: const Icon(Icons.play_arrow, color: Colors.white),
+          icon: const Icon(Icons.play_arrow),
           onPressed: _handleSubmit,
         ),
       ],
@@ -193,6 +183,7 @@ class _WorkoutCard extends StatelessWidget {
     required this.onTap,
   });
 
+  static const double _cardHeight = 120.0;
   static const double _iconSize = 55.0;
 
   @override
@@ -200,7 +191,7 @@ class _WorkoutCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 121.903,
+        height: _cardHeight,
         decoration: BoxDecoration(
           color: AppColors.glassBackground,
           borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
@@ -214,21 +205,18 @@ class _WorkoutCard extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: Row(
             children: [
-              // Icon container with gradient background
-              Container(
+              GradientSurface(
                 width: _iconSize,
                 height: _iconSize,
-                decoration: BoxDecoration(
-                  gradient: gradient,
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: AppColors.shadow,
-                      blurRadius: 10,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
+                gradient: gradient,
+                borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
+                boxShadow: const [
+                  BoxShadow(
+                    color: AppColors.shadow,
+                    blurRadius: AppSpacing.radiusSmall,
+                    offset: Offset(0, 4),
+                  ),
+                ],
                 child: Center(child: icon),
               ),
 
