@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/common/themes/app_colors.dart';
 import 'package:pull_up_ritual/common/widgets/gradient_surface.dart';
-import 'package:pull_up_ritual/features/workout/models.dart'
-    show WorkoutType;
+import 'package:pull_up_ritual/features/workout/models.dart' show WorkoutType;
 import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart'
     show WorkoutProvider;
 import 'package:pull_up_ritual/features/workout/screens/max_sets_screen.dart'
