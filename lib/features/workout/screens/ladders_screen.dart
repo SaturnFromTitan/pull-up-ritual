@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart';
+import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart';
 
 import 'package:pull_up_ritual/common/providers/app_provider.dart'
     show AppProvider;
-import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart'
+import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart'
     show WorkoutProvider;
 import 'base_workout_screen.dart' show BaseWorkoutScreen, BaseWorkoutState;
-import 'package:pull_up_ritual/features/workout/presentation/widgets/reps_form.dart'
+import 'package:pull_up_ritual/features/workout/widgets/reps_form.dart'
     show RepsForm;
 
 class LaddersScreen extends BaseWorkoutScreen {

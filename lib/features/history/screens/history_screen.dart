@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/themes/app_typography.dart';
-import 'package:pull_up_ritual/features/workout/presentation/widgets/set_cards.dart'
+import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart'
     show SetCards;
 import 'package:pull_up_ritual/common/providers/app_provider.dart';
-import 'package:pull_up_ritual/features/workout/data/models.dart';
+import 'package:pull_up_ritual/features/workout/models.dart';
 import 'package:pull_up_ritual/common/utils/utils.dart'
     show getSetCardValues, formatMinutesSeconds, datetimeToString;
 
@@ -14,7 +14,6 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final appProvider = context.read<AppProvider>();
     final workouts = appProvider.completedWorkouts.reversed.toList();
     final numWorkouts = workouts.length;
@@ -25,7 +24,7 @@ class HistoryScreen extends StatelessWidget {
         Text(
           "Workout History",
           textAlign: TextAlign.center,
-          style: theme.textTheme.displaySmall,
+          style: AppTypography.displayMedium,
         ),
         SizedBox(height: AppSpacing.md),
         Row(
@@ -61,17 +60,13 @@ class TotalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Card(
       child: Padding(
         padding: EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Text(
-              value.toString(),
-              style: AppTypography.headlineLarge,
-            ),
-            Text(text, style: theme.textTheme.bodyMedium),
+            Text(value.toString(), style: AppTypography.headlineLarge),
+            Text(text, style: AppTypography.bodyMedium),
           ],
         ),
       ),
@@ -86,7 +81,6 @@ class WorkoutHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return SizedBox(
       width: double.infinity,
       child: Card(
@@ -96,7 +90,7 @@ class WorkoutHistory extends StatelessWidget {
             children: [
               Text(
                 workout.workoutType.name,
-                style: theme.textTheme.titleMedium,
+                style: AppTypography.headlineMedium,
               ),
               Text(datetimeToString(workout.start)),
               Text(

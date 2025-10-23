@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pull_up_ritual/features/workout/data/models.dart' show Workout;
+import 'package:pull_up_ritual/features/workout/models.dart' show Workout;
 
 class AppProvider extends ChangeNotifier {
   var completedWorkouts = <Workout>[];

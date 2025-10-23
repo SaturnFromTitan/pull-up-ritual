@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pull_up_ritual/common/themes/app_typography.dart';
 import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
 import 'package:pull_up_ritual/common/widgets/home_button.dart' show HomeButton;
-import 'package:pull_up_ritual/features/workout/presentation/widgets/set_cards.dart'
+import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart'
     show SetCards;
 
-import 'package:pull_up_ritual/features/workout/data/models.dart' show Workout;
+import 'package:pull_up_ritual/features/workout/models.dart' show Workout;
 import 'package:pull_up_ritual/common/utils/utils.dart'
     show formatMinutesSeconds, getSetCardValues;
 
@@ -15,7 +16,6 @@ class SuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final durationText = formatMinutesSeconds(workout.durationSeconds() ?? 0);
     final totalReps = workout.totalReps();
 
@@ -26,24 +26,24 @@ class SuccessScreen extends StatelessWidget {
           children: [
             Text(
               '🎉\nWorkout\nCompleted!',
-              style: theme.textTheme.displayMedium,
+              style: AppTypography.displayMedium,
               textAlign: TextAlign.center,
             ),
             Column(
               children: [
                 Text(
                   workout.workoutType.name,
-                  style: theme.textTheme.headlineMedium,
+                  style: AppTypography.headlineMedium,
                 ),
                 const SizedBox(height: 12),
                 Text(
                   "Duration: $durationText",
-                  style: theme.textTheme.headlineSmall,
+                  style: AppTypography.headlineSmall,
                 ),
                 const SizedBox(height: 12),
                 Text(
                   "Total Reps: $totalReps",
-                  style: theme.textTheme.headlineSmall,
+                  style: AppTypography.headlineSmall,
                 ),
                 const SizedBox(height: 40),
                 SetCards(values: getSetCardValues(workout)),
