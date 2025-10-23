@@ -63,3 +63,16 @@ class AppGradients {
     end: Alignment.bottomRight,
   );
 }
+
+Color getTextColorOnGradient(LinearGradient gradient, BuildContext context) {
+  final scheme = Theme.of(context).colorScheme;
+  final onLight = scheme.onSurface; // for light/white surfaces
+  final onColor = scheme.onPrimary; // for colored surfaces
+
+  final c0 = gradient.colors.first;
+  final c1 = gradient.colors.last;
+  final mid = Color.lerp(c0, c1, 0.5)!;
+
+  final brightness = ThemeData.estimateBrightnessForColor(mid);
+  return brightness == Brightness.dark ? onColor : onLight;
+}

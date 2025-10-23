@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pull_up_ritual/core/utils/utils.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
 
 /// Drop-in wrapper for your colorful cards/headers
 class GradientSurface extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:pull_up_ritual/shared/shell_screen.dart' show Shell;
-import 'package:pull_up_ritual/shared/providers/app_provider.dart'
+import 'package:pull_up_ritual/common/shell_screen.dart' show Shell;
+import 'package:pull_up_ritual/common/providers/app_provider.dart'
     show AppProvider;
 
 class HomeButton extends StatelessWidget {

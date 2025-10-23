@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/core/themes/app_spacing.dart';
-import 'package:pull_up_ritual/core/themes/app_typography.dart';
+import 'package:pull_up_ritual/common/themes/app_spacing.dart';
+import 'package:pull_up_ritual/common/themes/app_typography.dart';
 import 'package:pull_up_ritual/features/workout/presentation/widgets/set_cards.dart'
     show SetCards;
-import 'package:pull_up_ritual/shared/providers/app_provider.dart';
+import 'package:pull_up_ritual/common/providers/app_provider.dart';
 import 'package:pull_up_ritual/features/workout/data/models.dart';
-import 'package:pull_up_ritual/core/utils/utils.dart'
+import 'package:pull_up_ritual/common/utils/utils.dart'
     show getSetCardValues, formatMinutesSeconds, datetimeToString;
 
 class HistoryScreen extends StatelessWidget {

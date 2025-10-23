@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pull_up_ritual/core/themes/app_spacing.dart';
-import 'package:pull_up_ritual/core/utils/utils.dart';
+import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import '../themes/app_colors.dart';
 
 class ScreenScaffold extends StatelessWidget {

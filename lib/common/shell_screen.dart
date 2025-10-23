@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/core/widgets/screen_scaffold.dart';
+import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
 import 'package:pull_up_ritual/features/history/presentation/screens/history_screen.dart'
     show HistoryScreen;
 import 'package:pull_up_ritual/features/workout/presentation/screens/selection_screen.dart';
-import 'package:pull_up_ritual/shared/providers/app_provider.dart';
-import 'package:pull_up_ritual/shared/widgets/gradient_navigation_bar.dart';
+import 'package:pull_up_ritual/common/providers/app_provider.dart';
+import 'package:pull_up_ritual/common/widgets/gradient_navigation_bar.dart';
 
 class Shell extends StatelessWidget {
   static final String route = "/shell";
