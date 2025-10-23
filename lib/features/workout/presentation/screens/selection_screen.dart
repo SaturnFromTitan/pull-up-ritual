@@ -30,6 +30,7 @@ class WorkoutSelectionScreen extends StatefulWidget {
 
 class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
   WorkoutType _selected = WorkoutType.maxSets;
+  static const double _cardGap = AppSpacing.base * 3;
 
   Future<int?> askForTargetReps() async {
     var res = await showDialog<int>(
@@ -108,7 +109,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
           ),
         ),
 
-        const SizedBox(height: AppSpacing.cardGap),
+        const SizedBox(height: _cardGap),
 
         // Workout cards section
         Expanded(
@@ -127,7 +128,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                 onTap: () => setState(() => _selected = WorkoutType.maxSets),
               ),
 
-              const SizedBox(height: AppSpacing.cardGap),
+              const SizedBox(height: _cardGap),
 
               _WorkoutCard(
                 title: 'Submax Volume',
@@ -143,7 +144,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                     setState(() => _selected = WorkoutType.submaxVolume),
               ),
 
-              const SizedBox(height: AppSpacing.cardGap),
+              const SizedBox(height: _cardGap),
 
               _WorkoutCard(
                 title: 'Ladders',
@@ -161,7 +162,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
           ),
         ),
 
-        const SizedBox(height: AppSpacing.cardGap),
+        const SizedBox(height: _cardGap),
 
         // Start workout button
         GradientButton(
@@ -192,6 +193,8 @@ class _WorkoutCard extends StatelessWidget {
     required this.onTap,
   });
 
+  static const double _iconSize = 55.0;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -203,19 +206,18 @@ class _WorkoutCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
           border: Border.all(
             color: isSelected
-                ? AppColors.glassBorder
-                : AppColors.glassBorderSecondary,
-            width: 1.337,
+                ? AppColors.glassBorderActive
+                : AppColors.glassBorderInactive,
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.cardPadding),
+          padding: const EdgeInsets.all(20.0),
           child: Row(
             children: [
               // Icon container with gradient background
               Container(
-                width: AppSpacing.cardIconSize,
-                height: AppSpacing.cardIconSize,
+                width: _iconSize,
+                height: _iconSize,
                 decoration: BoxDecoration(
                   gradient: gradient,
                   borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
@@ -230,7 +232,7 @@ class _WorkoutCard extends StatelessWidget {
                 child: Center(child: icon),
               ),
 
-              SizedBox(width: AppSpacing.cardGap),
+              SizedBox(width: AppSpacing.md),
 
               // Text content
               Expanded(
@@ -239,7 +241,7 @@ class _WorkoutCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(title, style: AppTypography.headlineMedium),
-                    const SizedBox(height: 2.246),
+                    const SizedBox(height: AppSpacing.xs),
                     Flexible(
                       child: Text(
                         description,

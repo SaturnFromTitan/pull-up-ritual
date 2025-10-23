@@ -15,14 +15,7 @@ class GradientNavigationBar extends StatelessWidget {
     required this.destinations,
   });
 
-  static const double _barTopPadding = 9.7; // ~9.662
-  static const double _itemRadius = AppSpacing.radiusLarge;
-  static const double _iconSize = 27.0; // ~26.992
-  static const double _gap = 4.5; // ~4.492
-
-  // Figma colors
-  static const Color _inactiveColor = AppColors.onLightInactive;
-  static const LinearGradient _selectedGradient = AppGradients.primary;
+  static const double _iconSize = 25.0;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +24,7 @@ class GradientNavigationBar extends StatelessWidget {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.only(top: _barTopPadding),
+          padding: const EdgeInsets.only(top: 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(destinations.length, (index) {
@@ -68,19 +61,19 @@ class _NavItem extends StatelessWidget {
     required this.onTap,
   });
 
+  static const Color _inactiveColor = AppColors.onLightInactive;
+
   @override
   Widget build(BuildContext context) {
     final TextStyle labelStyle = AppTypography.labelLarge.copyWith(
-      color: isSelected ? Colors.white : GradientNavigationBar._inactiveColor,
-      height: 18 / 13.5, // leading 18 per Figma
-      letterSpacing: -0.1121, // per Figma
-      fontWeight: FontWeight.w400, // Inter Regular per Figma
+      color: isSelected ? Colors.white : _inactiveColor,
+      fontWeight: FontWeight.w400,
     );
 
     final Widget coloredIcon = IconTheme(
       data: IconThemeData(
         size: GradientNavigationBar._iconSize,
-        color: isSelected ? Colors.white : GradientNavigationBar._inactiveColor,
+        color: isSelected ? Colors.white : _inactiveColor,
       ),
       child: icon,
     );
@@ -90,11 +83,9 @@ class _NavItem extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: Container(
         decoration: BoxDecoration(
-          gradient: isSelected ? GradientNavigationBar._selectedGradient : null,
+          gradient: isSelected ? AppGradients.primary : null,
           color: isSelected ? null : Colors.transparent,
-          borderRadius: BorderRadius.circular(
-            GradientNavigationBar._itemRadius,
-          ),
+          borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
         ),
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
         child: Column(
@@ -102,7 +93,7 @@ class _NavItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             coloredIcon,
-            SizedBox(height: GradientNavigationBar._gap),
+            SizedBox(height: AppSpacing.xs),
             Text(label, style: labelStyle),
           ],
         ),
