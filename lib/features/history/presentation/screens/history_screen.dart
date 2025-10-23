@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/core/themes/app_colors.dart';
+import 'package:pull_up_ritual/core/themes/app_spacing.dart';
+import 'package:pull_up_ritual/core/themes/app_typography.dart';
 import 'package:pull_up_ritual/features/workout/presentation/widgets/set_cards.dart'
     show SetCards;
 import 'package:pull_up_ritual/shared/providers/app_provider.dart';
@@ -14,28 +17,40 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final appProvider = context.read<AppProvider>();
-    final workouts = appProvider.completedWorkouts;
+    final workouts = appProvider.completedWorkouts.reversed.toList();
     final numWorkouts = workouts.length;
     final totalReps = workouts.fold(0, (t, w) => t + w.totalReps());
 
-    return Container(
-      margin: const EdgeInsets.all(20.0),
-      child: ListView(
-        children: [
-          Text(
-            "Workout History",
-            textAlign: TextAlign.center,
-            style: theme.textTheme.displaySmall,
-          ),
-          Row(
+    return Column(
+      children: [
+        Text(
+          "Workout History",
+          textAlign: TextAlign.center,
+          style: theme.textTheme.displaySmall,
+        ),
+        SizedBox(height: AppSpacing.md),
+        Row(
+          children: [
+            Expanded(
+              child: TotalCard(value: numWorkouts, text: "Total Workouts"),
+            ),
+            SizedBox(width: AppSpacing.xs),
+            Expanded(
+              child: TotalCard(value: totalReps, text: "Total Reps"),
+            ),
+          ],
+        ),
+        SizedBox(height: AppSpacing.xs),
+        Expanded(
+          child: ListView(
             children: [
-              TotalCard(value: numWorkouts, text: "Total Workouts"),
-              TotalCard(value: totalReps, text: "Total Reps"),
+              ...[
+                for (var workout in workouts) WorkoutHistory(workout: workout),
+              ],
             ],
           ),
-          ...[for (var workout in workouts) WorkoutHistory(workout: workout)],
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -50,11 +65,16 @@ class TotalCard extends StatelessWidget {
     final theme = Theme.of(context);
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(40.0),
+        padding: EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Text(value.toString(), style: theme.textTheme.headlineMedium),
-            Text(text),
+            Text(
+              value.toString(),
+              style: AppTypography.headlineLarge.copyWith(
+                color: AppColors.onLight,
+              ),
+            ),
+            Text(text, style: theme.textTheme.bodyMedium),
           ],
         ),
       ),
