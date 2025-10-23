@@ -26,10 +26,10 @@ class AppColors {
     Color(0xFF16A34A),
   ];
 
-  // Glassmorphism colors - White overlays for dark background  - TODO: rename these
+  // Glassmorphism colors - White overlays for dark background
   static const Color glassBackground = Color(0x1AFFFFFF); // 10% white opacity
-  static const Color glassBorder = Color(0xB3FFFFFF); // 70% white opacity
-  static const Color glassBorderSecondary = Color(
+  static const Color glassBorderActive = Color(0xB3FFFFFF); // 70% white opacity
+  static const Color glassBorderInactive = Color(
     0x33FFFFFF,
   ); // 20% white opacity}
 

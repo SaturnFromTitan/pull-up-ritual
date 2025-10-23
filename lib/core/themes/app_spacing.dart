@@ -11,18 +11,13 @@ class AppSpacing {
   static const double xxl = base * 10; // 40px
   static const double xxxl = base * 16; // 64px
 
-  // Specific spacing values from design
-  // TODO: move these into the specific widget files
-  static const double cardPadding = 19.34; // From Figma
-  static const double cardGap = 13.496; // From Figma
-  static const double iconSize = 35.996; // From Figma
-  static const double cardIconSize = 53.994; // From Figma
-  static const double buttonHeight = 71.992; // From Figma
-
   // Border radius
   static const double radiusSmall = 8.0;
   static const double radiusMedium = 16.0;
   static const double radiusLarge = 22.0;
   static const double radiusXLarge = 32.0;
   static const double radiusFull = 999.0; // For circular elements
+
+  // Specific spacing values from design
+  static const double buttonHeight = 70.0;
 }
