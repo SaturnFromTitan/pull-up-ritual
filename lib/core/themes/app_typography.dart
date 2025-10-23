@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'app_colors.dart';
 
 class AppTypography {
   // Font family
@@ -12,7 +11,6 @@ class AppTypography {
     fontWeight: FontWeight.w500,
     height: 1.5,
     letterSpacing: 0.3,
-    color: AppColors.onColor,
   );
 
   static const TextStyle displayMedium = TextStyle(
@@ -21,7 +19,6 @@ class AppTypography {
     fontWeight: FontWeight.w500,
     height: 1.4,
     letterSpacing: 0.2,
-    color: AppColors.onColor,
   );
 
   static const TextStyle displaySmall = TextStyle(
@@ -30,7 +27,6 @@ class AppTypography {
     fontWeight: FontWeight.w500,
     height: 1.4,
     letterSpacing: 0.2,
-    color: AppColors.onColor,
   );
 
   // Headline styles
@@ -40,7 +36,6 @@ class AppTypography {
     fontWeight: FontWeight.w500,
     height: 1.56,
     letterSpacing: -0.43,
-    color: AppColors.onColor,
   );
 
   static const TextStyle headlineMedium = TextStyle(
@@ -49,7 +44,6 @@ class AppTypography {
     fontWeight: FontWeight.w400,
     height: 1.5,
     letterSpacing: -0.44,
-    color: AppColors.onColor,
   );
 
   static const TextStyle headlineSmall = TextStyle(
@@ -58,7 +52,6 @@ class AppTypography {
     fontWeight: FontWeight.w400,
     height: 1.43,
     letterSpacing: -0.29,
-    color: AppColors.onColorSecondary,
   );
 
   // Body styles

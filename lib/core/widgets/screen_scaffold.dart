@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pull_up_ritual/core/themes/app_spacing.dart';
+import 'package:pull_up_ritual/core/widgets/gradient_surface.dart'
+    show GradientSurface;
 import '../themes/app_colors.dart';
 
 class ScreenScaffold extends StatelessWidget {
@@ -17,8 +19,8 @@ class ScreenScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(gradient: AppGradients.background),
+    return GradientSurface(
+      gradient: AppGradients.background,
       child: Scaffold(
         body: SafeArea(
           child: Padding(

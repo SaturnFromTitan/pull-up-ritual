@@ -12,10 +12,10 @@ final appTheme = ThemeData(
 
   colorScheme: ColorScheme.light(
     onSurface: AppColors.onLight,
-    primary: Colors.transparent,
     onPrimary: AppColors.onColor,
-    secondary: Colors.transparent,
     onSecondary: AppColors.onColor,
+    onPrimaryContainer: AppColors.onColor,
+    onSecondaryContainer: AppColors.onColor,
   ),
 
   // Text theme
@@ -40,11 +40,7 @@ final appTheme = ThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
     ),
-    titleTextStyle: AppTypography.headlineMedium.copyWith(
-      color: AppColors.onLight,
-    ),
-    contentTextStyle: AppTypography.bodyMedium.copyWith(
-      color: AppColors.onLight,
-    ),
+    titleTextStyle: AppTypography.headlineMedium,
+    contentTextStyle: AppTypography.bodyMedium,
   ),
 );

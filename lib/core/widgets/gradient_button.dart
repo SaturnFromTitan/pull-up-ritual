@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../themes/app_colors.dart';
 import '../themes/app_spacing.dart';
 import '../themes/app_typography.dart';
+import 'gradient_surface.dart';
 
 class GradientButton extends StatelessWidget {
   final String text;
@@ -21,19 +22,17 @@ class GradientButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
+      child: GradientSurface(
+        gradient: gradient,
         height: AppSpacing.buttonHeight,
-        decoration: BoxDecoration(
-          gradient: gradient,
-          borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
-          boxShadow: const [
-            BoxShadow(
-              color: AppColors.shadow,
-              blurRadius: 10,
-              offset: Offset(0, 4),
-            ),
-          ],
-        ),
+        borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+        boxShadow: const [
+          BoxShadow(
+            color: AppColors.shadow,
+            blurRadius: 10,
+            offset: Offset(0, 4),
+          ),
+        ],
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
