@@ -18,24 +18,15 @@ class GradientNavigationBar extends StatelessWidget {
   static const double _itemRadius = 22.0;
   static const double _iconSize = 27.0; // ~26.992
   static const double _gap = 4.5; // ~4.492
-  static const double _borderTopWidth = 0.67; // ~0.669
 
   // Figma colors
-  static const Color _inactiveColor = Color(0xFF4A5565);
+  static const Color _inactiveColor = AppColors.onLightInactive;
   static const LinearGradient _selectedGradient = AppGradients.primary;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: const Border(
-          top: BorderSide(
-            width: GradientNavigationBar._borderTopWidth,
-            color: Color(0x33FFFFFF),
-          ), // 20% white
-        ),
-      ),
+      decoration: BoxDecoration(color: Colors.white),
       child: SafeArea(
         top: false,
         child: Padding(

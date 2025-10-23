@@ -4,7 +4,8 @@ class AppColors {
   // Text colors
   static const Color onColor = Colors.white;
   static const Color onColorSecondary = Color(0xCCFFFFFF);
-  static const Color onLight = Color(0xFFB0B0B0);
+  static const Color onLight = Color(0xFF2D3748);
+  static const Color onLightInactive = Color(0xFF4A5565);
 
   // Gradient color lists
   static const List<Color> gradientPrimary = [

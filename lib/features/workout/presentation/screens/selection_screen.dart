@@ -90,7 +90,28 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Header section
-          _buildHeader(),
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              children: [
+                // App title
+                Text(
+                  AppConstants.appTitle,
+                  style: AppTypography.displayLarge,
+                  textAlign: TextAlign.center,
+                ),
+
+                const SizedBox(height: AppSpacing.sm),
+
+                // Subtitle - centered
+                Text(
+                  'The plan for doubling your max pull ups!',
+                  style: AppTypography.headlineSmall,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
 
           const SizedBox(height: AppSpacing.cardGap),
 
@@ -152,33 +173,6 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
             text: 'Start Workout',
             icon: const Icon(Icons.play_arrow, color: Colors.white),
             onPressed: _handleSubmit,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        children: [
-          // App title
-          Text(
-            AppConstants.appTitle,
-            style: AppTypography.displayLarge,
-            textAlign: TextAlign.center,
-          ),
-
-          const SizedBox(height: AppSpacing.sm),
-
-          // Subtitle - centered
-          Text(
-            'The plan for doubling your max pull ups!',
-            style: AppTypography.headlineSmall.copyWith(
-              color: AppColors.onColorSecondary,
-            ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -255,9 +249,7 @@ class _WorkoutCard extends StatelessWidget {
                     Flexible(
                       child: Text(
                         description,
-                        style: AppTypography.headlineSmall.copyWith(
-                          color: AppColors.onColorSecondary,
-                        ),
+                        style: AppTypography.headlineSmall,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),

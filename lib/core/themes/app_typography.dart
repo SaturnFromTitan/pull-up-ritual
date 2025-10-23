@@ -24,6 +24,15 @@ class AppTypography {
     color: AppColors.onColor,
   );
 
+  static const TextStyle displaySmall = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 22,
+    fontWeight: FontWeight.w500,
+    height: 1.4,
+    letterSpacing: 0.2,
+    color: AppColors.onColor,
+  );
+
   // Headline styles
   static const TextStyle headlineLarge = TextStyle(
     fontFamily: fontFamily,
@@ -49,7 +58,7 @@ class AppTypography {
     fontWeight: FontWeight.w400,
     height: 1.43,
     letterSpacing: -0.29,
-    color: AppColors.onColor,
+    color: AppColors.onColorSecondary,
   );
 
   // Body styles
@@ -59,7 +68,6 @@ class AppTypography {
     fontWeight: FontWeight.w400,
     height: 1.5,
     letterSpacing: 0.15,
-    color: AppColors.onColor,
   );
 
   static const TextStyle bodyMedium = TextStyle(
@@ -68,7 +76,6 @@ class AppTypography {
     fontWeight: FontWeight.w400,
     height: 1.43,
     letterSpacing: 0.25,
-    color: AppColors.onColor,
   );
 
   static const TextStyle bodySmall = TextStyle(
@@ -77,7 +84,6 @@ class AppTypography {
     fontWeight: FontWeight.w400,
     height: 1.33,
     letterSpacing: 0.4,
-    color: AppColors.onColor,
   );
 
   // Label styles
@@ -87,7 +93,6 @@ class AppTypography {
     fontWeight: FontWeight.w500,
     height: 1.33,
     letterSpacing: -0.11,
-    color: AppColors.onColor,
   );
 
   static const TextStyle labelMedium = TextStyle(
@@ -96,7 +101,6 @@ class AppTypography {
     fontWeight: FontWeight.w500,
     height: 1.33,
     letterSpacing: 0.5,
-    color: AppColors.onColor,
   );
 
   static const TextStyle labelSmall = TextStyle(
@@ -105,6 +109,5 @@ class AppTypography {
     fontWeight: FontWeight.w500,
     height: 1.6,
     letterSpacing: 0.5,
-    color: AppColors.onColor,
   );
 }
