@@ -10,8 +10,29 @@ final appTheme = ThemeData(
 
   scaffoldBackgroundColor: Colors.transparent,
 
-  // TODO: define ColorTheme
-  // TODO: define TextTheme
+  colorScheme: ColorScheme.light(
+    onSurface: AppColors.onLight,
+    primary: Colors.transparent,
+    onPrimary: AppColors.onColor,
+    secondary: Colors.transparent,
+    onSecondary: AppColors.onColor,
+  ),
+
+  // Text theme
+  textTheme: const TextTheme(
+    displayLarge: AppTypography.displayLarge,
+    displayMedium: AppTypography.displayMedium,
+    displaySmall: AppTypography.displaySmall,
+    headlineLarge: AppTypography.headlineLarge,
+    headlineMedium: AppTypography.headlineMedium,
+    headlineSmall: AppTypography.headlineSmall,
+    bodyLarge: AppTypography.bodyLarge,
+    bodyMedium: AppTypography.bodyMedium,
+    bodySmall: AppTypography.bodySmall,
+    labelLarge: AppTypography.labelLarge,
+    labelMedium: AppTypography.labelMedium,
+    labelSmall: AppTypography.labelSmall,
+  ),
 
   // Dialog theme
   dialogTheme: DialogThemeData(
