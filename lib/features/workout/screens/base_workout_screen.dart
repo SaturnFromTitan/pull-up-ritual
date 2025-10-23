@@ -3,16 +3,16 @@ import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
 import 'package:pull_up_ritual/common/shell_screen.dart' show Shell;
 import 'package:pull_up_ritual/common/widgets/home_button.dart' show HomeButton;
-import 'package:pull_up_ritual/features/workout/presentation/widgets/set_cards.dart'
+import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart'
     show SetCards;
-import 'package:pull_up_ritual/features/workout/presentation/widgets/progress_bar.dart'
+import 'package:pull_up_ritual/features/workout/widgets/progress_bar.dart'
     show WorkoutProgressBar;
-import 'package:pull_up_ritual/features/workout/presentation/providers/workout_provider.dart';
+import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart';
 import 'package:pull_up_ritual/common/utils/utils.dart' show getSetCardValues;
 
 import 'package:pull_up_ritual/common/providers/app_provider.dart'
     show AppProvider;
-import 'package:pull_up_ritual/features/workout/data/models.dart'
+import 'package:pull_up_ritual/features/workout/models.dart'
     show WorkoutSet;
 import 'rest_screen.dart' show RestScreen;
 import 'success_screen.dart' show SuccessScreen;
