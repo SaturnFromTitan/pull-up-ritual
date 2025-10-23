@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/core/widgets/gradient_scaffold.dart';
+import 'package:pull_up_ritual/core/widgets/screen_scaffold.dart';
 import 'package:pull_up_ritual/shared/shell_screen.dart' show Shell;
 import 'package:pull_up_ritual/shared/widgets/home_button.dart' show HomeButton;
 import 'package:pull_up_ritual/features/workout/presentation/widgets/set_cards.dart'
@@ -85,40 +85,35 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
     int? targetReps = getTargetReps();
     Widget inputs = getInputs(workoutProvider, appProvider);
 
-    return GradientScaffold(
-      body: Container(
-        margin: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(workoutProvider.workout.workoutType.name),
-            WorkoutProgressBar(value: progress(workoutProvider)),
-            SizedBox(
-              width: double.infinity,
-              child: Card(
-                child: Padding(
-                  padding: EdgeInsets.all(40.0),
-                  child: Column(
-                    children: [
-                      targetReps == null
-                          ? Text("Do as many reps as possible! 🔥")
-                          : Text("do $targetReps reps"),
-                      SizedBox(height: 40),
-                      inputs,
-                    ],
-                  ),
+    return ScreenScaffold(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(workoutProvider.workout.workoutType.name),
+          WorkoutProgressBar(value: progress(workoutProvider)),
+          SizedBox(
+            width: double.infinity,
+            child: Card(
+              child: Padding(
+                padding: EdgeInsets.all(40.0),
+                child: Column(
+                  children: [
+                    targetReps == null
+                        ? Text("Do as many reps as possible! 🔥")
+                        : Text("do $targetReps reps"),
+                    SizedBox(height: 40),
+                    inputs,
+                  ],
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: SetCards(
-                values: getSetCardValues(workoutProvider.workout),
-              ),
-            ),
-            HomeButton(text: "Cancel", icon: Icons.close),
-          ],
-        ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: SetCards(values: getSetCardValues(workoutProvider.workout)),
+          ),
+          HomeButton(text: "Cancel", icon: Icons.close),
+        ],
       ),
     );
   }

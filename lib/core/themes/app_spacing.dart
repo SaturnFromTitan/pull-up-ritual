@@ -15,7 +15,6 @@ class AppSpacing {
   // TODO: move these into the specific widget files
   static const double cardPadding = 19.34; // From Figma
   static const double cardGap = 13.496; // From Figma
-  static const double screenPadding = 26.992; // From Figma
   static const double iconSize = 35.996; // From Figma
   static const double cardIconSize = 53.994; // From Figma
   static const double buttonHeight = 71.992; // From Figma

@@ -81,98 +81,95 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(AppSpacing.screenPadding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header section
-          SizedBox(
-            width: double.infinity,
-            child: Column(
-              children: [
-                // App title
-                Text(
-                  AppConstants.appTitle,
-                  style: AppTypography.displayLarge,
-                  textAlign: TextAlign.center,
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header section
+        SizedBox(
+          width: double.infinity,
+          child: Column(
+            children: [
+              // App title
+              Text(
+                AppConstants.appTitle,
+                style: AppTypography.displayLarge,
+                textAlign: TextAlign.center,
+              ),
 
-                const SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
 
-                // Subtitle - centered
-                Text(
-                  'The plan for doubling your max pull ups!',
-                  style: AppTypography.headlineSmall,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
+              // Subtitle - centered
+              Text(
+                'The plan for doubling your max pull ups!',
+                style: AppTypography.headlineSmall,
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
+        ),
 
-          const SizedBox(height: AppSpacing.cardGap),
+        const SizedBox(height: AppSpacing.cardGap),
 
-          // Workout cards section
-          Expanded(
-            child: Column(
-              children: [
-                _WorkoutCard(
-                  title: 'Max Sets',
-                  description: '3x max reps with 5min rest',
-                  icon: const Icon(
-                    Icons.fitness_center,
-                    color: Colors.white,
-                    size: 27,
-                  ),
-                  gradient: AppGradients.primary,
-                  isSelected: _selected == WorkoutType.maxSets,
-                  onTap: () => setState(() => _selected = WorkoutType.maxSets),
+        // Workout cards section
+        Expanded(
+          child: Column(
+            children: [
+              _WorkoutCard(
+                title: 'Max Sets',
+                description: '3x max reps with 5min rest',
+                icon: const Icon(
+                  Icons.fitness_center,
+                  color: Colors.white,
+                  size: 27,
                 ),
+                gradient: AppGradients.primary,
+                isSelected: _selected == WorkoutType.maxSets,
+                onTap: () => setState(() => _selected = WorkoutType.maxSets),
+              ),
 
-                const SizedBox(height: AppSpacing.cardGap),
+              const SizedBox(height: AppSpacing.cardGap),
 
-                _WorkoutCard(
-                  title: 'Submax Volume',
-                  description: '10 sets at 50% max reps with 1min rest',
-                  icon: const Icon(
-                    Icons.center_focus_strong,
-                    color: Colors.white,
-                    size: 27,
-                  ),
-                  gradient: AppGradients.accentPurple,
-                  isSelected: _selected == WorkoutType.submaxVolume,
-                  onTap: () =>
-                      setState(() => _selected = WorkoutType.submaxVolume),
+              _WorkoutCard(
+                title: 'Submax Volume',
+                description: '10 sets at 50% max reps with 1min rest',
+                icon: const Icon(
+                  Icons.center_focus_strong,
+                  color: Colors.white,
+                  size: 27,
                 ),
+                gradient: AppGradients.accentPurple,
+                isSelected: _selected == WorkoutType.submaxVolume,
+                onTap: () =>
+                    setState(() => _selected = WorkoutType.submaxVolume),
+              ),
 
-                const SizedBox(height: AppSpacing.cardGap),
+              const SizedBox(height: AppSpacing.cardGap),
 
-                _WorkoutCard(
-                  title: 'Ladders',
-                  description: '5 ladders: 1, 2, 3, ... reps with 30sec rest',
-                  icon: const Icon(
-                    Icons.trending_up,
-                    color: Colors.white,
-                    size: 27,
-                  ),
-                  gradient: AppGradients.accentGreen,
-                  isSelected: _selected == WorkoutType.ladders,
-                  onTap: () => setState(() => _selected = WorkoutType.ladders),
+              _WorkoutCard(
+                title: 'Ladders',
+                description: '5 ladders: 1, 2, 3, ... reps with 30sec rest',
+                icon: const Icon(
+                  Icons.trending_up,
+                  color: Colors.white,
+                  size: 27,
                 ),
-              ],
-            ),
+                gradient: AppGradients.accentGreen,
+                isSelected: _selected == WorkoutType.ladders,
+                onTap: () => setState(() => _selected = WorkoutType.ladders),
+              ),
+            ],
           ),
+        ),
 
-          const SizedBox(height: AppSpacing.cardGap),
+        const SizedBox(height: AppSpacing.cardGap),
 
-          // Start workout button
-          GradientButton(
-            text: 'Start Workout',
-            icon: const Icon(Icons.play_arrow, color: Colors.white),
-            onPressed: _handleSubmit,
-          ),
-        ],
-      ),
+        // Start workout button
+        GradientButton(
+          text: 'Start Workout',
+          icon: const Icon(Icons.play_arrow, color: Colors.white),
+          onPressed: _handleSubmit,
+        ),
+      ],
     );
   }
 }
