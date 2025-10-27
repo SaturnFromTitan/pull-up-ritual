@@ -37,10 +37,9 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Enter Your Target Reps',
-                  style: AppTypography.headlineMedium.copyWith(
-                    fontWeight: FontWeight.w500,
-                  ),
+                  '🎯\nEnter Your Target Reps',
+                  style: AppTypography.headlineLarge,
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(height: AppSpacing.md),
                 RepsForm(

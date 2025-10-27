@@ -91,7 +91,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
     var workoutProvider = context.watch<WorkoutProvider>();
     int? targetReps = getTargetReps();
     Widget inputs = getInputs(workoutProvider, appProvider);
-    final instructionTextStyle = AppTypography.headlineMedium;
+    final instructionTextStyle = AppTypography.headlineLarge;
 
     return ScreenScaffold(
       child: Column(
@@ -113,7 +113,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
                         ? Column(
                             children: [
                               Text(
-                                "Do as many reps as possible! 🔥",
+                                "Do as many reps as possible!",
                                 style: instructionTextStyle,
                               ),
                               SizedBox(height: AppSpacing.xl),
