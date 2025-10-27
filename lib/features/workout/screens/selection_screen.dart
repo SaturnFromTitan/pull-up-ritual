@@ -213,7 +213,7 @@ class _WorkoutCard extends StatelessWidget {
                 width: _iconSize,
                 height: _iconSize,
                 gradient: gradient,
-                borderRadius: BorderRadius.circular(AppSpacing.radiusLarge),
+                borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
                 boxShadow: defaultBoxShadows,
                 child: Center(child: icon),
               ),
