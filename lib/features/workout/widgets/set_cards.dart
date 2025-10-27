@@ -15,72 +15,63 @@ class SetCards extends StatelessWidget {
       ),
       numExpectedCards = numExpectedCards ?? values.length;
 
-  static const int _columnCount = 5;
+  static const int _maxCardsPerRow = 5;
+  static const double _containerPadding = AppSpacing.paddingSmall;
+  static const double _cardSpacing = AppSpacing.sm;
 
   @override
   Widget build(BuildContext context) {
-    var children = List.generate(
-      numExpectedCards,
-      (i) => i < values.length
-          ? _SetCard(value: values[i])
-          : const _SetCard.placeholder(),
-    );
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final cardWidth =
+            (constraints.maxWidth -
+                _containerPadding * 2 -
+                _cardSpacing * (_maxCardsPerRow - 1)) /
+            _maxCardsPerRow;
+        final cardHeight = 2 / 3 * cardWidth;
 
-    if (children.length < _columnCount && children.length % 2 == 1) {
-      // this is a dirty hack to visually center the entries in the grid
-      // i like using GridView.count as I don't have to manually define the
-      // SetCard dimensions. But I didn't find a convenient way to center
-      // the cards when there are fewer entries than columns.
-      final int numPlaceholders = (_columnCount - numExpectedCards) ~/ 2;
-      children.insertAll(
-        0,
-        List.generate(numPlaceholders, (i) => const _SetCard.hidden()),
-      );
-    }
-
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColors.glassBackground,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
-      ),
-      padding: const EdgeInsets.all(AppSpacing.paddingSmall),
-      child: GridView.count(
-        crossAxisCount: _columnCount,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        mainAxisSpacing: AppSpacing.md,
-        crossAxisSpacing: AppSpacing.sm,
-        childAspectRatio: 4 / 3,
-        children: children,
-      ),
+        return Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: AppColors.glassBackground,
+            borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+          ),
+          padding: const EdgeInsets.all(_containerPadding),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: _cardSpacing,
+            runSpacing: AppSpacing.md,
+            children: List.generate(
+              numExpectedCards,
+              (i) => _SetCard(
+                value: i < values.length ? values[i] : null,
+                width: cardWidth,
+                height: cardHeight,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
 
 class _SetCard extends StatelessWidget {
-  const _SetCard({required this.value});
-  const _SetCard.placeholder() : value = _placeholderValue;
-  const _SetCard.hidden() : value = _hiddenValue;
+  const _SetCard({String? value, required this.width, required this.height})
+    : value = value ?? _placeholderValue;
 
-  static const String _hiddenValue = "";
   static const String _placeholderValue = "?";
   final String value;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
-    final double opacity;
-    switch (value) {
-      case _hiddenValue:
-        opacity = 0.0;
-      case _placeholderValue:
-        opacity = 0.3;
-      default:
-        opacity = 1.0;
-    }
     return Opacity(
-      opacity: opacity,
+      opacity: value == _placeholderValue ? 0.3 : 1.0,
       child: GradientSurface(
+        height: height,
+        width: width,
         gradient: AppGradients.secondary,
         borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
         boxShadow: defaultBoxShadows,
