@@ -99,7 +99,9 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
               // Subtitle - centered
               Text(
                 'The plan for doubling your max pull ups!',
-                style: AppTypography.headlineSmall,
+                style: AppTypography.headlineSmall.copyWith(
+                  color: AppColors.onColorSecondary,
+                ),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -223,7 +225,9 @@ class _WorkoutCard extends StatelessWidget {
                     Flexible(
                       child: Text(
                         description,
-                        style: AppTypography.headlineSmall,
+                        style: AppTypography.headlineSmall.copyWith(
+                          color: AppColors.onColorSecondary,
+                        ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
