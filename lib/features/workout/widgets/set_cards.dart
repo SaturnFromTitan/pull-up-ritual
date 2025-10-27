@@ -19,9 +19,13 @@ class SetCards extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
       ),
       padding: const EdgeInsets.all(AppSpacing.paddingSmall),
-      child: Wrap(
-        spacing: AppSpacing.sm,
-        runSpacing: AppSpacing.sm,
+      child: GridView.count(
+        crossAxisCount: 5,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        mainAxisSpacing: AppSpacing.md,
+        crossAxisSpacing: AppSpacing.sm,
+        childAspectRatio: 4 / 3,
         children: [for (var value in values) _SetCard(value: value)],
       ),
     );
@@ -33,15 +37,10 @@ class _SetCard extends StatelessWidget {
 
   final String value;
 
-  static const double _height = 40.0;
-  static const double _width = 55.0;
-
   @override
   Widget build(BuildContext context) {
     return GradientSurface(
       gradient: AppGradients.secondary,
-      height: _height,
-      width: _width,
       borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
       boxShadow: defaultBoxShadows,
       child: Center(child: Text(value, style: AppTypography.headlineSmall)),
