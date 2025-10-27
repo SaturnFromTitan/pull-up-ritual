@@ -35,7 +35,7 @@ class GradientButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               icon,
-              const SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.md),
               Text(text, style: AppTypography.headlineMedium),
             ],
           ),

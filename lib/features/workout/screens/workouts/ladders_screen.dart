@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
+import 'package:pull_up_ritual/common/themes/app_spacing.dart';
+import 'package:pull_up_ritual/common/widgets/gradient_button.dart';
 import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart';
 import 'package:pull_up_ritual/common/providers/app_provider.dart';
 import 'package:pull_up_ritual/features/workout/widgets/reps_form.dart';
@@ -30,7 +33,7 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
   @override
   Widget getInputs(WorkoutProvider workoutProvider, AppProvider appProvider) {
     var buttons = [
-      ElevatedButton(
+      GradientButton(
         onPressed: () {
           finishSet(
             group: _completedGroups + 1,
@@ -40,9 +43,11 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
           );
           _targetReps++;
         },
-        child: Text('Done, continue this ladder'),
+        text: 'Done, continue this ladder',
+        icon: Icon(Icons.trending_up),
+        gradient: AppGradients.accentGreen,
       ),
-      ElevatedButton(
+      GradientButton(
         onPressed: () {
           // have to increment completedLadders before calling finishSet
           // so that progress() is evaluated correctly
@@ -55,15 +60,19 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
           );
           _targetReps = 1;
         },
-        child: Text('Done, start new ladder'),
+        text: 'Done, start new ladder',
+        icon: Icon(Icons.refresh),
+        gradient: AppGradients.accentPurple,
       ),
-      ElevatedButton(
+      GradientButton(
         onPressed: () {
           setState(() {
             _showCustomRepsForm = !_showCustomRepsForm;
           });
         },
-        child: Text('I did fewer'),
+        text: 'I did fewer',
+        icon: Icon(Icons.close),
+        gradient: AppGradients.light,
       ),
     ];
     var customRepsForm = RepsForm(
@@ -87,6 +96,14 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
       },
     );
 
-    return _showCustomRepsForm ? customRepsForm : Column(children: buttons);
+    return _showCustomRepsForm
+        ? customRepsForm
+        : Column(
+            children: List<Widget>.generate(
+              buttons.length * 2 - 1,
+              (i) =>
+                  i.isEven ? buttons[i ~/ 2] : SizedBox(height: AppSpacing.sm),
+            ),
+          );
   }
 }

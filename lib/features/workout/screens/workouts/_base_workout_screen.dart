@@ -106,10 +106,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
             width: double.infinity,
             child: Card(
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppSpacing.paddingBig,
-                  vertical: AppSpacing.paddingSmall,
-                ),
+                padding: EdgeInsets.all(AppSpacing.paddingSmall),
                 child: Column(
                   children: [
                     targetReps == null
@@ -153,7 +150,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
               numExpectedCards: workoutProvider.workout.maxGroups,
             ),
           ),
-          HomeButton(text: "Cancel", icon: Icons.close),
+          HomeButton(text: "Exit", icon: Icons.exit_to_app),
         ],
       ),
     );
