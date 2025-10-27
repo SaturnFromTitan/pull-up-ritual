@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/themes/app_typography.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
 import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
 import 'package:pull_up_ritual/common/shell_screen.dart';
 import 'package:pull_up_ritual/common/widgets/home_button.dart';
@@ -90,6 +91,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
     var workoutProvider = context.watch<WorkoutProvider>();
     int? targetReps = getTargetReps();
     Widget inputs = getInputs(workoutProvider, appProvider);
+    final instructionTextStyle = AppTypography.headlineMedium;
 
     return ScreenScaffold(
       child: Column(
@@ -110,13 +112,31 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
                     targetReps == null
                         ? Text(
                             "Do as many reps as possible! 🔥",
-                            style: AppTypography.headlineMedium,
+                            style: instructionTextStyle,
                           )
-                        : Text(
-                            "do $targetReps reps",
-                            style: AppTypography.headlineMedium,
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("do", style: instructionTextStyle),
+                              const SizedBox(width: AppSpacing.sm),
+                              ShaderMask(
+                                shaderCallback: (bounds) =>
+                                    AppGradients.repCount.createShader(bounds),
+                                child: Text(
+                                  targetReps.toString(),
+                                  style: TextStyle(
+                                    fontSize: 110,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: AppSpacing.sm),
+                              Text(
+                                targetReps == 1 ? "rep" : "reps",
+                                style: instructionTextStyle,
+                              ),
+                            ],
                           ),
-                    SizedBox(height: AppSpacing.xxl),
                     inputs,
                   ],
                 ),

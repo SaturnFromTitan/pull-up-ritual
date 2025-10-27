@@ -43,6 +43,10 @@ class AppColors {
     Color(0xFF22C55E),
     Color(0xFF16A34A),
   ];
+  static const List<Color> gradientRepCount = [
+    Color(0xFF155DFC),
+    Color(0xFF0092B8),
+  ];
 }
 
 class AppGradients {
@@ -60,7 +64,6 @@ class AppGradients {
     colors: AppColors.gradientBackground,
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    stops: [0.0, 0.5, 1.0], // 0%, 50%, 100%
   );
   static const LinearGradient accentPurple = LinearGradient(
     colors: AppColors.gradientAccentPurple,
@@ -71,6 +74,11 @@ class AppGradients {
     colors: AppColors.gradientAccentGreen,
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
+  );
+  static const LinearGradient repCount = LinearGradient(
+    colors: AppColors.gradientRepCount,
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
   );
 }
 
