@@ -4,7 +4,7 @@ import 'package:pull_up_ritual/common/themes/app_colors.dart';
 /// Drop-in wrapper for your colorful cards/headers
 class GradientSurface extends StatelessWidget {
   final LinearGradient gradient;
-  final Widget child;
+  final Widget? child;
   final BorderRadius? borderRadius;
   final List<BoxShadow>? boxShadow;
   final double? height;
@@ -13,7 +13,7 @@ class GradientSurface extends StatelessWidget {
   const GradientSurface({
     super.key,
     required this.gradient,
-    required this.child,
+    this.child,
     this.borderRadius,
     this.boxShadow,
     this.height,
@@ -32,13 +32,15 @@ class GradientSurface extends StatelessWidget {
         borderRadius: borderRadius,
         boxShadow: boxShadow,
       ),
-      child: DefaultTextStyle.merge(
-        style: TextStyle(color: textColor),
-        child: IconTheme.merge(
-          data: IconThemeData(color: textColor),
-          child: child,
-        ),
-      ),
+      child: child != null
+          ? DefaultTextStyle.merge(
+              style: TextStyle(color: textColor),
+              child: IconTheme.merge(
+                data: IconThemeData(color: textColor),
+                child: child!,
+              ),
+            )
+          : null,
     );
   }
 }

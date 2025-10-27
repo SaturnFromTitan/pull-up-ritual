@@ -16,7 +16,7 @@ class AppSpacing {
   static const double radiusMedium = 16.0;
   static const double radiusLarge = 22.0;
   static const double radiusXLarge = 32.0;
-  static const double radiusFull = 999.0; // For circular elements
+  static const double radiusFull = 999.0;
 
   // Padding
   static const double paddingSmall = 20.0;
