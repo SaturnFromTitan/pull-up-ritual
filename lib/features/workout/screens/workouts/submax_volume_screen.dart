@@ -117,7 +117,7 @@ class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
             });
           },
           text: 'I did fewer',
-          icon: Icon(Icons.arrow_downward),
+          icon: Icon(Icons.trending_down),
           gradient: AppGradients.light,
         ),
       );
