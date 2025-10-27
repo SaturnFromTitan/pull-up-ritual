@@ -110,9 +110,14 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
                 child: Column(
                   children: [
                     targetReps == null
-                        ? Text(
-                            "Do as many reps as possible! 🔥",
-                            style: instructionTextStyle,
+                        ? Column(
+                            children: [
+                              Text(
+                                "Do as many reps as possible! 🔥",
+                                style: instructionTextStyle,
+                              ),
+                              SizedBox(height: AppSpacing.xl),
+                            ],
                           )
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.center,

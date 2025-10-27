@@ -24,26 +24,21 @@ class _RepsFormState extends State<RepsForm> {
   final _controller = TextEditingController();
   bool _isValid = false;
 
+  void submit() {
+    // run logic
+    final reps = int.parse(_controller.text);
+    widget.onValidSubmit(reps);
+
+    // restore initial state
+    _controller.clear();
+    setState(() {
+      _isValid = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var submitButton = GradientButton(
-      onPressed: _isValid
-          ? () {
-              // run logic
-              final reps = int.parse(_controller.text);
-              widget.onValidSubmit(reps);
-
-              // restore initial state
-              _controller.clear();
-              setState(() {
-                _isValid = false;
-              });
-            }
-          : null,
-      text: 'Submit',
-      icon: Icon(Icons.check),
-      gradient: AppGradients.secondary,
-    );
+    var onSubmitPressed = _isValid ? submit : null;
 
     return Form(
       key: _formKey,
@@ -78,15 +73,25 @@ class _RepsFormState extends State<RepsForm> {
           ),
           const SizedBox(height: AppSpacing.lg),
           widget.onCancel == null
-              ? submitButton
+              ? GradientButton(
+                  onPressed: onSubmitPressed,
+                  text: 'Submit',
+                  icon: Icon(Icons.check),
+                  gradient: AppGradients.secondary,
+                )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ElevatedButton(
+                    ElevatedButton.icon(
                       onPressed: widget.onCancel,
-                      child: Text('Cancel'),
+                      label: Text('Cancel'),
+                      icon: Icon(Icons.close),
                     ),
-                    submitButton,
+                    ElevatedButton.icon(
+                      onPressed: onSubmitPressed,
+                      label: Text('Submit'),
+                      icon: Icon(Icons.check),
+                    ),
                   ],
                 ),
         ],
