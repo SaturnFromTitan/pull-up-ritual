@@ -38,13 +38,19 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
               children: [
                 Text(
                   'Enter Your Target Reps',
-                  style: AppTypography.headlineMedium,
+                  style: AppTypography.headlineMedium.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 SizedBox(height: AppSpacing.md),
                 RepsForm(
+                  submitText: 'Start',
+                  submitIcon: Icons.play_arrow,
                   onValidSubmit: (int reps) => Navigator.pop(context, reps),
-                  onCancel: () => Navigator.pop(context),
                   minValue: 1,
+                  cancelText: 'Back',
+                  cancelIcon: Icons.arrow_back,
+                  onCancel: () => Navigator.pop(context),
                 ),
               ],
             ),

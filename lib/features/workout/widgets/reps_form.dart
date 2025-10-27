@@ -5,14 +5,22 @@ import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/widgets/gradient_button.dart';
 
 class RepsForm extends StatefulWidget {
+  final String submitText;
+  final IconData submitIcon;
   final void Function(int reps) onValidSubmit;
-  final void Function()? onCancel;
   final int minValue;
+  final String cancelText;
+  final IconData cancelIcon;
+  final void Function()? onCancel;
   RepsForm({
     super.key,
+    this.submitText = 'Submit',
+    this.submitIcon = Icons.check,
     required this.onValidSubmit,
-    this.onCancel,
     this.minValue = 0,
+    this.cancelText = 'Back',
+    this.cancelIcon = Icons.arrow_back,
+    this.onCancel,
   });
 
   @override
@@ -38,8 +46,6 @@ class _RepsFormState extends State<RepsForm> {
 
   @override
   Widget build(BuildContext context) {
-    var onSubmitPressed = _isValid ? submit : null;
-
     return Form(
       key: _formKey,
       child: Column(
@@ -72,28 +78,21 @@ class _RepsFormState extends State<RepsForm> {
             },
           ),
           const SizedBox(height: AppSpacing.lg),
-          widget.onCancel == null
-              ? GradientButton(
-                  onPressed: onSubmitPressed,
-                  text: 'Submit',
-                  icon: Icon(Icons.check),
-                  gradient: AppGradients.secondary,
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: widget.onCancel,
-                      label: Text('Cancel'),
-                      icon: Icon(Icons.close),
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: onSubmitPressed,
-                      label: Text('Submit'),
-                      icon: Icon(Icons.check),
-                    ),
-                  ],
-                ),
+          GradientButton(
+            onPressed: _isValid ? submit : null,
+            text: widget.submitText,
+            icon: Icon(widget.submitIcon),
+            gradient: AppGradients.secondary,
+          ),
+          if (widget.onCancel != null) ...[
+            const SizedBox(height: AppSpacing.sm),
+            GradientButton(
+              onPressed: widget.onCancel,
+              text: widget.cancelText,
+              icon: Icon(widget.cancelIcon),
+              gradient: AppGradients.light,
+            ),
+          ],
         ],
       ),
     );
