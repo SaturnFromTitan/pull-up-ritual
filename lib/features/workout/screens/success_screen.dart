@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pull_up_ritual/common/themes/app_typography.dart';
 import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
-import 'package:pull_up_ritual/common/widgets/home_button.dart' show HomeButton;
-import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart'
-    show SetCards;
+import 'package:pull_up_ritual/common/widgets/home_button.dart';
+import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart';
 
-import 'package:pull_up_ritual/features/workout/models.dart' show Workout;
-import 'package:pull_up_ritual/common/utils/utils.dart'
-    show formatMinutesSeconds, getSetCardValues;
+import 'package:pull_up_ritual/features/workout/models.dart';
+import 'package:pull_up_ritual/common/utils/utils.dart';
 
 class SuccessScreen extends StatelessWidget {
   final Workout workout;

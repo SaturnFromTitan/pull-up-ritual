@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:pull_up_ritual/features/workout/models.dart'
-    show Workout, WorkoutType, WorkoutSet;
-import 'package:pull_up_ritual/common/providers/app_provider.dart'
-    show AppProvider;
+import 'package:pull_up_ritual/features/workout/models.dart';
+import 'package:pull_up_ritual/common/providers/app_provider.dart';
 
 class WorkoutProvider extends ChangeNotifier {
   // private state

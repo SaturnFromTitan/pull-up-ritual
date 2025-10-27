@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show FilteringTextInputFormatter;
+import 'package:flutter/services.dart';
 import 'package:pull_up_ritual/common/themes/app_colors.dart';
 import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/widgets/gradient_button.dart';

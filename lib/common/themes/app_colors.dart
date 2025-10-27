@@ -3,13 +3,23 @@ import 'package:flutter/material.dart';
 class AppColors {
   // surface colors
   static const Color surfaceLight = Colors.white;
-  // not setting primary and secondary as we use gradients instead
+  // we're using gradients instead of primary and secondary colors
 
   // Text colors
   static const Color onColor = Colors.white;
   static const Color onColorSecondary = Color(0xCCFFFFFF);
   static const Color onLight = Color(0xFF2D3748);
   static const Color onLightInactive = Color(0xFF4A5565);
+
+  // Shadow colors
+  static const Color shadow = Color(0x1A000000); // 10% black opacity
+
+  // Glassmorphism colors - White overlays for dark background
+  static const Color glassBackground = Color(0x1AFFFFFF); // 10% white opacity
+  static const Color glassBorderActive = Color(0xB3FFFFFF); // 70% white opacity
+  static const Color glassBorderInactive = Color(
+    0x33FFFFFF,
+  ); // 20% white opacity}
 
   // Gradient color lists
   static const List<Color> gradientPrimary = [
@@ -33,16 +43,6 @@ class AppColors {
     Color(0xFF22C55E),
     Color(0xFF16A34A),
   ];
-
-  // Glassmorphism colors - White overlays for dark background
-  static const Color glassBackground = Color(0x1AFFFFFF); // 10% white opacity
-  static const Color glassBorderActive = Color(0xB3FFFFFF); // 70% white opacity
-  static const Color glassBorderInactive = Color(
-    0x33FFFFFF,
-  ); // 20% white opacity}
-
-  // Shadow colors
-  static const Color shadow = Color(0x1A000000); // 10% opacity
 }
 
 class AppGradients {

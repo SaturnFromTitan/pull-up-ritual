@@ -3,16 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/themes/app_typography.dart';
 import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
-import 'package:pull_up_ritual/features/workout/widgets/progress_bar.dart'
-    show WorkoutProgressBar;
-import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart'
-    show SetCards;
+import 'package:pull_up_ritual/features/workout/widgets/progress_bar.dart';
+import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart';
 import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart';
-
-import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart'
-    show WorkoutProvider;
-import 'package:pull_up_ritual/common/utils/utils.dart'
-    show formatMinutesSeconds, getSetCardValues;
+import 'package:pull_up_ritual/common/utils/utils.dart';
 
 class RestScreen extends StatelessWidget {
   final double progress;
