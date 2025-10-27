@@ -30,7 +30,10 @@ class RestScreen extends StatelessWidget {
           WorkoutProgressBar(value: progress),
           Column(
             children: [
-              Text('😴', style: AppTypography.displayMedium),
+              Text(
+                '😴',
+                style: AppTypography.displayMedium.copyWith(fontSize: 90),
+              ),
               SizedBox(height: AppSpacing.xxl),
               Text(
                 formatMinutesSeconds(workoutProvider.restTimeRemaining),
