@@ -11,10 +11,11 @@ final appTheme = ThemeData(
   scaffoldBackgroundColor: Colors.transparent,
 
   colorScheme: ColorScheme.light(
+    surface: AppColors.surfaceLight,
     onSurface: AppColors.onLight,
     onPrimary: AppColors.onColor,
-    onSecondary: AppColors.onColor,
     onPrimaryContainer: AppColors.onColor,
+    onSecondary: AppColors.onColor,
     onSecondaryContainer: AppColors.onColor,
   ),
 

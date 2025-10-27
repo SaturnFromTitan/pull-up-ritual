@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/common/themes/app_spacing.dart';
+import 'package:pull_up_ritual/common/themes/app_typography.dart';
 import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
 import 'package:pull_up_ritual/common/shell_screen.dart' show Shell;
 import 'package:pull_up_ritual/common/widgets/home_button.dart' show HomeButton;
@@ -88,19 +90,28 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(workoutProvider.workout.workoutType.name),
+          Text(
+            workoutProvider.workout.workoutType.name,
+            style: AppTypography.displaySmall,
+          ),
           WorkoutProgressBar(value: progress(workoutProvider)),
           SizedBox(
             width: double.infinity,
             child: Card(
               child: Padding(
-                padding: EdgeInsets.all(40.0),
+                padding: EdgeInsets.all(AppSpacing.paddingBig),
                 child: Column(
                   children: [
                     targetReps == null
-                        ? Text("Do as many reps as possible! 🔥")
-                        : Text("do $targetReps reps"),
-                    SizedBox(height: 40),
+                        ? Text(
+                            "Do as many reps as possible! 🔥",
+                            style: AppTypography.headlineMedium,
+                          )
+                        : Text(
+                            "do $targetReps reps",
+                            style: AppTypography.headlineMedium,
+                          ),
+                    SizedBox(height: AppSpacing.xxl),
                     inputs,
                   ],
                 ),

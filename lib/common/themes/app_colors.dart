@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  // surface colors
+  static const Color surfaceLight = Colors.white;
+  // not setting primary and secondary as we use gradients instead
+
   // Text colors
   static const Color onColor = Colors.white;
   static const Color onColorSecondary = Color(0xCCFFFFFF);
@@ -11,6 +15,10 @@ class AppColors {
   static const List<Color> gradientPrimary = [
     Color(0xFFF6339A),
     Color(0xFFFF6900),
+  ];
+  static const List<Color> gradientSecondary = [
+    Color(0xFF00C950), // Green
+    Color(0xFF2B7FFF), // Blue
   ];
   static const List<Color> gradientBackground = [
     Color(0xFF9810FA), // Purple start (0%)
@@ -43,20 +51,22 @@ class AppGradients {
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );
-
+  static const LinearGradient secondary = LinearGradient(
+    colors: AppColors.gradientSecondary,
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
   static const LinearGradient background = LinearGradient(
     colors: AppColors.gradientBackground,
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     stops: [0.0, 0.5, 1.0], // 0%, 50%, 100%
   );
-
   static const LinearGradient accentPurple = LinearGradient(
     colors: AppColors.gradientAccentPurple,
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
-
   static const LinearGradient accentGreen = LinearGradient(
     colors: AppColors.gradientAccentGreen,
     begin: Alignment.topLeft,

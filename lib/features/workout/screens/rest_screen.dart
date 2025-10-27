@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/themes/app_typography.dart';
 import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
 import 'package:pull_up_ritual/features/workout/widgets/progress_bar.dart'
@@ -36,7 +37,7 @@ class RestScreen extends StatelessWidget {
           Column(
             children: [
               Text('😴', style: AppTypography.displayMedium),
-              SizedBox(height: 40),
+              SizedBox(height: AppSpacing.xxl),
               Text(
                 formatMinutesSeconds(workoutProvider.restTimeRemaining),
                 style: AppTypography.displayMedium,

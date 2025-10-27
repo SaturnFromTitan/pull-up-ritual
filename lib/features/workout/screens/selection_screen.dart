@@ -39,12 +39,15 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
       builder: (context) {
         return Dialog(
           child: Padding(
-            padding: const EdgeInsets.all(40),
+            padding: const EdgeInsets.all(AppSpacing.paddingBig),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Enter Your Target Reps', style: TextStyle(fontSize: 18)),
-                SizedBox(height: 20),
+                Text(
+                  'Enter Your Target Reps',
+                  style: AppTypography.headlineMedium,
+                ),
+                SizedBox(height: AppSpacing.md),
                 RepsForm(
                   onValidSubmit: (int reps) => Navigator.pop(context, reps),
                   onCancel: () => Navigator.pop(context),
@@ -158,6 +161,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
           text: 'Start Workout',
           icon: const Icon(Icons.play_arrow),
           onPressed: _handleSubmit,
+          gradient: AppGradients.primary,
         ),
       ],
     );
@@ -201,7 +205,7 @@ class _WorkoutCard extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(AppSpacing.paddingSmall),
           child: Row(
             children: [
               GradientSurface(

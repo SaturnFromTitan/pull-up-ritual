@@ -62,7 +62,7 @@ class TotalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(AppSpacing.paddingSmall),
         child: Column(
           children: [
             Text(value.toString(), style: AppTypography.headlineLarge),
@@ -85,7 +85,7 @@ class WorkoutHistory extends StatelessWidget {
       width: double.infinity,
       child: Card(
         child: Padding(
-          padding: EdgeInsets.all(40.0),
+          padding: EdgeInsets.all(AppSpacing.paddingBig),
           child: Column(
             children: [
               Text(

@@ -18,6 +18,10 @@ class AppSpacing {
   static const double radiusXLarge = 32.0;
   static const double radiusFull = 999.0; // For circular elements
 
+  // Padding
+  static const double paddingSmall = 20.0;
+  static const double paddingBig = 40.0;
+
   // Specific spacing values from design
-  static const double buttonHeight = 70.0;
+  static const double buttonHeight = 60.0;
 }

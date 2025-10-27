@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show FilteringTextInputFormatter;
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
+import 'package:pull_up_ritual/common/themes/app_spacing.dart';
+import 'package:pull_up_ritual/common/widgets/gradient_button.dart';
 
 class RepsForm extends StatefulWidget {
   final void Function(int reps) onValidSubmit;
@@ -23,7 +26,7 @@ class _RepsFormState extends State<RepsForm> {
 
   @override
   Widget build(BuildContext context) {
-    var submitButton = ElevatedButton(
+    var submitButton = GradientButton(
       onPressed: _isValid
           ? () {
               // run logic
@@ -37,7 +40,9 @@ class _RepsFormState extends State<RepsForm> {
               });
             }
           : null,
-      child: Text('Submit'),
+      text: 'Submit',
+      icon: Icon(Icons.check),
+      gradient: AppGradients.secondary,
     );
 
     return Form(
@@ -50,6 +55,7 @@ class _RepsFormState extends State<RepsForm> {
             decoration: InputDecoration(
               hintText: "Tap to enter reps",
               counterText: "",
+              errorStyle: const TextStyle(fontSize: 0),
             ),
             textAlign: TextAlign.center,
             inputFormatters: [
@@ -70,6 +76,7 @@ class _RepsFormState extends State<RepsForm> {
               return null;
             },
           ),
+          const SizedBox(height: AppSpacing.lg),
           widget.onCancel == null
               ? submitButton
               : Row(
