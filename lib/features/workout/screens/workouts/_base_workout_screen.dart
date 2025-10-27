@@ -7,9 +7,9 @@ import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
 import 'package:pull_up_ritual/common/shell_screen.dart';
 import 'package:pull_up_ritual/common/widgets/home_button.dart';
 import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart';
-import 'package:pull_up_ritual/features/workout/widgets/progress_bar.dart';
 import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart';
 import 'package:pull_up_ritual/common/utils/utils.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:pull_up_ritual/common/providers/app_provider.dart';
 import 'package:pull_up_ritual/features/workout/models.dart';
@@ -33,8 +33,8 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
     return workoutProvider.workout.sets.length;
   }
 
-  double progress(WorkoutProvider workoutProvider) {
-    return getCompletedGroups(workoutProvider) /
+  bool isFinished(WorkoutProvider workoutProvider) {
+    return getCompletedGroups(workoutProvider) ==
         workoutProvider.workout.maxGroups;
   }
 
@@ -51,7 +51,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
       MaterialPageRoute(
         builder: (_) => ChangeNotifierProvider.value(
           value: workoutProvider,
-          child: RestScreen(progress: progress(workoutProvider)),
+          child: RestScreen(),
         ),
       ),
     );
@@ -76,7 +76,7 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
     workoutProvider.addSet(set_);
 
     // navigate
-    if (progress(workoutProvider) == 1) {
+    if (isFinished(workoutProvider)) {
       workoutProvider.finish(appProvider);
       navigateToSuccess(workoutProvider);
     } else {
@@ -92,16 +92,17 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
     int? targetReps = getTargetReps();
     Widget inputs = getInputs(workoutProvider, appProvider);
     final instructionTextStyle = AppTypography.headlineLarge;
+    final instructionTarget = targetReps == null
+        ? Icon(CupertinoIcons.infinite, size: 110, color: Colors.white)
+        : Text(
+            targetReps.toString(),
+            style: TextStyle(fontSize: 110, color: Colors.white),
+          );
 
     return ScreenScaffold(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            workoutProvider.workout.workoutType.name,
-            style: AppTypography.displaySmall,
-          ),
-          WorkoutProgressBar(value: progress(workoutProvider)),
           SizedBox(
             width: double.infinity,
             child: Card(
@@ -111,39 +112,24 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
                 padding: EdgeInsets.all(AppSpacing.paddingSmall),
                 child: Column(
                   children: [
-                    targetReps == null
-                        ? Column(
-                            children: [
-                              Text(
-                                "Do as many reps as possible!",
-                                style: instructionTextStyle,
-                              ),
-                              SizedBox(height: AppSpacing.xl),
-                            ],
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("do", style: instructionTextStyle),
-                              const SizedBox(width: AppSpacing.sm),
-                              ShaderMask(
-                                shaderCallback: (bounds) =>
-                                    AppGradients.repCount.createShader(bounds),
-                                child: Text(
-                                  targetReps.toString(),
-                                  style: TextStyle(
-                                    fontSize: 110,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: AppSpacing.sm),
-                              Text(
-                                targetReps == 1 ? "rep" : "reps",
-                                style: instructionTextStyle,
-                              ),
-                            ],
-                          ),
+                    if (targetReps == null) SizedBox(height: AppSpacing.xxl),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("do", style: instructionTextStyle),
+                        const SizedBox(width: AppSpacing.sm),
+                        ShaderMask(
+                          shaderCallback: (bounds) =>
+                              AppGradients.repCount.createShader(bounds),
+                          child: instructionTarget,
+                        ),
+                        const SizedBox(width: AppSpacing.sm),
+                        Text(
+                          targetReps == 1 ? "rep" : "reps",
+                          style: instructionTextStyle,
+                        ),
+                      ],
+                    ),
                     inputs,
                   ],
                 ),
