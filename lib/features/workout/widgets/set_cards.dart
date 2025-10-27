@@ -57,25 +57,29 @@ class SetCards extends StatelessWidget {
 }
 
 class _SetCard extends StatelessWidget {
-  const _SetCard({String? value, required this.width, required this.height})
-    : value = value ?? _placeholderValue;
+  const _SetCard({this.value, required this.width, required this.height});
 
   static const String _placeholderValue = "?";
-  final String value;
+  final String? value;
   final double width;
   final double height;
 
   @override
   Widget build(BuildContext context) {
     return Opacity(
-      opacity: value == _placeholderValue ? 0.3 : 1.0,
+      opacity: value == null ? 0.3 : 1.0,
       child: GradientSurface(
         height: height,
         width: width,
         gradient: AppGradients.secondary,
         borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
         boxShadow: defaultBoxShadows,
-        child: Center(child: Text(value, style: AppTypography.headlineSmall)),
+        child: Center(
+          child: Text(
+            value ?? _placeholderValue,
+            style: AppTypography.headlineSmall,
+          ),
+        ),
       ),
     );
   }
