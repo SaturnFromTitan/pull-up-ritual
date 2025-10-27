@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
+import 'package:pull_up_ritual/common/themes/app_spacing.dart';
+import 'package:pull_up_ritual/common/widgets/gradient_button.dart';
 import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart';
-
-import 'package:pull_up_ritual/common/providers/app_provider.dart'
-    show AppProvider;
-import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart'
-    show WorkoutProvider;
-import 'base_workout_screen.dart' show BaseWorkoutScreen, BaseWorkoutState;
-import 'package:pull_up_ritual/features/workout/widgets/reps_form.dart'
-    show RepsForm;
+import 'package:pull_up_ritual/common/providers/app_provider.dart';
+import 'package:pull_up_ritual/features/workout/widgets/reps_form.dart';
+import '_base_workout_screen.dart';
 
 class LaddersScreen extends BaseWorkoutScreen {
   const LaddersScreen({super.key});
@@ -17,68 +15,73 @@ class LaddersScreen extends BaseWorkoutScreen {
 }
 
 class _LaddersState extends BaseWorkoutState<LaddersScreen> {
-  final _numberOfLadders = 5;
   int _targetReps = 1;
-  int _completedLadders = 0;
+  int _completedGroups = 0;
   bool _showCustomRepsForm = false;
 
   @override
   int get restDurationSeconds => 30;
 
   @override
-  int getTargetReps() => _targetReps;
+  int getCompletedGroups(WorkoutProvider workoutProvider) {
+    return _completedGroups;
+  }
 
   @override
-  double progress(WorkoutProvider workoutProvider) {
-    return _completedLadders / _numberOfLadders;
-  }
+  int getTargetReps() => _targetReps;
 
   @override
   Widget getInputs(WorkoutProvider workoutProvider, AppProvider appProvider) {
     var buttons = [
-      ElevatedButton(
+      GradientButton(
         onPressed: () {
           finishSet(
-            group: _completedLadders + 1,
+            group: _completedGroups + 1,
             completedReps: getTargetReps(),
             workoutProvider: workoutProvider,
             appProvider: appProvider,
           );
           _targetReps++;
         },
-        child: Text('Done, continue this ladder'),
+        text: 'Done, continue this ladder',
+        icon: Icon(Icons.trending_up),
+        gradient: AppGradients.accentGreen,
       ),
-      ElevatedButton(
+      GradientButton(
         onPressed: () {
           // have to increment completedLadders before calling finishSet
           // so that progress() is evaluated correctly
-          _completedLadders++;
+          _completedGroups++;
           finishSet(
-            group: _completedLadders,
+            group: _completedGroups,
             completedReps: getTargetReps(),
             workoutProvider: workoutProvider,
             appProvider: appProvider,
           );
           _targetReps = 1;
         },
-        child: Text('Done, start new ladder'),
+        text: 'Done, start new ladder',
+        icon: Icon(Icons.refresh),
+        gradient: AppGradients.accentPurple,
       ),
-      ElevatedButton(
+      GradientButton(
         onPressed: () {
           setState(() {
             _showCustomRepsForm = !_showCustomRepsForm;
           });
         },
-        child: Text('I did fewer'),
+        text: 'I did fewer',
+        icon: Icon(Icons.close),
+        gradient: AppGradients.light,
       ),
     ];
     var customRepsForm = RepsForm(
       onValidSubmit: (int reps) {
         // have to increment completedLadders before calling finishSet
         // so that progress() is evaluated correctly
-        _completedLadders++;
+        _completedGroups++;
         finishSet(
-          group: _completedLadders,
+          group: _completedGroups,
           completedReps: reps,
           workoutProvider: workoutProvider,
           appProvider: appProvider,
@@ -93,6 +96,14 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
       },
     );
 
-    return _showCustomRepsForm ? customRepsForm : Column(children: buttons);
+    return _showCustomRepsForm
+        ? customRepsForm
+        : Column(
+            children: List<Widget>.generate(
+              buttons.length * 2 - 1,
+              (i) =>
+                  i.isEven ? buttons[i ~/ 2] : SizedBox(height: AppSpacing.sm),
+            ),
+          );
   }
 }

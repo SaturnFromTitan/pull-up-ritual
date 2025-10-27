@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/themes/app_typography.dart';
-import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart'
-    show SetCards;
+import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart';
 import 'package:pull_up_ritual/common/providers/app_provider.dart';
 import 'package:pull_up_ritual/features/workout/models.dart';
-import 'package:pull_up_ritual/common/utils/utils.dart'
-    show getSetCardValues, formatMinutesSeconds, datetimeToString;
+import 'package:pull_up_ritual/common/utils/utils.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
@@ -62,7 +60,7 @@ class TotalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(AppSpacing.paddingSmall),
         child: Column(
           children: [
             Text(value.toString(), style: AppTypography.headlineLarge),
@@ -85,7 +83,7 @@ class WorkoutHistory extends StatelessWidget {
       width: double.infinity,
       child: Card(
         child: Padding(
-          padding: EdgeInsets.all(40.0),
+          padding: EdgeInsets.all(AppSpacing.paddingBig),
           child: Column(
             children: [
               Text(

@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show FilteringTextInputFormatter;
+import 'package:flutter/services.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
+import 'package:pull_up_ritual/common/themes/app_spacing.dart';
+import 'package:pull_up_ritual/common/widgets/gradient_button.dart';
 
 class RepsForm extends StatefulWidget {
+  final String submitText;
+  final IconData submitIcon;
   final void Function(int reps) onValidSubmit;
-  final void Function()? onCancel;
   final int minValue;
+  final String cancelText;
+  final IconData cancelIcon;
+  final void Function()? onCancel;
   RepsForm({
     super.key,
+    this.submitText = 'Submit',
+    this.submitIcon = Icons.check,
     required this.onValidSubmit,
-    this.onCancel,
     this.minValue = 0,
+    this.cancelText = 'Back',
+    this.cancelIcon = Icons.arrow_back,
+    this.onCancel,
   });
 
   @override
@@ -21,25 +32,20 @@ class _RepsFormState extends State<RepsForm> {
   final _controller = TextEditingController();
   bool _isValid = false;
 
+  void submit() {
+    // run logic
+    final reps = int.parse(_controller.text);
+    widget.onValidSubmit(reps);
+
+    // restore initial state
+    _controller.clear();
+    setState(() {
+      _isValid = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var submitButton = ElevatedButton(
-      onPressed: _isValid
-          ? () {
-              // run logic
-              final reps = int.parse(_controller.text);
-              widget.onValidSubmit(reps);
-
-              // restore initial state
-              _controller.clear();
-              setState(() {
-                _isValid = false;
-              });
-            }
-          : null,
-      child: Text('Submit'),
-    );
-
     return Form(
       key: _formKey,
       child: Column(
@@ -50,6 +56,13 @@ class _RepsFormState extends State<RepsForm> {
             decoration: InputDecoration(
               hintText: "Tap to enter reps",
               counterText: "",
+              errorStyle: const TextStyle(fontSize: 0),
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+              ),
             ),
             textAlign: TextAlign.center,
             inputFormatters: [
@@ -70,18 +83,22 @@ class _RepsFormState extends State<RepsForm> {
               return null;
             },
           ),
-          widget.onCancel == null
-              ? submitButton
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: widget.onCancel,
-                      child: Text('Cancel'),
-                    ),
-                    submitButton,
-                  ],
-                ),
+          const SizedBox(height: AppSpacing.md),
+          GradientButton(
+            onPressed: _isValid ? submit : null,
+            text: widget.submitText,
+            icon: Icon(widget.submitIcon),
+            gradient: AppGradients.secondary,
+          ),
+          if (widget.onCancel != null) ...[
+            const SizedBox(height: AppSpacing.sm),
+            GradientButton(
+              onPressed: widget.onCancel,
+              text: widget.cancelText,
+              icon: Icon(widget.cancelIcon),
+              gradient: AppGradients.light,
+            ),
+          ],
         ],
       ),
     );

@@ -12,9 +12,6 @@ class ScreenScaffold extends StatelessWidget {
     this.bottomNavigationBar,
   });
 
-  static const double _screenPaddingHorizontal = AppSpacing.md;
-  static const double _screenPaddingVertical = AppSpacing.lg;
-
   @override
   Widget build(BuildContext context) {
     const gradient = AppGradients.background;
@@ -31,8 +28,8 @@ class ScreenScaffold extends StatelessWidget {
 
               return Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: _screenPaddingHorizontal,
-                  vertical: _screenPaddingVertical,
+                  horizontal: AppSpacing.md,
+                  vertical: AppSpacing.lg,
                 ),
                 child: DefaultTextStyle.merge(
                   style: TextStyle(color: textColor),

@@ -1,45 +1,44 @@
 import 'package:flutter/material.dart';
-import '../themes/app_colors.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
+import 'package:pull_up_ritual/common/themes/app_theme.dart';
 import '../themes/app_spacing.dart';
 import '../themes/app_typography.dart';
 import 'gradient_surface.dart';
 
 class GradientButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Widget icon;
   final LinearGradient gradient;
 
   const GradientButton({
     super.key,
     required this.text,
-    required this.onPressed,
+    this.onPressed,
     required this.icon,
-    this.gradient = AppGradients.primary,
+    required this.gradient,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: GradientSurface(
-        gradient: gradient,
-        height: AppSpacing.buttonHeight,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
-        boxShadow: const [
-          BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 10,
-            offset: Offset(0, 4),
+      child: Opacity(
+        opacity: onPressed == null ? 0.5 : 1.0,
+        child: GradientSurface(
+          gradient: gradient,
+          height: AppSpacing.buttonHeight,
+          borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+          border: Border.all(color: AppColors.onLightInactive, width: 0.2),
+          boxShadow: defaultBoxShadows,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              icon,
+              const SizedBox(width: AppSpacing.md),
+              Text(text, style: AppTypography.headlineMedium),
+            ],
           ),
-        ],
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            icon,
-            const SizedBox(width: AppSpacing.sm),
-            Text(text, style: AppTypography.headlineLarge),
-          ],
         ),
       ),
     );
