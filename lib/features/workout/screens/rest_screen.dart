@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
 import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/themes/app_typography.dart';
+import 'package:pull_up_ritual/common/widgets/gradient_button.dart';
+import 'package:pull_up_ritual/common/widgets/home_button.dart';
 import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
 import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart';
 import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart';
@@ -38,22 +41,22 @@ class RestScreen extends StatelessWidget {
               ),
             ],
           ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: SetCards(
-              values: getSetCardValues(workoutProvider.workout),
-              numExpectedCards: workoutProvider.workout.maxGroups,
-            ),
-          ),
-          ElevatedButton(
+          GradientButton(
             onPressed: () {
               workoutProvider.resume();
               // no need to call Navigator.pop(...) here as the state change
               // causes this function to rerun and call the same code that
               // would run if the timer reached 0.
             },
-            child: Text('Skip'),
+            text: "Skip Rest",
+            icon: Icon(Icons.skip_next),
+            gradient: AppGradients.secondary,
           ),
+          SetCards(
+            values: getSetCardValues(workoutProvider.workout),
+            numExpectedCards: workoutProvider.workout.maxGroups,
+          ),
+          HomeButton(text: "Exit", icon: Icons.exit_to_app),
         ],
       ),
     );

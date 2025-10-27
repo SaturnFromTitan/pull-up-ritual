@@ -50,6 +50,11 @@ class AppColors {
 }
 
 class AppGradients {
+  static const LinearGradient background = LinearGradient(
+    colors: AppColors.gradientBackground,
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
   static const LinearGradient primary = LinearGradient(
     colors: AppColors.gradientPrimary,
     begin: Alignment.centerLeft,
@@ -59,11 +64,6 @@ class AppGradients {
     colors: AppColors.gradientSecondary,
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
-  );
-  static const LinearGradient background = LinearGradient(
-    colors: AppColors.gradientBackground,
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
   );
   static const LinearGradient accentPurple = LinearGradient(
     colors: AppColors.gradientAccentPurple,
