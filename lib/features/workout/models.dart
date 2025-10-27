@@ -24,13 +24,18 @@ class WorkoutSet {
 class Workout {
   final Uuid uuid;
   final WorkoutType workoutType;
+  final int maxGroups;
   final DateTime start;
   DateTime? end;
   List<WorkoutSet> sets = <WorkoutSet>[];
 
-  Workout({Uuid? id, required this.workoutType, DateTime? start})
-    : uuid = id ?? Uuid(),
-      start = start ?? DateTime.now().toUtc();
+  Workout({
+    Uuid? id,
+    required this.workoutType,
+    required this.maxGroups,
+    DateTime? start,
+  }) : uuid = id ?? Uuid(),
+       start = start ?? DateTime.now().toUtc();
 
   void finish() {
     end ??= DateTime.now().toUtc();

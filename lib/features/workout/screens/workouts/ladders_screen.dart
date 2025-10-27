@@ -12,21 +12,20 @@ class LaddersScreen extends BaseWorkoutScreen {
 }
 
 class _LaddersState extends BaseWorkoutState<LaddersScreen> {
-  final _numberOfLadders = 5;
   int _targetReps = 1;
-  int _completedLadders = 0;
+  int _completedGroups = 0;
   bool _showCustomRepsForm = false;
 
   @override
   int get restDurationSeconds => 30;
 
   @override
-  int getTargetReps() => _targetReps;
+  int getCompletedGroups(WorkoutProvider workoutProvider) {
+    return _completedGroups;
+  }
 
   @override
-  double progress(WorkoutProvider workoutProvider) {
-    return _completedLadders / _numberOfLadders;
-  }
+  int getTargetReps() => _targetReps;
 
   @override
   Widget getInputs(WorkoutProvider workoutProvider, AppProvider appProvider) {
@@ -34,7 +33,7 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
       ElevatedButton(
         onPressed: () {
           finishSet(
-            group: _completedLadders + 1,
+            group: _completedGroups + 1,
             completedReps: getTargetReps(),
             workoutProvider: workoutProvider,
             appProvider: appProvider,
@@ -47,9 +46,9 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
         onPressed: () {
           // have to increment completedLadders before calling finishSet
           // so that progress() is evaluated correctly
-          _completedLadders++;
+          _completedGroups++;
           finishSet(
-            group: _completedLadders,
+            group: _completedGroups,
             completedReps: getTargetReps(),
             workoutProvider: workoutProvider,
             appProvider: appProvider,
@@ -71,9 +70,9 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
       onValidSubmit: (int reps) {
         // have to increment completedLadders before calling finishSet
         // so that progress() is evaluated correctly
-        _completedLadders++;
+        _completedGroups++;
         finishSet(
-          group: _completedLadders,
+          group: _completedGroups,
           completedReps: reps,
           workoutProvider: workoutProvider,
           appProvider: appProvider,

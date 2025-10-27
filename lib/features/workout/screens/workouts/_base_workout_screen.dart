@@ -26,8 +26,16 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
   int get restDurationSeconds;
 
   int? getTargetReps();
-  double progress(WorkoutProvider workoutProvider);
   Widget getInputs(WorkoutProvider workoutProvider, AppProvider appProvider);
+
+  int getCompletedGroups(WorkoutProvider workoutProvider) {
+    return workoutProvider.workout.sets.length;
+  }
+
+  double progress(WorkoutProvider workoutProvider) {
+    return getCompletedGroups(workoutProvider) /
+        workoutProvider.workout.maxGroups;
+  }
 
   void navigateToSuccess(WorkoutProvider workoutProvider) {
     Navigator.of(context).push(
@@ -117,7 +125,10 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
           ),
           Align(
             alignment: Alignment.topLeft,
-            child: SetCards(values: getSetCardValues(workoutProvider.workout)),
+            child: SetCards(
+              values: getSetCardValues(workoutProvider.workout),
+              numExpectedCards: workoutProvider.workout.maxGroups,
+            ),
           ),
           HomeButton(text: "Cancel", icon: Icons.close),
         ],

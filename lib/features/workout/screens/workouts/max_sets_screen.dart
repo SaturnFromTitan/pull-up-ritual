@@ -12,18 +12,11 @@ class MaxSetsScreen extends BaseWorkoutScreen {
 }
 
 class _MaxSetsScreenState extends BaseWorkoutState<MaxSetsScreen> {
-  final _numberOfSets = 3;
-
   @override
   int get restDurationSeconds => 5 * 60;
 
   @override
   Null getTargetReps() => null;
-
-  @override
-  double progress(WorkoutProvider workoutProvider) {
-    return workoutProvider.workout.sets.length / _numberOfSets;
-  }
 
   @override
   Widget getInputs(WorkoutProvider workoutProvider, AppProvider appProvider) {

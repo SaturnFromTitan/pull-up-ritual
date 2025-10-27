@@ -40,7 +40,10 @@ class RestScreen extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.topLeft,
-            child: SetCards(values: getSetCardValues(workoutProvider.workout)),
+            child: SetCards(
+              values: getSetCardValues(workoutProvider.workout),
+              numExpectedCards: workoutProvider.workout.maxGroups,
+            ),
           ),
           ElevatedButton(
             onPressed: () {

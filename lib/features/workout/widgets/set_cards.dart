@@ -7,12 +7,15 @@ import 'package:pull_up_ritual/common/widgets/gradient_surface.dart';
 
 class SetCards extends StatelessWidget {
   final List<String> values;
-  const SetCards({super.key, required this.values});
+  final int numExpectedCards;
+  const SetCards({super.key, required this.values, int? numExpectedCards})
+    : numExpectedCards = numExpectedCards ?? values.length;
+
+  static const int _columnCount = 5;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: values.isEmpty ? 0 : null,
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.glassBackground,
@@ -20,30 +23,37 @@ class SetCards extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(AppSpacing.paddingSmall),
       child: GridView.count(
-        crossAxisCount: 5,
+        crossAxisCount: _columnCount,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         mainAxisSpacing: AppSpacing.md,
         crossAxisSpacing: AppSpacing.sm,
         childAspectRatio: 4 / 3,
-        children: [for (var value in values) _SetCard(value: value)],
+        children: List.generate(
+          numExpectedCards,
+          (i) => i < values.length ? _SetCard(value: values[i]) : _SetCard(),
+        ),
       ),
     );
   }
 }
 
 class _SetCard extends StatelessWidget {
-  const _SetCard({required this.value});
+  const _SetCard({this.value = placeholderValue});
 
+  static const String placeholderValue = "?";
   final String value;
 
   @override
   Widget build(BuildContext context) {
-    return GradientSurface(
-      gradient: AppGradients.secondary,
-      borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
-      boxShadow: defaultBoxShadows,
-      child: Center(child: Text(value, style: AppTypography.headlineSmall)),
+    return Opacity(
+      opacity: value == placeholderValue ? 0.3 : 1.0,
+      child: GradientSurface(
+        gradient: AppGradients.secondary,
+        borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+        boxShadow: defaultBoxShadows,
+        child: Center(child: Text(value, style: AppTypography.headlineSmall)),
+      ),
     );
   }
 }

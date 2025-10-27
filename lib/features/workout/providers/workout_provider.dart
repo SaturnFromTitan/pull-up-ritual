@@ -12,7 +12,19 @@ class WorkoutProvider extends ChangeNotifier {
 
   // initialisation
   WorkoutProvider({required WorkoutType workoutType})
-    : _workout = Workout(workoutType: workoutType);
+    : _workout = Workout(
+        workoutType: workoutType,
+        maxGroups: () {
+          switch (workoutType) {
+            case WorkoutType.maxSets:
+              return 3;
+            case WorkoutType.submaxVolume:
+              return 10;
+            case WorkoutType.ladders:
+              return 5;
+          }
+        }(),
+      );
 
   // getters
   Workout get workout => _workout;

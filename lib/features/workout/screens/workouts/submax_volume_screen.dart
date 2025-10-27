@@ -15,7 +15,6 @@ class SubmaxVolumeScreen extends BaseWorkoutScreen {
 }
 
 class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
-  final _numberOfSets = 10;
   bool _showCustomRepsForm = false;
 
   @override
@@ -23,11 +22,6 @@ class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
 
   @override
   int getTargetReps() => widget.targetReps;
-
-  @override
-  double progress(WorkoutProvider workoutProvider) {
-    return workoutProvider.workout.sets.length / _numberOfSets;
-  }
 
   @override
   Widget getInputs(WorkoutProvider workoutProvider, AppProvider appProvider) {
