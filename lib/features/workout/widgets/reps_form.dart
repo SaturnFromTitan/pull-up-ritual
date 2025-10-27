@@ -57,6 +57,12 @@ class _RepsFormState extends State<RepsForm> {
               hintText: "Tap to enter reps",
               counterText: "",
               errorStyle: const TextStyle(fontSize: 0),
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+              ),
             ),
             textAlign: TextAlign.center,
             inputFormatters: [
@@ -77,7 +83,7 @@ class _RepsFormState extends State<RepsForm> {
               return null;
             },
           ),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.md),
           GradientButton(
             onPressed: _isValid ? submit : null,
             text: widget.submitText,

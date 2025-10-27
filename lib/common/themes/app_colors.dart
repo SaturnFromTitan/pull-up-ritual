@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // surface colors
-  static const Color surfaceLight = Colors.white;
+  static const Color surfaceLight = Color(0xF0FFFFFF);
   // we're using gradients instead of primary and secondary colors
 
   // Text colors

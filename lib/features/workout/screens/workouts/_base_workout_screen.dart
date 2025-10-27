@@ -105,6 +105,8 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
           SizedBox(
             width: double.infinity,
             child: Card(
+              color: AppColors
+                  .surfaceLight, // TODO: should be applied automatically
               child: Padding(
                 padding: EdgeInsets.all(AppSpacing.paddingSmall),
                 child: Column(
