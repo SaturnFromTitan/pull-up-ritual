@@ -106,7 +106,10 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
             width: double.infinity,
             child: Card(
               child: Padding(
-                padding: EdgeInsets.all(AppSpacing.paddingBig),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSpacing.paddingBig,
+                  vertical: AppSpacing.paddingSmall,
+                ),
                 child: Column(
                   children: [
                     targetReps == null

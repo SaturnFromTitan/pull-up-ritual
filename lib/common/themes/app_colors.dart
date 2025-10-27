@@ -80,6 +80,11 @@ class AppGradients {
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );
+  static const LinearGradient light = LinearGradient(
+    colors: [AppColors.surfaceLight, AppColors.glassBorderActive],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
 }
 
 Color getTextColorOnGradient(LinearGradient gradient, BuildContext context) {

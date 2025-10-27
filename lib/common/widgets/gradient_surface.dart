@@ -5,6 +5,7 @@ import 'package:pull_up_ritual/common/themes/app_colors.dart';
 class GradientSurface extends StatelessWidget {
   final LinearGradient gradient;
   final Widget? child;
+  final Border? border;
   final BorderRadius? borderRadius;
   final List<BoxShadow>? boxShadow;
   final double? height;
@@ -14,6 +15,7 @@ class GradientSurface extends StatelessWidget {
     super.key,
     required this.gradient,
     this.child,
+    this.border,
     this.borderRadius,
     this.boxShadow,
     this.height,
@@ -30,6 +32,7 @@ class GradientSurface extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: gradient,
         borderRadius: borderRadius,
+        border: border,
         boxShadow: boxShadow,
       ),
       child: child != null

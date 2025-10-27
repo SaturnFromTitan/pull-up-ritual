@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
+import 'package:pull_up_ritual/common/themes/app_spacing.dart';
+import 'package:pull_up_ritual/common/widgets/gradient_button.dart';
 
 import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart';
 import 'package:pull_up_ritual/common/providers/app_provider.dart';
@@ -44,7 +47,15 @@ class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
       },
     );
 
-    return _showCustomRepsForm ? customRepsForm : Column(children: buttons);
+    return _showCustomRepsForm
+        ? customRepsForm
+        : Column(
+            children: List<Widget>.generate(
+              buttons.length * 2 - 1,
+              (i) =>
+                  i.isEven ? buttons[i ~/ 2] : SizedBox(height: AppSpacing.sm),
+            ),
+          );
   }
 
   List<Widget> _getButtons(
@@ -53,7 +64,7 @@ class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
   ) {
     int targetReps = getTargetReps();
     var buttons = [
-      ElevatedButton(
+      GradientButton(
         onPressed: () {
           finishSet(
             group: workoutProvider.workout.sets.length + 1,
@@ -62,9 +73,11 @@ class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
             appProvider: appProvider,
           );
         },
-        child: Text('Done'),
+        text: 'Done',
+        icon: Icon(Icons.check),
+        gradient: AppGradients.secondary,
       ),
-      ElevatedButton(
+      GradientButton(
         onPressed: () {
           finishSet(
             group: workoutProvider.workout.sets.length + 1,
@@ -73,12 +86,14 @@ class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
             appProvider: appProvider,
           );
         },
-        child: Text('I did ${targetReps - 1}'),
+        text: 'I did ${targetReps - 1}',
+        icon: Icon(Icons.thumb_up_alt_outlined),
+        gradient: AppGradients.accentGreen,
       ),
     ];
     if (targetReps >= 2) {
       buttons.add(
-        ElevatedButton(
+        GradientButton(
           onPressed: () {
             finishSet(
               group: workoutProvider.workout.sets.length + 1,
@@ -87,19 +102,23 @@ class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
               appProvider: appProvider,
             );
           },
-          child: Text('I did ${targetReps - 2}'),
+          text: 'I did ${targetReps - 2}',
+          icon: Icon(Icons.ssid_chart_outlined),
+          gradient: AppGradients.accentPurple,
         ),
       );
     }
     if (targetReps >= 3) {
       buttons.add(
-        ElevatedButton(
+        GradientButton(
           onPressed: () {
             setState(() {
               _showCustomRepsForm = !_showCustomRepsForm;
             });
           },
-          child: Text('I did fewer'),
+          text: 'I did fewer',
+          icon: Icon(Icons.arrow_downward),
+          gradient: AppGradients.light,
         ),
       );
     }

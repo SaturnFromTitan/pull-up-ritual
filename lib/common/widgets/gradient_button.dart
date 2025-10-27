@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
 import 'package:pull_up_ritual/common/themes/app_theme.dart';
 import '../themes/app_spacing.dart';
 import '../themes/app_typography.dart';
@@ -28,13 +29,14 @@ class GradientButton extends StatelessWidget {
           gradient: gradient,
           height: AppSpacing.buttonHeight,
           borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+          border: Border.all(color: AppColors.onLightInactive, width: 0.2),
           boxShadow: defaultBoxShadows,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               icon,
               const SizedBox(width: AppSpacing.sm),
-              Text(text, style: AppTypography.headlineLarge),
+              Text(text, style: AppTypography.headlineMedium),
             ],
           ),
         ),
