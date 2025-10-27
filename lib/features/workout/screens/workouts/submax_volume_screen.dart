@@ -5,7 +5,7 @@ import 'package:pull_up_ritual/common/providers/app_provider.dart'
     show AppProvider;
 import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart'
     show WorkoutProvider;
-import 'base_workout_screen.dart' show BaseWorkoutScreen, BaseWorkoutState;
+import '_base_workout_screen.dart' show BaseWorkoutScreen, BaseWorkoutState;
 import 'package:pull_up_ritual/features/workout/widgets/reps_form.dart'
     show RepsForm;
 

@@ -13,8 +13,8 @@ import 'package:pull_up_ritual/common/utils/utils.dart' show getSetCardValues;
 import 'package:pull_up_ritual/common/providers/app_provider.dart'
     show AppProvider;
 import 'package:pull_up_ritual/features/workout/models.dart' show WorkoutSet;
-import 'rest_screen.dart' show RestScreen;
-import 'success_screen.dart' show SuccessScreen;
+import '../rest_screen.dart' show RestScreen;
+import '../success_screen.dart' show SuccessScreen;
 
 abstract class BaseWorkoutScreen extends StatefulWidget {
   const BaseWorkoutScreen({super.key});

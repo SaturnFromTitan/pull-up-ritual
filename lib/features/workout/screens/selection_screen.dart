@@ -5,11 +5,11 @@ import 'package:pull_up_ritual/common/widgets/gradient_surface.dart';
 import 'package:pull_up_ritual/features/workout/models.dart' show WorkoutType;
 import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart'
     show WorkoutProvider;
-import 'package:pull_up_ritual/features/workout/screens/max_sets_screen.dart'
+import 'package:pull_up_ritual/features/workout/screens/workouts/max_sets_screen.dart'
     show MaxSetsScreen;
-import 'package:pull_up_ritual/features/workout/screens/ladders_screen.dart'
+import 'package:pull_up_ritual/features/workout/screens/workouts/ladders_screen.dart'
     show LaddersScreen;
-import 'package:pull_up_ritual/features/workout/screens/submax_volume_screen.dart'
+import 'package:pull_up_ritual/features/workout/screens/workouts/submax_volume_screen.dart'
     show SubmaxVolumeScreen;
 import 'package:pull_up_ritual/features/workout/widgets/reps_form.dart'
     show RepsForm;
