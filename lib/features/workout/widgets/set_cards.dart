@@ -67,11 +67,11 @@ class _SetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Opacity(
-      opacity: value == null ? 0.3 : 1.0,
+      opacity: value == null ? 0.1 : 1.0,
       child: GradientSurface(
         height: height,
         width: width,
-        gradient: AppGradients.secondary,
+        gradient: value == null ? AppGradients.light : AppGradients.secondary,
         borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
         boxShadow: defaultBoxShadows,
         child: Center(
