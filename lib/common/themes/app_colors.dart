@@ -9,7 +9,7 @@ class AppColors {
   static const Color onColor = Colors.white;
   static const Color onColorSecondary = Color(0xCCFFFFFF);
   static const Color onLight = Color(0xFF2D3748);
-  static const Color onLightInactive = Color(0xFF4A5565);
+  static const Color onLightSecondary = Color(0xFF4A5565);
 
   // Shadow colors
   static const Color shadow = Color(0x1A000000); // 10% black opacity
