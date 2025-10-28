@@ -108,13 +108,16 @@ class _SuccessScreenState extends State<SuccessScreen>
                               text: "Total Reps",
                               value: totalReps.toString(),
                               emoji: "💪",
+                              gradient: AppGradients.surfaceOnLight,
                             ),
                           ),
+                          SizedBox(width: AppSpacing.md),
                           Expanded(
                             child: TotalCard(
                               text: "Duration",
                               value: durationText,
                               emoji: "⏱️",
+                              gradient: AppGradients.surfaceOnLight,
                             ),
                           ),
                         ],

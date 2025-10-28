@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
 import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/themes/app_typography.dart';
 import 'package:pull_up_ritual/common/widgets/total_card.dart';
@@ -33,6 +34,7 @@ class HistoryScreen extends StatelessWidget {
                 value: numWorkouts.toString(),
                 text: "Total Workouts",
                 emoji: "🏋",
+                color: AppColors.glassBackground,
               ),
             ),
             SizedBox(width: AppSpacing.xs),
@@ -41,6 +43,7 @@ class HistoryScreen extends StatelessWidget {
                 value: totalReps.toString(),
                 text: "Total Reps",
                 emoji: "💪",
+                color: AppColors.glassBackground,
               ),
             ),
           ],

@@ -14,7 +14,7 @@ class ScreenScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const gradient = AppGradients.background;
+    const gradient = AppGradients.surface;
 
     // not using GradientSurface as the DefaultTextStyle would be overridden
     // by Scaffolds text styles
