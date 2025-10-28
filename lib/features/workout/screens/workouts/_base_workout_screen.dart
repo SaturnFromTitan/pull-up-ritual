@@ -136,12 +136,9 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: SetCards(
-              values: getSetCardValues(workoutProvider.workout),
-              numExpectedCards: workoutProvider.workout.maxGroups,
-            ),
+          SetCards(
+            values: getSetCardValues(workoutProvider.workout),
+            numExpectedCards: workoutProvider.workout.maxGroups,
           ),
           HomeButton(text: "Exit", icon: Icons.exit_to_app),
         ],
