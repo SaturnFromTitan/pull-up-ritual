@@ -31,28 +31,25 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
       context: context,
       builder: (context) {
         return Dialog(
-          child: Padding(
-            padding: const EdgeInsets.all(AppSpacing.paddingBig),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  '🎯\nEnter Your Target Reps',
-                  style: AppTypography.headlineLarge,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: AppSpacing.md),
-                RepsForm(
-                  submitText: 'Start',
-                  submitIcon: Icons.play_arrow,
-                  onValidSubmit: (int reps) => Navigator.pop(context, reps),
-                  minValue: 1,
-                  cancelText: 'Cancel',
-                  cancelIcon: Icons.close,
-                  onCancel: () => Navigator.pop(context),
-                ),
-              ],
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '🎯\nEnter Your Target Reps',
+                style: AppTypography.headlineLarge,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: AppSpacing.md),
+              RepsForm(
+                submitText: 'Start',
+                submitIcon: Icons.play_arrow,
+                onValidSubmit: (int reps) => Navigator.pop(context, reps),
+                minValue: 1,
+                cancelText: 'Cancel',
+                cancelIcon: Icons.close,
+                onCancel: () => Navigator.pop(context),
+              ),
+            ],
           ),
         );
       },
