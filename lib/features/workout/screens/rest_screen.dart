@@ -29,15 +29,15 @@ class RestScreen extends StatelessWidget {
         children: [
           SizedBox(height: AppSpacing.sm),
           Text('😴', style: AppTypography.displayMedium.copyWith(fontSize: 64)),
-          _RestTimerSpinner(),
+          _RestTimerSpinner(size: 200.0),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.5,
             child: GradientButton(
               onPressed: () {
                 workoutProvider.resume();
-                // no need to call Navigator.pop(...) here as the state change
-                // causes this function to rerun and call the same code that
-                // would run if the timer reached 0.
+                // no need to route to a different screen here as the state
+                // change causes this function to rerun and call the same
+                // code that would run if the timer reached 0.
               },
               text: "Skip Rest",
               icon: Icons.skip_next,
@@ -56,6 +56,8 @@ class RestScreen extends StatelessWidget {
 }
 
 class _RestTimerSpinner extends StatefulWidget {
+  final double size;
+  const _RestTimerSpinner({required this.size});
   @override
   State<_RestTimerSpinner> createState() => _RestTimerSpinnerState();
 }
@@ -69,7 +71,7 @@ class _RestTimerSpinnerState extends State<_RestTimerSpinner>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2_000), // increase to slow down
+      duration: const Duration(milliseconds: 2_000),
     )..repeat();
   }
 
@@ -81,27 +83,26 @@ class _RestTimerSpinnerState extends State<_RestTimerSpinner>
 
   @override
   Widget build(BuildContext context) {
-    final workoutProvider = context.watch<WorkoutProvider>();
+    final workoutProvider = context.read<WorkoutProvider>();
 
     final remaining = workoutProvider.restTimeRemaining;
 
-    const double size = 200;
     const double ringThickness = 6;
-    const double arcPortion = 0.25; // 25% arc; rotate for motion
+    const double arcPortion = 0.25;
 
     return Column(
       children: [
         SizedBox(
-          height: size,
-          width: size,
+          height: widget.size,
+          width: widget.size,
           child: Stack(
             alignment: Alignment.center,
             children: [
               RotationTransition(
                 turns: _controller,
                 child: SizedBox(
-                  height: size,
-                  width: size,
+                  height: widget.size,
+                  width: widget.size,
                   child: CircularProgressIndicator(
                     value: arcPortion,
                     strokeWidth: ringThickness,
