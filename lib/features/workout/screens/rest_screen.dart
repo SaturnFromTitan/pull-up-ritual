@@ -27,30 +27,22 @@ class RestScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(workoutProvider.workout.workoutType.name),
-          Column(
-            children: [
-              Text(
-                '😴',
-                style: AppTypography.displayMedium.copyWith(fontSize: 90),
-              ),
-              SizedBox(height: AppSpacing.xxl),
-              Text(
-                formatMinutesSeconds(workoutProvider.restTimeRemaining),
-                style: AppTypography.displayMedium,
-              ),
-            ],
-          ),
-          GradientButton(
-            onPressed: () {
-              workoutProvider.resume();
-              // no need to call Navigator.pop(...) here as the state change
-              // causes this function to rerun and call the same code that
-              // would run if the timer reached 0.
-            },
-            text: "Skip Rest",
-            icon: Icon(Icons.skip_next),
-            gradient: AppGradients.secondary,
+          SizedBox(height: AppSpacing.sm),
+          Text('😴', style: AppTypography.displayMedium.copyWith(fontSize: 64)),
+          _RestTimerSpinner(size: 200.0),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: GradientButton(
+              onPressed: () {
+                workoutProvider.resume();
+                // no need to route to a different screen here as the state
+                // change causes this function to rerun and call the same
+                // code that would run if the timer reached 0.
+              },
+              text: "Skip Rest",
+              icon: Icons.skip_next,
+              gradient: AppGradients.secondary,
+            ),
           ),
           SetCards(
             values: getSetCardValues(workoutProvider.workout),
@@ -59,6 +51,77 @@ class RestScreen extends StatelessWidget {
           HomeButton(text: "Exit", icon: Icons.exit_to_app),
         ],
       ),
+    );
+  }
+}
+
+class _RestTimerSpinner extends StatefulWidget {
+  final double size;
+  const _RestTimerSpinner({required this.size});
+  @override
+  State<_RestTimerSpinner> createState() => _RestTimerSpinnerState();
+}
+
+class _RestTimerSpinnerState extends State<_RestTimerSpinner>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2_000),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final workoutProvider = context.read<WorkoutProvider>();
+
+    final remaining = workoutProvider.restTimeRemaining;
+
+    const double ringThickness = 6;
+    const double arcPortion = 0.25;
+
+    return Column(
+      children: [
+        SizedBox(
+          height: widget.size,
+          width: widget.size,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              RotationTransition(
+                turns: _controller,
+                child: SizedBox(
+                  height: widget.size,
+                  width: widget.size,
+                  child: CircularProgressIndicator(
+                    value: arcPortion,
+                    strokeWidth: ringThickness,
+                    backgroundColor: AppColors.glassBorderInactive,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      AppColors.glassBorderActive,
+                    ),
+                  ),
+                ),
+              ),
+              // center content
+              Text(
+                formatMinutesSeconds(remaining),
+                style: AppTypography.displayLarge.copyWith(fontSize: 50),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

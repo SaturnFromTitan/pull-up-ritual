@@ -87,7 +87,7 @@ class _RepsFormState extends State<RepsForm> {
           GradientButton(
             onPressed: _isValid ? submit : null,
             text: widget.submitText,
-            icon: Icon(widget.submitIcon),
+            icon: widget.submitIcon,
             gradient: AppGradients.secondary,
           ),
           if (widget.onCancel != null) ...[
@@ -95,7 +95,7 @@ class _RepsFormState extends State<RepsForm> {
             GradientButton(
               onPressed: widget.onCancel,
               text: widget.cancelText,
-              icon: Icon(widget.cancelIcon),
+              icon: widget.cancelIcon,
               gradient: AppGradients.light,
             ),
           ],

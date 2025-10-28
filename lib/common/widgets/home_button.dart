@@ -22,7 +22,7 @@ class HomeButton extends StatelessWidget {
         ).pushNamedAndRemoveUntil(Shell.route, (route) => false);
       },
       text: text,
-      icon: Icon(icon),
+      icon: icon,
       gradient: AppGradients.light,
     );
   }

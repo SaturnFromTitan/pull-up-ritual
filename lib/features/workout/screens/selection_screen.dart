@@ -161,7 +161,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
         // Start workout button
         GradientButton(
           text: 'Start Workout',
-          icon: const Icon(Icons.play_arrow),
+          icon: Icons.play_arrow,
           onPressed: _handleSubmit,
           gradient: AppGradients.primary,
         ),

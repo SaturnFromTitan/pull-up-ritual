@@ -8,6 +8,7 @@ class WorkoutProvider extends ChangeNotifier {
   // private state
   Workout _workout;
   int _restRemainingSeconds = 0;
+  int _restTotalSeconds = 0;
   Timer? _restTimer;
 
   // initialisation
@@ -29,6 +30,7 @@ class WorkoutProvider extends ChangeNotifier {
   // getters
   Workout get workout => _workout;
   int get restTimeRemaining => _restRemainingSeconds;
+  int get restTotalSeconds => _restTotalSeconds;
 
   // lifecyle management
   void addSet(WorkoutSet set_) {
@@ -37,6 +39,7 @@ class WorkoutProvider extends ChangeNotifier {
 
   void rest(final int durationSeconds) {
     _restRemainingSeconds = durationSeconds;
+    _restTotalSeconds = durationSeconds;
 
     _restTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _restRemainingSeconds--;
@@ -51,6 +54,7 @@ class WorkoutProvider extends ChangeNotifier {
   void resume() {
     _restTimer?.cancel();
     _restRemainingSeconds = 0;
+    _restTotalSeconds = 0;
     notifyListeners();
   }
 

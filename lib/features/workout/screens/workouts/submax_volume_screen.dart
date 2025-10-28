@@ -74,7 +74,7 @@ class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
           );
         },
         text: 'Done',
-        icon: Icon(Icons.check),
+        icon: Icons.check,
         gradient: AppGradients.secondary,
       ),
       GradientButton(
@@ -87,7 +87,7 @@ class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
           );
         },
         text: 'I did ${targetReps - 1}',
-        icon: Icon(Icons.thumb_up_alt_outlined),
+        icon: Icons.thumb_up_alt_outlined,
         gradient: AppGradients.accentGreen,
       ),
     ];
@@ -103,7 +103,7 @@ class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
             );
           },
           text: 'I did ${targetReps - 2}',
-          icon: Icon(Icons.ssid_chart_outlined),
+          icon: Icons.ssid_chart_outlined,
           gradient: AppGradients.accentPurple,
         ),
       );
@@ -117,7 +117,7 @@ class _SubmaxVolumeScreenState extends BaseWorkoutState<SubmaxVolumeScreen> {
             });
           },
           text: 'I did fewer',
-          icon: Icon(Icons.trending_down),
+          icon: Icons.trending_down,
           gradient: AppGradients.light,
         ),
       );
