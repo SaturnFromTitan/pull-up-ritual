@@ -33,6 +33,11 @@ abstract class BaseWorkoutState<T extends BaseWorkoutScreen> extends State<T> {
     return workoutProvider.workout.sets.length;
   }
 
+  bool isLastGroup(WorkoutProvider workoutProvider) {
+    return getCompletedGroups(workoutProvider) ==
+        workoutProvider.workout.maxGroups - 1;
+  }
+
   bool isFinished(WorkoutProvider workoutProvider) {
     return getCompletedGroups(workoutProvider) ==
         workoutProvider.workout.maxGroups;

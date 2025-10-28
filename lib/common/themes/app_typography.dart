@@ -32,7 +32,7 @@ class AppTypography {
   // Headline styles
   static const TextStyle headlineLarge = TextStyle(
     fontFamily: fontFamily,
-    fontSize: 20.25,
+    fontSize: 20.0,
     fontWeight: FontWeight.w500,
     height: 1.56,
     letterSpacing: -0.43,
@@ -48,9 +48,9 @@ class AppTypography {
 
   static const TextStyle headlineSmall = TextStyle(
     fontFamily: fontFamily,
-    fontSize: 15.75,
+    fontSize: 16,
     fontWeight: FontWeight.w400,
-    height: 1.43,
+    height: 1.5,
     letterSpacing: -0.29,
   );
 
@@ -77,30 +77,5 @@ class AppTypography {
     fontWeight: FontWeight.w400,
     height: 1.33,
     letterSpacing: 0.4,
-  );
-
-  // Label styles
-  static const TextStyle labelLarge = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 13.5,
-    fontWeight: FontWeight.w500,
-    height: 1.33,
-    letterSpacing: -0.11,
-  );
-
-  static const TextStyle labelMedium = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 12,
-    fontWeight: FontWeight.w500,
-    height: 1.33,
-    letterSpacing: 0.5,
-  );
-
-  static const TextStyle labelSmall = TextStyle(
-    fontFamily: fontFamily,
-    fontSize: 10,
-    fontWeight: FontWeight.w500,
-    height: 1.6,
-    letterSpacing: 0.5,
   );
 }

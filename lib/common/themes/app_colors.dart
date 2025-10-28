@@ -21,19 +21,27 @@ class AppColors {
     0x33FFFFFF,
   ); // 20% white opacity}
 
+  // accents, icons, etc.
+  static const Color yellow = Color(0xFFFDC700);
+  static const Color gold = Color(0xFFFFE680);
+
   // Gradient color lists
   static const List<Color> gradientPrimary = [
     Color(0xFFF6339A),
     Color(0xFFFF6900),
   ];
   static const List<Color> gradientSecondary = [
-    Color(0xFF00C950), // Green
-    Color(0xFF2B7FFF), // Blue
+    Color(0xFF00C950),
+    Color(0xFF2B7FFF),
   ];
-  static const List<Color> gradientBackground = [
-    Color(0xFF9810FA), // Purple start (0%)
-    Color(0xFF155DFC), // Blue middle (50%)
-    Color(0xFF372AAC), // Dark blue end (100%)
+  static const List<Color> gradientSurface = [
+    Color(0xFF9810FA),
+    Color(0xFF155DFC),
+    Color(0xFF372AAC),
+  ];
+  static const List<Color> gradientSurfaceOnLight = [
+    Color(0xFFDBEAFE),
+    Color(0xFFBEDBFF),
   ];
   static const List<Color> gradientAccentPurple = [
     Color(0xFF8B5CF6),
@@ -50,8 +58,13 @@ class AppColors {
 }
 
 class AppGradients {
-  static const LinearGradient background = LinearGradient(
-    colors: AppColors.gradientBackground,
+  static const LinearGradient surface = LinearGradient(
+    colors: AppColors.gradientSurface,
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  static const LinearGradient surfaceOnLight = LinearGradient(
+    colors: AppColors.gradientSurfaceOnLight,
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );

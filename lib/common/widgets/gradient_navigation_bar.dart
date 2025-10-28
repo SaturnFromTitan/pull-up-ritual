@@ -65,9 +65,8 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle labelStyle = AppTypography.labelLarge.copyWith(
+    final TextStyle labelStyle = AppTypography.bodyMedium.copyWith(
       color: isSelected ? Colors.white : _inactiveColor,
-      fontWeight: FontWeight.w400,
     );
 
     final Widget coloredIcon = IconTheme(
