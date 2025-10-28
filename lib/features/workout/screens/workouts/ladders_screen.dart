@@ -23,9 +23,7 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
   int get restDurationSeconds => 30;
 
   @override
-  int getCompletedGroups(WorkoutProvider workoutProvider) {
-    return _completedGroups;
-  }
+  int getCompletedGroups(WorkoutProvider workoutProvider) => _completedGroups;
 
   @override
   int getTargetReps() => _targetReps;
@@ -60,8 +58,10 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
           );
           _targetReps = 1;
         },
-        text: 'Done, start new ladder',
-        icon: Icons.refresh,
+        text: isLastGroup(workoutProvider)
+            ? 'Finish Workout'
+            : 'Done, start new ladder',
+        icon: isLastGroup(workoutProvider) ? Icons.check : Icons.refresh,
         gradient: AppGradients.accentPurple,
       ),
       GradientButton(
