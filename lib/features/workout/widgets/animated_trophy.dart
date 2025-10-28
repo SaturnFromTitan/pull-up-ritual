@@ -135,12 +135,12 @@ class _AnimatedTrophyState extends State<AnimatedTrophy>
           AnimatedBuilder(
             animation: _sparkleController,
             builder: (context, _) {
-              final opA = 0.4 + 0.6 * _wave(0.00);
-              final scA = 0.90 + 0.20 * _wave(0.00);
-              final opB = 0.4 + 0.6 * _wave(0.33);
-              final scB = 0.90 + 0.20 * _wave(0.33);
-              final opC = 0.4 + 0.6 * _wave(0.66);
-              final scC = 0.90 + 0.20 * _wave(0.66);
+              final opA = 0.7 + 0.3 * _wave(0.00);
+              final scA = 1.0 + 0.3 * _wave(0.00);
+              final opB = 0.7 + 0.3 * _wave(0.33);
+              final scB = 1.0 + 0.3 * _wave(0.33);
+              final opC = 0.7 + 0.3 * _wave(0.66);
+              final scC = 1.0 + 0.3 * _wave(0.66);
               return Stack(
                 children: [
                   Positioned(
@@ -149,7 +149,7 @@ class _AnimatedTrophyState extends State<AnimatedTrophy>
                     child: _Sparkle(
                       opacity: opA,
                       scale: scA,
-                      size: s * 0.08,
+                      size: s * 0.17,
                       angle: 0,
                     ),
                   ),
@@ -159,17 +159,17 @@ class _AnimatedTrophyState extends State<AnimatedTrophy>
                     child: _Sparkle(
                       opacity: opB,
                       scale: scB,
-                      size: s * 0.06,
+                      size: s * 0.13,
                       angle: math.pi / 4,
                     ),
                   ),
                   Positioned(
                     left: s * 0.2,
-                    bottom: s * 0.14,
+                    bottom: s * 0.1,
                     child: _Sparkle(
                       opacity: opC,
                       scale: scC,
-                      size: s * 0.07,
+                      size: s * 0.14,
                       angle: -math.pi / 6,
                     ),
                   ),
