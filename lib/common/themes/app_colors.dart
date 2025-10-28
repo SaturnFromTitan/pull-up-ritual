@@ -21,6 +21,10 @@ class AppColors {
     0x33FFFFFF,
   ); // 20% white opacity}
 
+  // accents, icons, etc.
+  static const Color yellow = Color(0xFFFDC700);
+  static const Color gold = Color(0xFFFFE680);
+
   // Gradient color lists
   static const List<Color> gradientPrimary = [
     Color(0xFFF6339A),
