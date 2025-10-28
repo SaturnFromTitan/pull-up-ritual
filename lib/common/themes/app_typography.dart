@@ -78,5 +78,4 @@ class AppTypography {
     height: 1.33,
     letterSpacing: 0.4,
   );
-
 }
