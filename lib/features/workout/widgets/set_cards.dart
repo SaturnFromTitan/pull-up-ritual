@@ -8,12 +8,17 @@ import 'package:pull_up_ritual/common/widgets/gradient_surface.dart';
 class SetCards extends StatelessWidget {
   final List<String> values;
   final int numExpectedCards;
-  const SetCards({super.key, required this.values, int? numExpectedCards})
-    : assert(
-        numExpectedCards == null || numExpectedCards >= values.length,
-        'numExpectedCards must be >= values.length',
-      ),
-      numExpectedCards = numExpectedCards ?? values.length;
+  final bool withContainer;
+  const SetCards({
+    super.key,
+    required this.values,
+    int? numExpectedCards,
+    this.withContainer = true,
+  }) : assert(
+         numExpectedCards == null || numExpectedCards >= values.length,
+         'numExpectedCards must be >= values.length',
+       ),
+       numExpectedCards = numExpectedCards ?? values.length;
 
   static const int _maxCardsPerRow = 5;
   static const double _containerPadding = AppSpacing.paddingSmall;
@@ -30,27 +35,33 @@ class SetCards extends StatelessWidget {
             _maxCardsPerRow;
         final cardHeight = 2 / 3 * cardWidth;
 
-        return Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: AppColors.glassBackground,
-            borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
-          ),
-          padding: const EdgeInsets.all(_containerPadding),
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            spacing: _cardSpacing,
-            runSpacing: AppSpacing.md,
-            children: List.generate(
-              numExpectedCards,
-              (i) => _SetCard(
-                value: i < values.length ? values[i] : null,
-                width: cardWidth,
-                height: cardHeight,
-              ),
+        final wrap = Wrap(
+          alignment: WrapAlignment.center,
+          spacing: _cardSpacing,
+          runSpacing: AppSpacing.md,
+          children: List.generate(
+            numExpectedCards,
+            (i) => _SetCard(
+              value: i < values.length ? values[i] : null,
+              width: cardWidth,
+              height: cardHeight,
             ),
           ),
         );
+
+        if (withContainer) {
+          return Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: AppColors.glassBackground,
+              borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+            ),
+            padding: const EdgeInsets.all(_containerPadding),
+            child: wrap,
+          );
+        } else {
+          return wrap;
+        }
       },
     );
   }
