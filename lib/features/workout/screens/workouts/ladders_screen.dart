@@ -44,7 +44,7 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
           _targetReps++;
         },
         text: 'Done, continue this ladder',
-        icon: Icon(Icons.trending_up),
+        icon: Icons.trending_up,
         gradient: AppGradients.accentGreen,
       ),
       GradientButton(
@@ -61,7 +61,7 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
           _targetReps = 1;
         },
         text: 'Done, start new ladder',
-        icon: Icon(Icons.refresh),
+        icon: Icons.refresh,
         gradient: AppGradients.accentPurple,
       ),
       GradientButton(
@@ -71,7 +71,7 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
           });
         },
         text: 'I did fewer',
-        icon: Icon(Icons.close),
+        icon: Icons.close,
         gradient: AppGradients.light,
       ),
     ];

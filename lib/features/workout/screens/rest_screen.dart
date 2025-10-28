@@ -40,7 +40,7 @@ class RestScreen extends StatelessWidget {
                 // would run if the timer reached 0.
               },
               text: "Skip Rest",
-              icon: Icon(Icons.skip_next),
+              icon: Icons.skip_next,
               gradient: AppGradients.secondary,
             ),
           ),
@@ -86,7 +86,7 @@ class _RestTimerSpinnerState extends State<_RestTimerSpinner>
     final remaining = workoutProvider.restTimeRemaining;
 
     const double size = 200;
-    const double ringThickness = 8;
+    const double ringThickness = 6;
     const double arcPortion = 0.25; // 25% arc; rotate for motion
 
     return Column(

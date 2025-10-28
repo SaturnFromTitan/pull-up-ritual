@@ -8,7 +8,7 @@ import 'gradient_surface.dart';
 class GradientButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
-  final Widget icon;
+  final IconData icon;
   final LinearGradient gradient;
 
   const GradientButton({
@@ -34,7 +34,7 @@ class GradientButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              icon,
+              Icon(icon),
               const SizedBox(width: AppSpacing.md),
               Text(text, style: AppTypography.headlineMedium),
             ],
