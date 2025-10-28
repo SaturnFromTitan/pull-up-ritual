@@ -123,7 +123,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
             children: [
               _WorkoutCard(
                 title: 'Max Sets',
-                description: '3x max reps with 5min rest',
+                description: '3x max reps with 5 minutes rest',
                 icon: const Icon(Icons.speed, size: _iconSize),
                 gradient: AppGradients.primary,
                 isSelected: _selected == WorkoutType.maxSets,
@@ -134,7 +134,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 
               _WorkoutCard(
                 title: 'Submax Volume',
-                description: '10 sets at 50% max reps with 1min rest',
+                description: '10 sets at 50% max reps with\n1 minute rest',
                 icon: const Icon(Icons.center_focus_strong, size: _iconSize),
                 gradient: AppGradients.accentPurple,
                 isSelected: _selected == WorkoutType.submaxVolume,
@@ -146,7 +146,8 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 
               _WorkoutCard(
                 title: 'Ladders',
-                description: '5 ladders: 1, 2, 3, ... reps with 30sec rest',
+                description:
+                    '5 ladders (1, 2, 3, ... reps) with\n30 seconds rest',
                 icon: const Icon(Icons.trending_up, size: _iconSize),
                 gradient: AppGradients.accentGreen,
                 isSelected: _selected == WorkoutType.ladders,
