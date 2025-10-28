@@ -9,7 +9,6 @@ import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
 import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart';
 import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart';
 import 'package:pull_up_ritual/common/utils/utils.dart';
-import 'dart:math' as math;
 
 class RestScreen extends StatelessWidget {
   const RestScreen({super.key});
@@ -28,18 +27,22 @@ class RestScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(workoutProvider.workout.workoutType.name),
-          _RestTimerRing(),
-          GradientButton(
-            onPressed: () {
-              workoutProvider.resume();
-              // no need to call Navigator.pop(...) here as the state change
-              // causes this function to rerun and call the same code that
-              // would run if the timer reached 0.
-            },
-            text: "Skip Rest",
-            icon: Icon(Icons.skip_next),
-            gradient: AppGradients.secondary,
+          SizedBox(height: AppSpacing.sm),
+          Text('😴', style: AppTypography.displayMedium.copyWith(fontSize: 64)),
+          _RestTimerSpinner(),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: GradientButton(
+              onPressed: () {
+                workoutProvider.resume();
+                // no need to call Navigator.pop(...) here as the state change
+                // causes this function to rerun and call the same code that
+                // would run if the timer reached 0.
+              },
+              text: "Skip Rest",
+              icon: Icon(Icons.skip_next),
+              gradient: AppGradients.secondary,
+            ),
           ),
           SetCards(
             values: getSetCardValues(workoutProvider.workout),
@@ -52,19 +55,39 @@ class RestScreen extends StatelessWidget {
   }
 }
 
-class _RestTimerRing extends StatelessWidget {
+class _RestTimerSpinner extends StatefulWidget {
+  @override
+  State<_RestTimerSpinner> createState() => _RestTimerSpinnerState();
+}
+
+class _RestTimerSpinnerState extends State<_RestTimerSpinner>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2_000), // increase to slow down
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final workoutProvider = context.watch<WorkoutProvider>();
 
-    final total = workoutProvider.restTotalSeconds;
     final remaining = workoutProvider.restTimeRemaining;
-    final value = (total <= 0)
-        ? 0.0
-        : (total - remaining).clamp(0, total) / total;
 
-    const double size = 220;
-    const double ringThickness = 14;
+    const double size = 200;
+    const double ringThickness = 8;
+    const double arcPortion = 0.25; // 25% arc; rotate for motion
 
     return Column(
       children: [
@@ -74,91 +97,30 @@ class _RestTimerRing extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // background ring (glass)
-              CustomPaint(
-                size: const Size.square(size),
-                painter: _RingPainter(
-                  progress: 1.0,
-                  thickness: ringThickness,
-                  color: AppColors.glassBorderInactive,
-                ),
-              ),
-              // gradient progress ring
-              CustomPaint(
-                size: const Size.square(size),
-                painter: _RingPainter(
-                  progress: value,
-                  thickness: ringThickness,
-                  gradient: AppGradients.primary,
+              RotationTransition(
+                turns: _controller,
+                child: SizedBox(
+                  height: size,
+                  width: size,
+                  child: CircularProgressIndicator(
+                    value: arcPortion,
+                    strokeWidth: ringThickness,
+                    backgroundColor: AppColors.glassBorderInactive,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      AppColors.glassBorderActive,
+                    ),
+                  ),
                 ),
               ),
               // center content
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '😴',
-                    style: AppTypography.displayMedium.copyWith(fontSize: 64),
-                  ),
-                  SizedBox(height: AppSpacing.lg),
-                  Text(
-                    formatMinutesSeconds(remaining),
-                    style: AppTypography.displayMedium,
-                  ),
-                ],
+              Text(
+                formatMinutesSeconds(remaining),
+                style: AppTypography.displayLarge.copyWith(fontSize: 50),
               ),
             ],
           ),
         ),
       ],
     );
-  }
-}
-
-class _RingPainter extends CustomPainter {
-  final double progress; // 0..1
-  final double thickness;
-  final LinearGradient? gradient;
-  final Color? color;
-
-  _RingPainter({
-    required this.progress,
-    required this.thickness,
-    this.gradient,
-    this.color,
-  }) : assert(((gradient == null) != (color == null)));
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final rect = Offset.zero & size;
-    final center = rect.center;
-    final radius = (math.min(size.width, size.height) - thickness) / 2;
-    final startAngle = -math.pi / 2; // start at top
-    final sweepAngle = 2 * math.pi * progress.clamp(0.0, 1.0);
-
-    final Paint paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = thickness
-      ..strokeCap = StrokeCap.round;
-
-    if (gradient != null) {
-      paint.shader = SweepGradient(
-        colors: gradient!.colors,
-        startAngle: 0.0,
-        endAngle: 2 * math.pi,
-        transform: GradientRotation(startAngle),
-      ).createShader(Rect.fromCircle(center: center, radius: radius));
-    } else {
-      paint.color = color!;
-    }
-
-    // Draw arc
-    final rectForArc = Rect.fromCircle(center: center, radius: radius);
-    canvas.drawArc(rectForArc, startAngle, sweepAngle, false, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant _RingPainter oldDelegate) {
-    return oldDelegate.progress != progress;
   }
 }
