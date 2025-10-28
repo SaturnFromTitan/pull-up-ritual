@@ -88,7 +88,7 @@ class _SuccessScreenState extends State<SuccessScreen>
             SizedBox(
               width: double.infinity,
               child: Card(
-                // color: AppColors.surfaceLight,
+                color: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: AppSpacing.paddingBig,
