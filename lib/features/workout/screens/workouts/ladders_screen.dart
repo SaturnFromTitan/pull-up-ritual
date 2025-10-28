@@ -49,7 +49,7 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
       ),
       GradientButton(
         onPressed: () {
-          // have to increment completedLadders before calling finishSet
+          // have to increment _completedGroups before calling finishSet
           // so that isFinished() is evaluated correctly
           _completedGroups++;
           finishSet(
@@ -77,7 +77,7 @@ class _LaddersState extends BaseWorkoutState<LaddersScreen> {
     ];
     var customRepsForm = RepsForm(
       onValidSubmit: (int reps) {
-        // have to increment completedLadders before calling finishSet
+        // have to increment _completedGroups before calling finishSet
         // so that isFinished() is evaluated correctly
         _completedGroups++;
         finishSet(
