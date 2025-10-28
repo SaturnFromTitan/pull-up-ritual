@@ -6,11 +6,11 @@ import 'app_spacing.dart';
 
 final appTheme = ThemeData(
   useMaterial3: true,
-  brightness: Brightness.light,
+  brightness: Brightness.dark,
 
   // surface and text colors
   scaffoldBackgroundColor: Colors.transparent,
-  colorScheme: ColorScheme.light(
+  colorScheme: ColorScheme.dark(
     surface: AppColors.surfaceLight,
     onSurface: AppColors.onLight,
     onSurfaceVariant: AppColors.onLightSecondary,

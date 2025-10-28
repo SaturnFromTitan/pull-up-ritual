@@ -10,18 +10,50 @@ import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart';
 import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart';
 import 'package:pull_up_ritual/common/utils/utils.dart';
 
-class RestScreen extends StatelessWidget {
+class RestScreen extends StatefulWidget {
   const RestScreen({super.key});
+
+  @override
+  State<RestScreen> createState() => _RestScreenState();
+}
+
+class _RestScreenState extends State<RestScreen> {
+  bool _didPop = false;
+  late final WorkoutProvider _workoutProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    _workoutProvider = context.read<WorkoutProvider>();
+    _workoutProvider.addListener(_onWorkoutChanged);
+
+    // If we somehow arrive when not resting, pop once after first frame
+    if (!_workoutProvider.isResting()) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _safePop());
+    }
+  }
+
+  void _onWorkoutChanged() {
+    if (!_workoutProvider.isResting()) {
+      _safePop();
+    }
+  }
+
+  void _safePop() {
+    if (_didPop) return;
+    _didPop = true;
+    Navigator.of(context).pop();
+  }
+
+  @override
+  void dispose() {
+    _workoutProvider.removeListener(_onWorkoutChanged);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     var workoutProvider = context.watch<WorkoutProvider>();
-
-    if (!workoutProvider.isResting()) {
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) => Navigator.pop(context),
-      );
-    }
 
     return ScreenScaffold(
       child: Column(
