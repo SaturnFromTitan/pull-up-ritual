@@ -31,9 +31,6 @@ final appTheme = ThemeData(
     bodyLarge: AppTypography.bodyLarge,
     bodyMedium: AppTypography.bodyMedium,
     bodySmall: AppTypography.bodySmall,
-    labelLarge: AppTypography.labelLarge,
-    labelMedium: AppTypography.labelMedium,
-    labelSmall: AppTypography.labelSmall,
   ),
 
   // Dialog theme

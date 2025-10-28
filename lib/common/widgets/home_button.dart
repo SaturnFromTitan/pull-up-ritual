@@ -9,7 +9,13 @@ import 'package:pull_up_ritual/common/widgets/gradient_button.dart';
 class HomeButton extends StatelessWidget {
   final String text;
   final IconData icon;
-  const HomeButton({super.key, required this.text, this.icon = Icons.home});
+  final LinearGradient gradient;
+  const HomeButton({
+    super.key,
+    required this.text,
+    this.icon = Icons.home,
+    this.gradient = AppGradients.light,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,7 @@ class HomeButton extends StatelessWidget {
       },
       text: text,
       icon: icon,
-      gradient: AppGradients.light,
+      gradient: gradient,
     );
   }
 }

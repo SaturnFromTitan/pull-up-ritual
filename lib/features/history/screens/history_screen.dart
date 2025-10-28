@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/themes/app_typography.dart';
+import 'package:pull_up_ritual/common/widgets/total_card.dart';
 import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart';
 import 'package:pull_up_ritual/common/providers/app_provider.dart';
 import 'package:pull_up_ritual/features/workout/models.dart';
@@ -28,11 +29,19 @@ class HistoryScreen extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: TotalCard(value: numWorkouts, text: "Total Workouts"),
+              child: TotalCard(
+                value: numWorkouts.toString(),
+                text: "Total Workouts",
+                emoji: "🏋",
+              ),
             ),
             SizedBox(width: AppSpacing.xs),
             Expanded(
-              child: TotalCard(value: totalReps, text: "Total Reps"),
+              child: TotalCard(
+                value: totalReps.toString(),
+                text: "Total Reps",
+                emoji: "💪",
+              ),
             ),
           ],
         ),
@@ -47,27 +56,6 @@ class HistoryScreen extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class TotalCard extends StatelessWidget {
-  final int value;
-  final String text;
-  const TotalCard({super.key, required this.value, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: EdgeInsets.all(AppSpacing.paddingSmall),
-        child: Column(
-          children: [
-            Text(value.toString(), style: AppTypography.headlineLarge),
-            Text(text, style: AppTypography.bodyMedium),
-          ],
-        ),
-      ),
     );
   }
 }

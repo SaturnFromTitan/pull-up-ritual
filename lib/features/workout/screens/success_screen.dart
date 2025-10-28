@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pull_up_ritual/common/themes/app_colors.dart';
+import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/themes/app_typography.dart';
 import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
 import 'package:pull_up_ritual/common/widgets/home_button.dart';
+import 'package:pull_up_ritual/common/widgets/total_card.dart';
 import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart';
 
 import 'package:pull_up_ritual/features/workout/models.dart';
@@ -23,31 +26,51 @@ class SuccessScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              '🎉\nWorkout\nCompleted!',
-              style: AppTypography.displayMedium,
+              'Workout Completed!',
+              style: AppTypography.displayLarge,
               textAlign: TextAlign.center,
             ),
-            Column(
-              children: [
-                Text(
-                  workout.workoutType.name,
-                  style: AppTypography.headlineMedium,
+            SizedBox(
+              width: double.infinity,
+              child: Card(
+                // color: AppColors.surfaceLight,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.paddingBig,
+                    horizontal: AppSpacing.paddingSmall,
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        workout.workoutType.name,
+                        style: AppTypography.headlineLarge,
+                      ),
+                      SizedBox(height: AppSpacing.md),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TotalCard(
+                              text: "Total Reps",
+                              value: totalReps.toString(),
+                              emoji: "💪",
+                            ),
+                          ),
+                          Expanded(
+                            child: TotalCard(
+                              text: "Duration",
+                              value: durationText,
+                              emoji: "⏱️",
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 12),
-                Text(
-                  "Duration: $durationText",
-                  style: AppTypography.headlineSmall,
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  "Total Reps: $totalReps",
-                  style: AppTypography.headlineSmall,
-                ),
-                const SizedBox(height: 40),
-                SetCards(values: getSetCardValues(workout)),
-              ],
+              ),
             ),
-            HomeButton(text: "Home"),
+            SetCards(values: getSetCardValues(workout)),
+            HomeButton(text: "Home", gradient: AppGradients.primary),
           ],
         ),
       ),
