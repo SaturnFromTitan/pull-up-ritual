@@ -12,8 +12,9 @@ class AnimatedTrophy extends StatefulWidget {
 }
 
 class _AnimatedTrophyState extends State<AnimatedTrophy>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
+    with TickerProviderStateMixin {
+  late final AnimationController _introController;
+  late final AnimationController _sparkleController;
   late final Animation<double> _scale;
   late final Animation<double> _rotation;
   late final Animation<double> _glowOpacity;
@@ -21,36 +22,48 @@ class _AnimatedTrophyState extends State<AnimatedTrophy>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    _introController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 900),
     );
 
     _scale = CurvedAnimation(
-      parent: _controller,
+      parent: _introController,
       curve: const Interval(0.0, 0.9, curve: Curves.elasticOut),
     ).drive(Tween(begin: 0.6, end: 1.0));
 
     _rotation = CurvedAnimation(
-      parent: _controller,
+      parent: _introController,
       curve: const Interval(0.0, 0.6, curve: Curves.easeOutBack),
     ).drive(Tween(begin: -0.12, end: 0.0));
 
     _glowOpacity = CurvedAnimation(
-      parent: _controller,
+      parent: _introController,
       curve: const Interval(0.2, 1.0, curve: Curves.easeOut),
     );
 
-    // Kick off animation on first frame.
+    _sparkleController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1600),
+    )..repeat(reverse: true);
+
+    // Kick off intro animation on first frame.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) _controller.forward();
+      if (mounted) _introController.forward();
     });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _introController.dispose();
+    _sparkleController.dispose();
     super.dispose();
+  }
+
+  // Continuous wave helper for sparkle twinkle
+  double _wave(double phase) {
+    final t = _sparkleController.value; // 0..1
+    return 0.5 + 0.5 * math.sin(2 * math.pi * (t + phase)); // 0..1
   }
 
   @override
@@ -118,29 +131,51 @@ class _AnimatedTrophyState extends State<AnimatedTrophy>
               ),
             ),
           ),
-          // A few playful sparkle dots that fade in
-          Positioned(
-            right: s * 0.08,
-            top: s * 0.18,
-            child: _Sparkle(opacity: _glowOpacity, size: s * 0.08, angle: 0),
-          ),
-          Positioned(
-            left: s * 0.12,
-            top: s * 0.28,
-            child: _Sparkle(
-              opacity: _glowOpacity,
-              size: s * 0.06,
-              angle: math.pi / 4,
-            ),
-          ),
-          Positioned(
-            left: s * 0.2,
-            bottom: s * 0.14,
-            child: _Sparkle(
-              opacity: _glowOpacity,
-              size: s * 0.07,
-              angle: -math.pi / 6,
-            ),
+          // Playful sparkle dots that twinkle continuously using phase-shifted waves
+          AnimatedBuilder(
+            animation: _sparkleController,
+            builder: (context, _) {
+              final opA = 0.4 + 0.6 * _wave(0.00);
+              final scA = 0.90 + 0.20 * _wave(0.00);
+              final opB = 0.4 + 0.6 * _wave(0.33);
+              final scB = 0.90 + 0.20 * _wave(0.33);
+              final opC = 0.4 + 0.6 * _wave(0.66);
+              final scC = 0.90 + 0.20 * _wave(0.66);
+              return Stack(
+                children: [
+                  Positioned(
+                    right: s * 0.08,
+                    top: s * 0.18,
+                    child: _Sparkle(
+                      opacity: opA,
+                      scale: scA,
+                      size: s * 0.08,
+                      angle: 0,
+                    ),
+                  ),
+                  Positioned(
+                    left: s * 0.12,
+                    top: s * 0.28,
+                    child: _Sparkle(
+                      opacity: opB,
+                      scale: scB,
+                      size: s * 0.06,
+                      angle: math.pi / 4,
+                    ),
+                  ),
+                  Positioned(
+                    left: s * 0.2,
+                    bottom: s * 0.14,
+                    child: _Sparkle(
+                      opacity: opC,
+                      scale: scC,
+                      size: s * 0.07,
+                      angle: -math.pi / 6,
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),
@@ -149,26 +184,31 @@ class _AnimatedTrophyState extends State<AnimatedTrophy>
 }
 
 class _Sparkle extends StatelessWidget {
-  final Animation<double> opacity;
+  final double opacity;
+  final double scale;
   final double size;
   final double angle;
 
   const _Sparkle({
     required this.opacity,
+    required this.scale,
     required this.size,
     required this.angle,
   });
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: opacity,
+    return Opacity(
+      opacity: opacity.clamp(0.0, 1.0),
       child: Transform.rotate(
         angle: angle,
-        child: Icon(
-          Icons.star_rounded,
-          color: AppColors.gold.withValues(alpha: 0.9),
-          size: size,
+        child: Transform.scale(
+          scale: scale,
+          child: Icon(
+            Icons.star_rounded,
+            color: AppColors.gold.withValues(alpha: 0.9),
+            size: size,
+          ),
         ),
       ),
     );
