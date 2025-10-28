@@ -61,7 +61,7 @@ class _NavItem extends StatelessWidget {
     required this.onTap,
   });
 
-  static const Color _inactiveColor = AppColors.onLightInactive;
+  static const Color _inactiveColor = AppColors.onLightSecondary;
 
   @override
   Widget build(BuildContext context) {

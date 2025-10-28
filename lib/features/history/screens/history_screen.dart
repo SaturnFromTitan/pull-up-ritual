@@ -37,7 +37,7 @@ class HistoryScreen extends StatelessWidget {
                 color: AppColors.glassBackground,
               ),
             ),
-            SizedBox(width: AppSpacing.xs),
+            SizedBox(width: AppSpacing.sm),
             Expanded(
               child: TotalCard(
                 value: totalReps.toString(),
@@ -48,12 +48,15 @@ class HistoryScreen extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: AppSpacing.xs),
+        SizedBox(height: AppSpacing.sm),
         Expanded(
           child: ListView(
             children: [
               ...[
-                for (var workout in workouts) WorkoutHistory(workout: workout),
+                for (var workout in workouts) ...[
+                  WorkoutHistory(workout: workout),
+                  SizedBox(height: AppSpacing.sm),
+                ],
               ],
             ],
           ),
@@ -72,23 +75,51 @@ class WorkoutHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Card(
-        child: Padding(
-          padding: EdgeInsets.all(AppSpacing.paddingBig),
-          child: Column(
-            children: [
-              Text(
-                workout.workoutType.name,
-                style: AppTypography.headlineMedium,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.glassBackground,
+          borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+        ),
+        padding: EdgeInsets.all(AppSpacing.paddingSmall),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      workout.workoutType.name,
+                      style: AppTypography.headlineMedium,
+                    ),
+                    Text(
+                      "📅 ${datetimeToString(workout.start)}",
+                      style: AppTypography.bodySmall,
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text("💪 ${workout.totalReps()} reps"),
+                    Text(
+                      "⏱️ ${formatMinutesSeconds(workout.durationSeconds() ?? 0)}",
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            SizedBox(height: AppSpacing.sm),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+              child: SetCards(
+                values: getSetCardValues(workout),
+                withContainer: false,
               ),
-              Text(datetimeToString(workout.start)),
-              Text(
-                "Duration: ${formatMinutesSeconds(workout.durationSeconds() ?? 0)}",
-              ),
-              Text("Total Reps: ${workout.totalReps()}"),
-              SetCards(values: getSetCardValues(workout)),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

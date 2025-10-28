@@ -13,6 +13,7 @@ final appTheme = ThemeData(
   colorScheme: ColorScheme.light(
     surface: AppColors.surfaceLight,
     onSurface: AppColors.onLight,
+    onSurfaceVariant: AppColors.onLightSecondary,
     onPrimary: AppColors.onColor,
     onPrimaryContainer: AppColors.onColor,
     onSecondary: AppColors.onColor,

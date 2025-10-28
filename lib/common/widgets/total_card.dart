@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pull_up_ritual/common/themes/app_colors.dart';
 import 'package:pull_up_ritual/common/themes/app_spacing.dart';
 import 'package:pull_up_ritual/common/themes/app_typography.dart';
 
@@ -11,8 +10,8 @@ class TotalCard extends StatelessWidget {
   final LinearGradient? gradient;
   const TotalCard({
     super.key,
-    required this.value,
     required this.text,
+    required this.value,
     required this.emoji,
     this.color,
     this.gradient,
@@ -41,7 +40,7 @@ class TotalCard extends StatelessWidget {
             text,
             style: AppTypography.bodyMedium.copyWith(
               fontSize: 16,
-              color: AppColors.onLightInactive,
+              fontWeight: FontWeight.w300,
             ),
           ),
         ],

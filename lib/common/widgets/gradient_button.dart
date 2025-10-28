@@ -29,7 +29,7 @@ class GradientButton extends StatelessWidget {
           gradient: gradient,
           height: AppSpacing.buttonHeight,
           borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
-          border: Border.all(color: AppColors.onLightInactive, width: 0.2),
+          border: Border.all(color: AppColors.onLightSecondary, width: 0.2),
           boxShadow: defaultBoxShadows,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
