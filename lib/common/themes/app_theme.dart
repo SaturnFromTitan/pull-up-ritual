@@ -8,8 +8,8 @@ final appTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
 
+  // surface and text colors
   scaffoldBackgroundColor: Colors.transparent,
-
   colorScheme: ColorScheme.light(
     surface: AppColors.surfaceLight,
     onSurface: AppColors.onLight,
@@ -34,14 +34,21 @@ final appTheme = ThemeData(
     bodySmall: AppTypography.bodySmall,
   ),
 
-  // Dialog theme
+  // Dialog, cards & chips
   dialogTheme: DialogThemeData(
-    // backgroundColor: Colors.white,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
     ),
-    titleTextStyle: AppTypography.headlineMedium,
-    contentTextStyle: AppTypography.bodyMedium,
+  ),
+  cardTheme: CardThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+    ),
+  ),
+  chipTheme: ChipThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(AppSpacing.radiusMedium),
+    ),
   ),
 );
 

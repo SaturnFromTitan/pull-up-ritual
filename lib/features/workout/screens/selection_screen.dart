@@ -31,8 +31,6 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
       context: context,
       builder: (context) {
         return Dialog(
-          backgroundColor:
-              AppColors.surfaceLight, // TODO: should be applied automatically,
           child: Padding(
             padding: const EdgeInsets.all(AppSpacing.paddingBig),
             child: Column(
