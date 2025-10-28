@@ -27,9 +27,11 @@ class ScreenScaffold extends StatelessWidget {
               final textColor = getTextColorOnGradient(gradient, context);
 
               return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.md,
-                  vertical: AppSpacing.lg,
+                padding: EdgeInsets.only(
+                  top: AppSpacing.lg,
+                  left: AppSpacing.md,
+                  right: AppSpacing.md,
+                  bottom: bottomNavigationBar == null ? AppSpacing.lg : 0,
                 ),
                 child: DefaultTextStyle.merge(
                   style: TextStyle(color: textColor),

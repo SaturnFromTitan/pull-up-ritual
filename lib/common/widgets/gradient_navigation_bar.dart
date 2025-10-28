@@ -20,9 +20,11 @@ class GradientNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(gradient: AppGradients.light),
       child: SafeArea(
         top: false,
+        left: false,
+        right: false,
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Row(

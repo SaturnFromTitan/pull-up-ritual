@@ -166,6 +166,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
           onPressed: _handleSubmit,
           gradient: AppGradients.primary,
         ),
+        SizedBox(height: AppSpacing.lg),
       ],
     );
   }
