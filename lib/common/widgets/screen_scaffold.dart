@@ -21,6 +21,7 @@ class ScreenScaffold extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(gradient: gradient),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Builder(
             builder: (context) {
