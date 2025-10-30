@@ -1,4 +1,4 @@
-# Pull Up Ritual - Design System Rules & Figma MCP Integration
+# Pull Up Club - Design System Rules & Figma MCP Integration
 
 ## Figma MCP Integration Rules
 
