@@ -1,4 +1,4 @@
-# 💪 Pull-Up Ritual
+# 💪 Pull-Up Club
 
 The app to the great and simple instructions by kboges:
 

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_up_ritual/common/themes/app_colors.dart';
-import 'package:pull_up_ritual/common/themes/app_theme.dart';
-import 'package:pull_up_ritual/common/widgets/gradient_surface.dart';
-import 'package:pull_up_ritual/features/workout/models.dart';
-import 'package:pull_up_ritual/features/workout/providers/workout_provider.dart';
-import 'package:pull_up_ritual/features/workout/screens/workouts/max_sets_screen.dart';
-import 'package:pull_up_ritual/features/workout/screens/workouts/ladders_screen.dart';
-import 'package:pull_up_ritual/features/workout/screens/workouts/submax_volume_screen.dart';
-import 'package:pull_up_ritual/features/workout/widgets/reps_form.dart';
-import 'package:pull_up_ritual/common/widgets/gradient_button.dart';
-import 'package:pull_up_ritual/common/themes/app_spacing.dart';
-import 'package:pull_up_ritual/common/themes/app_typography.dart';
-import 'package:pull_up_ritual/common/constants/app_constants.dart';
+import 'package:pull_up_club/common/themes/app_colors.dart';
+import 'package:pull_up_club/common/themes/app_theme.dart';
+import 'package:pull_up_club/common/widgets/gradient_surface.dart';
+import 'package:pull_up_club/features/workout/models.dart';
+import 'package:pull_up_club/features/workout/providers/workout_provider.dart';
+import 'package:pull_up_club/features/workout/screens/workouts/max_sets_screen.dart';
+import 'package:pull_up_club/features/workout/screens/workouts/ladders_screen.dart';
+import 'package:pull_up_club/features/workout/screens/workouts/submax_volume_screen.dart';
+import 'package:pull_up_club/features/workout/widgets/reps_form.dart';
+import 'package:pull_up_club/common/widgets/gradient_button.dart';
+import 'package:pull_up_club/common/themes/app_spacing.dart';
+import 'package:pull_up_club/common/themes/app_typography.dart';
+import 'package:pull_up_club/common/constants/app_constants.dart';
 
 class WorkoutSelectionScreen extends StatefulWidget {
   const WorkoutSelectionScreen({super.key});

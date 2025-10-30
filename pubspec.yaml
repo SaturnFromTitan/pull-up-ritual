@@ -1,5 +1,5 @@
-name: pull_up_ritual
-description: "A new Flutter project."
+name: pull_up_club
+description: "The plan for doubling your max pull-ups!"
 publish_to: "none"
 version: 0.1.0
 
@@ -17,6 +17,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
+
+flutter_launcher_icons:
+  ios: true
+  image_path_ios: assets/app_icon.png
+  remove_alpha_ios: true

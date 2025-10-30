@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:pull_up_ritual/common/themes/app_colors.dart';
-import 'package:pull_up_ritual/common/themes/app_spacing.dart';
-import 'package:pull_up_ritual/common/themes/app_typography.dart';
-import 'package:pull_up_ritual/common/widgets/screen_scaffold.dart';
-import 'package:pull_up_ritual/common/widgets/home_button.dart';
-import 'package:pull_up_ritual/common/widgets/total_card.dart';
-import 'package:pull_up_ritual/features/workout/widgets/animated_trophy.dart';
-import 'package:pull_up_ritual/features/workout/widgets/set_cards.dart';
+import 'package:pull_up_club/common/themes/app_colors.dart';
+import 'package:pull_up_club/common/themes/app_spacing.dart';
+import 'package:pull_up_club/common/themes/app_typography.dart';
+import 'package:pull_up_club/common/widgets/screen_scaffold.dart';
+import 'package:pull_up_club/common/widgets/home_button.dart';
+import 'package:pull_up_club/common/widgets/total_card.dart';
+import 'package:pull_up_club/features/workout/widgets/animated_trophy.dart';
+import 'package:pull_up_club/features/workout/widgets/set_cards.dart';
 
-import 'package:pull_up_ritual/features/workout/models.dart';
-import 'package:pull_up_ritual/common/utils/utils.dart';
+import 'package:pull_up_club/features/workout/models.dart';
+import 'package:pull_up_club/common/utils/utils.dart';
 
 class SuccessScreen extends StatefulWidget {
   final Workout workout;

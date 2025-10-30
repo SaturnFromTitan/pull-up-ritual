@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pull_up_ritual/common/themes/app_colors.dart';
+import 'package:pull_up_club/common/themes/app_colors.dart';
 // import 'app_colors.dart';
 import 'app_typography.dart';
 import 'app_spacing.dart';
