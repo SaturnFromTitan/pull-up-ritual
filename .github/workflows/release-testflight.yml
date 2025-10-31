@@ -1,0 +1,50 @@
+# CI runs `match` in read-only mode to fetch signing assets. See the README for more details.
+name: Release to TestFlight
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  testflight:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    env:
+      APP_BUNDLE_ID: com.saturnfromtitan.pullupclub
+      MATCH_GIT_URL: https://x-access-token:${{ secrets.CERTS_TOKEN }}@github.com/SaturnFromTitan/pull-up-club-certificates.git
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+          working-directory: ios
+
+      - name: Bundle install
+        working-directory: ios
+        run: bundle install --path vendor/bundle
+
+      - name: Fastlane beta → TestFlight
+        working-directory: ios
+        env:
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: bundle exec fastlane beta

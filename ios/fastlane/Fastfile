@@ -1,0 +1,47 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Build and upload to TestFlight (internal) on push to main"
+  lane :beta do
+    require 'yaml'
+
+    UI.message("Setting up App Store Connect API key")
+    api_key = app_store_connect_api_key(
+      key_id: ENV['APP_STORE_CONNECT_KEY_ID'],
+      issuer_id: ENV['APP_STORE_CONNECT_ISSUER_ID'],
+      key_content: ENV['APP_STORE_CONNECT_API_KEY']
+    )
+
+    UI.message("Syncing code signing via match (readonly in CI)")
+    match(
+      type: "appstore",
+      app_identifier: [ENV['APP_BUNDLE_ID']],
+      git_url: ENV['MATCH_GIT_URL'],
+      readonly: true,
+      api_key: api_key
+    )
+
+    UI.message("Reading version from pubspec.yaml")
+    pubspec = YAML.load_file(File.expand_path("../../pubspec.yaml", __dir__))
+    version_str = pubspec['version']
+    marketing_version, build_number = version_str.split('+')
+    UI.message("Using marketing version=#{marketing_version} build_number=#{build_number}")
+
+    # Build the Flutter IPA (signed) with explicit build-name and build-number
+    sh("flutter", "--version")
+    sh("flutter", "pub", "get")
+    sh("flutter", "build", "ipa", "--release", "--build-name", marketing_version, "--build-number", build_number)
+
+    ipa_path = Dir[File.expand_path("../../build/ios/ipa/*.ipa", __dir__)].first
+    UI.user_error!("IPA not found in build/ios/ipa") unless ipa_path
+
+    UI.message("Uploading IPA to TestFlight (internal)")
+    pilot(
+      ipa: ipa_path,
+      distribute_external: false,
+      api_key: api_key,
+      skip_submission: true,
+      skip_waiting_for_build_processing: false
+    )
+  end
+end

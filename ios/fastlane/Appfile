@@ -1,0 +1,5 @@
+app_identifier(ENV['APP_BUNDLE_ID'])
+
+# Use the same team id for both iTC and Dev Portal
+itc_team_id(ENV['APPLE_TEAM_ID'])
+team_id(ENV['APPLE_TEAM_ID'])
