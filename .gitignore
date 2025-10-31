@@ -43,3 +43,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Fastlane related
+vendor/
+.bundle/
+
+# Generated iOS app icons (flutter_launcher_icons)
+ios/Runner/Assets.xcassets/AppIcon.appiconset/*.png
