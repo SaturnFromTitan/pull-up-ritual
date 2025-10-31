@@ -21,6 +21,21 @@ platform :ios do
       api_key: api_key
     )
 
+    UI.message("Configuring manual code signing for Release build")
+    automatic_code_signing(
+      path: "Runner.xcodeproj",
+      use_automatic_signing: false,
+      team_id: ENV['APPLE_TEAM_ID']
+    )
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Runner.xcodeproj",
+      targets: ["Runner"],
+      build_configurations: ["Release"],
+      code_sign_identity: "Apple Distribution",
+      profile_name: "match AppStore #{ENV['APP_BUNDLE_ID']}"
+    )
+
     UI.message("Reading version from pubspec.yaml")
     pubspec = YAML.load_file(File.expand_path("../../pubspec.yaml", __dir__))
     version_str = pubspec['version']
