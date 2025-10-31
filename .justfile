@@ -16,3 +16,7 @@ install:
 lint: install
     flutter analyze
     flutter format --set-exit-if-changed .
+
+# generate iOS app icons from assets/app_icon.png via flutter_launcher_icons
+icons: install
+    flutter pub run flutter_launcher_icons:main

@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Generate iOS app icons
+        run: flutter pub run flutter_launcher_icons:main
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:

@@ -47,3 +47,6 @@ app.*.map.json
 # Fastlane related
 vendor/
 .bundle/
+
+# Generated iOS app icons (flutter_launcher_icons)
+ios/Runner/Assets.xcassets/AppIcon.appiconset/*.png
