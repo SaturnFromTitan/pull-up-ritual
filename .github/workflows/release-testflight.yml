@@ -29,7 +29,7 @@ jobs:
         run: flutter pub get
 
       - name: Generate iOS app icons
-        run: flutter pub run flutter_launcher_icons:main
+        run: flutter pub run flutter_launcher_icons
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -45,9 +45,10 @@ jobs:
       - name: Fastlane beta → TestFlight
         working-directory: ios
         env:
+          APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
+          APP_STORE_CONNECT_KEY_ID: ${{ vars.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ vars.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
-          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
-          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: bundle exec fastlane beta
