@@ -26,7 +26,7 @@ platform :ios do
       git_url: ENV['MATCH_GIT_URL'],
       readonly: true,
       api_key: api_key,
-      keychain_name: "fastlane_tmp.keychain-db",
+      keychain_name: "fastlane_tmp_keychain",
       keychain_password: ENV['KEYCHAIN_PASSWORD']
     )
 
