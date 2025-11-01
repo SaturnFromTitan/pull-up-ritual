@@ -45,6 +45,7 @@ jobs:
       - name: Fastlane beta → TestFlight
         working-directory: ios
         env:
+          NSUnbufferedIO: 'YES'
           APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
           APP_STORE_CONNECT_KEY_ID: ${{ vars.APP_STORE_CONNECT_KEY_ID }}
           APP_STORE_CONNECT_ISSUER_ID: ${{ vars.APP_STORE_CONNECT_ISSUER_ID }}
