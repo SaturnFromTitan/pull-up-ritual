@@ -24,7 +24,6 @@ platform :ios do
       type: "appstore",
       app_identifier: [ENV['APP_BUNDLE_ID']],
       git_url: ENV['MATCH_GIT_URL'],
-      git_branch: "main",
       readonly: true,
       api_key: api_key,
       keychain_name: "fastlane_tmp.keychain-db",
