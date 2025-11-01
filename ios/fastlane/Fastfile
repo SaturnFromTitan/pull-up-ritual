@@ -12,13 +12,23 @@ platform :ios do
       key_content: ENV['APP_STORE_CONNECT_API_KEY']
     )
 
+    UI.message("Preparing CI keychain to avoid UI prompts")
+    begin
+      setup_ci
+    rescue => e
+      UI.important("setup_ci warning: #{e}")
+    end
+
     UI.message("Syncing code signing via match (readonly in CI)")
     match(
       type: "appstore",
       app_identifier: [ENV['APP_BUNDLE_ID']],
       git_url: ENV['MATCH_GIT_URL'],
+      git_branch: "main",
       readonly: true,
-      api_key: api_key
+      api_key: api_key,
+      keychain_name: "fastlane_tmp.keychain-db",
+      keychain_password: ENV['KEYCHAIN_PASSWORD']
     )
 
     UI.message("Configuring manual code signing for Release build")
